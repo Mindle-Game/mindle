@@ -1,0 +1,618 @@
+/* Mindle styles. Phone first: the base rules are for small screens, and the
+   @media (min-width: …) blocks at the bottom adjust things for wider ones.
+   Every colour is a variable on :root, so dark mode only has to swap the variables. */
+
+:root {
+  --bg: #f6f5f1;
+  --card: #ffffff;
+  --text: #1d1f23;
+  --muted: #5b606a;
+  --line: #dcdad3;
+  --accent: #4b3fc4;
+  --accent-text: #ffffff;
+  --focus: #1a73e8;
+  --bar: #8e88c9; /* stats bars; today's result uses --accent */
+
+  /* Feedback colours. Each pair has a contrast ratio of at least 4.5:1. */
+  --green: #2f7a43;
+  --green-text: #ffffff;
+  --amber: #f0b429;
+  --amber-text: #1f1a0a;
+  --grey: #6b7079;
+  --grey-text: #ffffff;
+
+  --radius: 12px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131418;
+    --card: #1e2026;
+    --text: #e9e9ec;
+    --muted: #a3a7b0;
+    --line: #34373f;
+    --accent: #a69dff;
+    --accent-text: #15131f;
+    --focus: #8ab4f8;
+    --bar: #6f689e;
+
+    --green: #3c8f53;
+    --green-text: #ffffff;
+    --amber: #e3a72a;
+    --amber-text: #1f1a0a;
+    --grey: #4b4f58;
+    --grey-text: #ffffff;
+  }
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Keyboard users always see where they are. */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px; top: -48px;
+  padding: 8px 12px;
+  background: var(--accent);
+  color: var(--accent-text);
+  border-radius: 8px;
+  z-index: 10;
+}
+.skip-link:focus { top: 8px; }
+
+/* ---------- header ---------- */
+
+.topbar {
+  text-align: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px 4px;
+}
+/* Logo in the middle, a button slot each side (same width, so the logo stays centred). */
+.topbar-row {
+  max-width: 640px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 96px 1fr 96px;
+  align-items: center;
+}
+.topbar-side { display: flex; gap: 4px; }
+.topbar-side.end { justify-content: flex-end; }
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 44px; height: 44px; /* big enough to tap */
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.icon-button:hover { background: var(--line); }
+.logo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
+/* The game page's logo: the owl beside the name. It shrinks a little on narrow
+   phones so it fits between the header buttons. */
+.logo[aria-label] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22em;
+  font-size: clamp(1.6rem, 7vw, 2.2rem);
+  line-height: 1.1;
+}
+.logo-mark { width: 1.15em; height: 1.15em; flex: none; }
+/* The dot on the "i" is a little green feedback tile. The letter is a dotless ı,
+   and the tile is drawn where its dot would be. */
+.tile-i { position: relative; }
+.tile-i::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0.17em;
+  width: 0.18em;
+  height: 0.18em;
+  margin-left: -0.09em;
+  border-radius: 0.05em;
+  background: var(--green);
+}
+@media (max-width: 359px) {
+  .logo-mark { display: none; }
+}
+.tagline {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 8px 16px max(32px, env(safe-area-inset-bottom));
+}
+
+.loading { text-align: center; color: var(--muted); }
+
+/* ---------- mode and topic pickers ---------- */
+/* Real radio buttons underneath (so keyboards and screen readers just work),
+   styled to look like a pill-shaped switch. */
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.segmented {
+  display: inline-flex;
+  margin: 0;
+  padding: 4px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--line);
+}
+.segmented input {
+  position: absolute;
+  opacity: 0;
+  width: 1px; height: 1px;
+}
+.segmented label {
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+}
+.segmented.small label { padding: 6px 12px; font-size: 0.9rem; }
+.segmented input:checked + label {
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+}
+.segmented input:focus-visible + label {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+
+.round-title {
+  text-align: center;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+h2 { font-size: 1.05rem; margin: 0 0 8px; }
+.clue-count { font-weight: 400; color: var(--muted); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin: 12px 0;
+}
+
+/* ---------- clues ---------- */
+
+.clue-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+.clue {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 8px;
+  align-items: start;
+}
+.clue-number {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem; height: 2rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.clue p { margin: 0.2rem 0 0; }
+.clue.locked .clue-number { background: var(--line); color: var(--muted); }
+.clue.locked p { color: var(--muted); font-style: italic; }
+.clue.newest p { font-weight: 600; }
+
+/* ---------- guess box ---------- */
+
+.guess-form { margin: 16px 0; }
+.guess-label { display: block; font-weight: 600; margin-bottom: 6px; }
+.guess-count { font-weight: 400; color: var(--muted); }
+
+.guess-row { display: flex; gap: 8px; }
+.combo { position: relative; flex: 1; min-width: 0; }
+
+.text-input {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem; /* 16px or more stops iPhones zooming in on focus */
+  padding: 12px 14px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--text);
+}
+.text-input:focus-visible { border-color: var(--focus); outline-offset: 0; }
+
+.suggestions {
+  position: absolute;
+  left: 0; right: 0; top: calc(100% + 4px);
+  margin: 0; padding: 4px;
+  list-style: none;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+  z-index: 5;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.suggestions li {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.suggestions li .alias { color: var(--muted); font-size: 0.85rem; }
+.suggestions li[aria-selected="true"],
+.suggestions li:hover {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+.suggestions li[aria-selected="true"] .alias,
+.suggestions li:hover .alias { color: inherit; }
+
+.button {
+  font: inherit;
+  font-weight: 600;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+}
+.button.primary { background: var(--accent); color: var(--accent-text); }
+.button:hover { filter: brightness(1.08); }
+
+.form-message { min-height: 1.5em; margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; }
+
+/* ---------- guesses ---------- */
+
+.guess-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+
+.guess {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+.guess-name { margin: 0 0 8px; font-weight: 700; }
+.guess-name .guess-no { color: var(--muted); font-weight: 400; }
+
+/* Two cells per row on phones, four on wider screens (see bottom). */
+.cells {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+.cell {
+  position: relative;
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-height: 82px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cell.green { background: var(--green); color: var(--green-text); }
+.cell.amber { background: var(--amber); color: var(--amber-text); }
+.cell.grey  { background: var(--grey);  color: var(--grey-text); }
+
+.cell-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+.cell-value { font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
+.cell-note { font-size: 0.85rem; line-height: 1.25; }
+/* A symbol in the corner, so the colours can be told apart without seeing colour. */
+.cell-icon {
+  position: absolute;
+  top: 6px; right: 8px;
+  font-weight: 700;
+}
+.tag.shared { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- result ---------- */
+
+.result { border-width: 2px; border-color: var(--accent); }
+.result h2 { font-size: 1.3rem; outline: none; }
+.result-summary { margin-top: 0; color: var(--muted); }
+.answer-name { font-family: var(--font-display); font-size: 1.5rem; margin: 0; }
+.answer-meta { margin: 2px 0 8px; color: var(--muted); }
+.answer-notes { font-size: 0.9rem; color: var(--muted); }
+.answer-notes:empty { display: none; }
+
+/* Share gets its own full-width row; the other buttons share the row below. */
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.result-actions .button { flex: 1 1 0; }
+.result-actions #share { flex-basis: 100%; }
+.share-message { min-height: 1.5em; margin: 8px 0 0; font-weight: 600; }
+.share-message:empty { min-height: 0; }
+.share-fallback {
+  white-space: pre-wrap;
+  font: inherit;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 10px;
+  user-select: all;
+  -webkit-user-select: all;
+}
+.countdown {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- statistics dialog ---------- */
+
+.dialog {
+  width: min(420px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: 16px 20px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
+}
+.dialog::backdrop { background: rgb(0 0 0 / 0.55); }
+.dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: -8px;
+}
+.dialog-head h2 { margin: 0; font-size: 1.3rem; }
+.dialog-head form { margin: 0; }
+.dialog-note { margin: 2px 0 12px; color: var(--muted); font-size: 0.9rem; }
+
+/* Four numbers in a row: the big number on top, its label underneath. */
+.stat-numbers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin: 12px 0 20px;
+  text-align: center;
+}
+/* The label comes first in the HTML (that's how <dl> works) but shows second,
+   so the numbers stay in one line even when a label wraps. */
+.stat-numbers div { display: grid; align-content: start; }
+.stat-numbers dd { grid-row: 1; margin: 0; font-size: 1.8rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat-numbers dt { grid-row: 2; font-size: 0.78rem; color: var(--muted); line-height: 1.2; margin-top: 4px; }
+
+.dist-title { font-size: 1rem; margin: 0; }
+
+/* Guess distribution: one thin bar per guess count, drawn from the left edge.
+   The count sits just past the end of each bar, in normal text colour. */
+.distribution { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.dist-row {
+  display: grid;
+  grid-template-columns: 1.2rem 1fr;
+  align-items: center;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.dist-label { font-weight: 600; text-align: right; }
+.dist-track { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.dist-bar {
+  height: 20px;
+  min-width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--bar);
+}
+.dist-bar.today { background: var(--accent); }
+.dist-count { font-size: 0.9rem; }
+.dist-empty { color: var(--muted); margin: 8px 0 0; }
+
+@media (min-width: 560px) {
+  .cells { grid-template-columns: repeat(4, 1fr); }
+  .cell { min-height: 96px; }
+}
+
+/* ---------- pop-up message after each guess ---------- */
+
+/* Centred with left/right 0 and auto margins. (left: 50% would leave it only
+   half the screen to grow into, so its text would wrap too early.) */
+.toast {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top));
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: max-content;
+  z-index: 30;
+  pointer-events: none; /* never blocks a tap */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 180px;
+  max-width: calc(100% - 32px);
+  padding: 10px 20px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+}
+.toast.good { background: var(--green); color: var(--green-text); }
+.toast.bad { background: var(--text); color: var(--bg); } /* inverted, so it stands out in light and dark mode */
+.toast-title { font-weight: 700; font-size: 1.05rem; }
+.toast-detail { font-size: 0.85rem; opacity: 0.9; }
+
+/* ---------- animations ----------
+   Only for people who haven't asked their device to reduce motion.
+   --i is each feedback box's position (0 to 3), set in app.js, so they pop in one after another. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .toast { animation: toast-in 0.4s cubic-bezier(0.2, 1.5, 0.4, 1) both; }
+  .toast.leaving { animation: toast-out 0.25s ease-in both; }
+
+  .guess.new { animation: row-in 0.2s ease-out both; }
+  .guess.new .cell { animation: tile-in 0.32s ease-out calc(var(--i) * 90ms) both; }
+  /* Right answer: the boxes pop in, then hop one after another. */
+  .guess.new.correct .cell {
+    animation:
+      tile-in 0.32s ease-out calc(var(--i) * 90ms) both,
+      hop 0.45s ease-in-out calc(420ms + var(--i) * 90ms);
+  }
+  /* Wrong answer: the row gives a small shake once its boxes are in. */
+  .guess.new.wrong {
+    animation:
+      row-in 0.2s ease-out both,
+      shake 0.42s ease-in-out 0.45s;
+  }
+
+  .result.reveal { animation: card-in 0.45s cubic-bezier(0.2, 1.3, 0.4, 1) both; }
+
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(-10px) scale(0.85); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes toast-out {
+    to { opacity: 0; transform: translateY(-8px) scale(0.95); }
+  }
+  @keyframes row-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes tile-in {
+    0% { opacity: 0; transform: scale(0.6); }
+    70% { opacity: 1; transform: scale(1.06); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes hop {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-7px); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(2px); }
+  }
+  @keyframes card-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+/* ---------- result card: link to the Encyclopedia ---------- */
+
+.result-link { margin: 12px 0 0; }
+a { color: var(--accent); text-underline-offset: 3px; }
+
+/* ---------- How to play ---------- */
+
+.help-dialog { width: min(480px, calc(100% - 32px)); }
+.help-dialog h3 { font-size: 1rem; margin: 16px 0 6px; }
+.help-dialog p, .help-dialog li { margin: 0 0 6px; }
+.help-dialog ul { padding-left: 1.2rem; margin: 0; }
+.key { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+/* Small coloured chips that match the feedback boxes in the game. */
+.key-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.key-chip.green { background: var(--green); color: var(--green-text); }
+.key-chip.amber { background: var(--amber); color: var(--amber-text); }
+.key-chip.grey { background: var(--grey); color: var(--grey-text); }
+.help-dialog .button.primary { width: 100%; margin-top: 16px; }
+
+/* ---------- Encyclopedia page ---------- */
+
+.logo.page-title { font-size: 1.8rem; }
+.progress { text-align: center; color: var(--muted); font-weight: 600; margin: 4px 0 12px; }
+.book-controls { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.match-count { text-align: center; color: var(--muted); font-size: 0.9rem; margin: 6px 0 0; }
+.match-count:empty { margin: 0; }
+.book-section h2 { font-size: 1.2rem; margin: 20px 0 2px; }
+.section-note { color: var(--muted); margin: 0 0 8px; font-size: 0.95rem; }
+.entries { list-style: none; margin: 0; padding: 0; }
+.entry { scroll-margin: 16px; }
+.entry-name { font-family: var(--font-display); font-size: 1.35rem; margin: 0; }
+.entry-meta { color: var(--muted); margin: 2px 0 8px; }
+#revise-list .entry { border-left: 5px solid var(--amber); }
+.tag-list { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; padding: 0; }
+.tag-chip {
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.entry-clues { margin: 8px 0; }
+.entry-clues summary { cursor: pointer; color: var(--accent); font-weight: 600; padding: 4px 0; }
+.entry-clues ol { margin: 6px 0 0; padding-left: 1.4rem; }
+.entry-clues li { margin-bottom: 4px; }
+.entry-record { color: var(--muted); font-size: 0.85rem; margin: 8px 0 0; }
+.entry.highlight { outline: 3px solid var(--accent); outline-offset: 2px; }
+.empty { text-align: center; color: var(--muted); margin: 24px 0; }
+.back-link { text-align: center; margin: 24px 0 8px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .entry.highlight { animation: glow 1.6s ease-out 2; }
+  @keyframes glow {
+    50% { outline-color: transparent; }
+  }
+}

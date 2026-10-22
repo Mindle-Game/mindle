@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Your Mindle Encyclopedia: every school of thought you've met, for revision.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131418" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-title" content="Mindle">
+  <title>Encyclopedia · Mindle</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="js/encyclopedia.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#search">Skip to search</a>
+
+  <header class="topbar">
+    <div class="topbar-row">
+      <span class="topbar-side">
+        <a class="icon-button" href="./" aria-label="Back to the game" title="Back to the game">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+            <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </a>
+      </span>
+      <h1 class="logo page-title">Encyclopedia</h1>
+      <span class="topbar-side end"></span>
+    </div>
+    <p class="tagline">Every school of thought you've met in Mindle, for revision</p>
+  </header>
+
+  <main id="main">
+    <p id="loading" class="loading">Loading…</p>
+
+    <div id="book" hidden>
+      <p id="progress" class="progress"></p>
+
+      <div class="book-controls">
+        <label for="search" class="visually-hidden">Search your Encyclopedia</label>
+        <input id="search" class="text-input" type="search" placeholder="Search names, thinkers, tags or places"
+               spellcheck="false" autocapitalize="off" autocorrect="off">
+        <fieldset class="segmented small">
+          <legend class="visually-hidden">Topics</legend>
+          <input type="radio" name="topic" id="topic-both" value="Both" checked>
+          <label for="topic-both">Both</label>
+          <input type="radio" name="topic" id="topic-philosophy" value="Philosophy">
+          <label for="topic-philosophy">Philosophy</label>
+          <input type="radio" name="topic" id="topic-psychology" value="Psychology">
+          <label for="topic-psychology">Psychology</label>
+        </fieldset>
+      </div>
+      <p id="match-count" class="match-count" role="status"></p>
+
+      <section id="revise-section" class="book-section" aria-labelledby="revise-heading">
+        <h2 id="revise-heading">To revise</h2>
+        <p class="section-note">Answers you've missed and not solved yet.</p>
+        <ol id="revise-list" class="entries"></ol>
+      </section>
+
+      <section id="solved-section" class="book-section" aria-labelledby="solved-heading">
+        <h2 id="solved-heading">Solved</h2>
+        <ol id="solved-list" class="entries"></ol>
+      </section>
+
+      <p id="empty" class="empty" hidden></p>
+      <p class="back-link"><a href="./">← Back to Mindle</a></p>
+    </div>
+  </main>
+</body>
+</html>

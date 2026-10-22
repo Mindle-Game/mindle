@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Mindle: guess the school of thought in psychology and philosophy in six tries.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131418" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-title" content="Mindle">
+  <title>Mindle</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#guess-input">Skip to the guess box</a>
+
+  <header class="topbar">
+    <div class="topbar-row">
+      <span class="topbar-side">
+        <button id="open-help" type="button" class="icon-button" aria-label="How to play" title="How to play">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2" fill="none"/>
+            <path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.4c-.6.3-1 .8-1 1.5v.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <circle cx="12" cy="17" r="1.3" fill="currentColor"/>
+          </svg>
+        </button>
+      </span>
+      <h1 class="logo" aria-label="Mindle">
+        <img class="logo-mark" src="icons/icon.svg" alt="" width="40" height="40">
+        <span class="wordmark" aria-hidden="true">M<span class="tile-i">ı</span>ndle</span>
+      </h1>
+      <span class="topbar-side end">
+        <a href="encyclopedia.html" class="icon-button" aria-label="Encyclopedia" title="Encyclopedia">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+            <path d="M12 6.5C10 5 7 4.6 4 5.3v13c3-.7 6-.3 8 1.2 2-1.5 5-1.9 8-1.2v-13c-3-.7-6-.3-8 1.2zm0 0v13" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </a>
+        <button id="open-stats" type="button" class="icon-button" aria-label="Statistics" title="Statistics">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+            <path d="M5 20V11M12 20V5M19 20v-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </button>
+      </span>
+    </div>
+    <p class="tagline">Guess the school of thought in psychology or philosophy</p>
+  </header>
+
+  <main id="main">
+    <p id="loading" class="loading">Loading…</p>
+
+    <div id="game" hidden>
+      <div class="controls">
+        <fieldset class="segmented" id="mode-picker">
+          <legend class="visually-hidden">Game mode</legend>
+          <input type="radio" name="mode" id="mode-daily" value="daily">
+          <label for="mode-daily">Daily</label>
+          <input type="radio" name="mode" id="mode-practice" value="practice">
+          <label for="mode-practice">Practice</label>
+        </fieldset>
+
+        <fieldset class="segmented small" id="filter-picker" hidden>
+          <legend class="visually-hidden">Practice topics</legend>
+          <input type="radio" name="filter" id="filter-both" value="Both">
+          <label for="filter-both">Both</label>
+          <input type="radio" name="filter" id="filter-philosophy" value="Philosophy">
+          <label for="filter-philosophy">Philosophy</label>
+          <input type="radio" name="filter" id="filter-psychology" value="Psychology">
+          <label for="filter-psychology">Psychology</label>
+        </fieldset>
+      </div>
+
+      <p id="round-title" class="round-title"></p>
+
+      <section class="card clues" aria-labelledby="clues-heading">
+        <h2 id="clues-heading">Clues <span id="clue-count" class="clue-count"></span></h2>
+        <ol id="clue-list" class="clue-list"></ol>
+      </section>
+
+      <form id="guess-form" class="guess-form" autocomplete="off" novalidate>
+        <label for="guess-input" class="guess-label">
+          Your guess <span id="guess-count" class="guess-count"></span>
+        </label>
+        <div class="guess-row">
+          <div class="combo">
+            <input id="guess-input" class="text-input" type="text" role="combobox"
+                   aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions"
+                   aria-describedby="form-message"
+                   placeholder="Start typing, e.g. Stoicism" spellcheck="false" autocapitalize="off" autocorrect="off">
+            <ul id="suggestions" class="suggestions" role="listbox" aria-label="Matching answers" hidden></ul>
+          </div>
+          <button type="submit" class="button primary">Guess</button>
+        </div>
+        <p id="form-message" class="form-message" role="status"></p>
+      </form>
+
+      <section id="result" class="card result" aria-labelledby="result-heading" hidden>
+        <h2 id="result-heading" tabindex="-1"></h2>
+        <p id="result-summary" class="result-summary"></p>
+
+        <div class="answer">
+          <h3 id="answer-name" class="answer-name"></h3>
+          <p id="answer-meta" class="answer-meta"></p>
+          <p id="answer-description"></p>
+          <p><strong>Key figures:</strong> <span id="answer-figures"></span></p>
+          <div id="answer-notes" class="answer-notes"></div>
+        </div>
+
+        <div class="result-actions">
+          <button id="share" type="button" class="button primary">Share result</button>
+          <button id="next-round" type="button" class="button"></button>
+          <button id="result-stats" type="button" class="button">Stats</button>
+        </div>
+        <p id="share-message" class="share-message" role="status"></p>
+        <pre id="share-fallback" class="share-fallback" hidden></pre>
+        <p id="countdown" class="countdown" hidden></p>
+        <p class="result-link"><a id="encyclopedia-link" href="encyclopedia.html">It's now in your Encyclopedia →</a></p>
+      </section>
+
+      <section aria-labelledby="guesses-heading">
+        <h2 id="guesses-heading" class="visually-hidden">Your guesses, newest first</h2>
+        <ol id="guess-list" class="guess-list" reversed></ol>
+      </section>
+    </div>
+
+    <div id="announcer" class="visually-hidden" aria-live="polite"></div>
+  </main>
+
+  <dialog id="stats-dialog" class="dialog" aria-labelledby="stats-title">
+    <div class="dialog-head">
+      <h2 id="stats-title">Statistics</h2>
+      <form method="dialog">
+        <button class="icon-button" aria-label="Close statistics" title="Close">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+    <p class="dialog-note">Daily puzzles only. Practice rounds don't count.</p>
+    <dl id="stat-numbers" class="stat-numbers"></dl>
+    <h3 class="dist-title" id="dist-title">Guess distribution</h3>
+    <p class="dialog-note">How many guesses your daily wins took.</p>
+    <ol id="distribution" class="distribution" aria-labelledby="dist-title"></ol>
+  </dialog>
+
+  <dialog id="help-dialog" class="dialog help-dialog" aria-labelledby="help-title">
+    <div class="dialog-head">
+      <h2 id="help-title">How to play</h2>
+      <form method="dialog">
+        <button class="icon-button" aria-label="Close how to play" title="Close">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+    <p>Guess the school of thought, from psychology or philosophy, in 6 tries.</p>
+    <ul>
+      <li>You start with one clue. Each wrong guess unlocks another, up to 5. The last clue names the key thinkers.</li>
+      <li>Start typing and pick your guess from the list.</li>
+    </ul>
+
+    <h3>Reading the colours</h3>
+    <p class="key">
+      <span class="key-chip green"><span aria-hidden="true">✓</span> Match</span>
+      <span class="key-chip amber"><span aria-hidden="true">~</span> Close</span>
+      <span class="key-chip grey"><span aria-hidden="true">✗</span> Not close</span>
+    </p>
+    <ul>
+      <li><strong>Field:</strong> close if one of the two is "Both".</li>
+      <li><strong>Began:</strong> a match within 20 years, close within 100. The arrow shows whether the answer began later (↑) or earlier (↓).</li>
+      <li><strong>Origin:</strong> a match for the same country, close for the same continent.</li>
+      <li><strong>Focus:</strong> a match if the topics are the same, close if at least one is shared (shared ones are underlined).</li>
+    </ul>
+
+    <h3>Daily and Practice</h3>
+    <ul>
+      <li><strong>Daily:</strong> one puzzle for everyone each day, new at midnight. It counts towards your stats and streak.</li>
+      <li><strong>Practice:</strong> as many rounds as you like, filtered by topic if you want.</li>
+      <li>Every answer you meet is saved in your <a href="encyclopedia.html">Encyclopedia</a> for revision.</li>
+    </ul>
+    <form method="dialog">
+      <button class="button primary">Play</button>
+    </form>
+  </dialog>
+</body>
+</html>

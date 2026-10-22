@@ -1,0 +1,1739 @@
+{
+  "about": "Mindle answer bank. Each answer needs every field shown below; aliases, dateNote, originNote and added are optional. See README.md for how to add an entry, then run: node tools/check-data.mjs",
+  "tags": [
+        "Ethics",
+        "Mind",
+        "Meaning",
+        "Knowledge",
+        "Behaviour",
+        "Development",
+        "Society",
+        "Reality",
+        "Existence",
+        "Language",
+        "Emotion"
+      ],
+  "continents": ["Africa", "Asia", "Europe", "North America", "South America", "Oceania"],
+  "answers": [
+    {
+      "id": "milesian-school",
+      "name": "Milesian school",
+      "aliases": ["Milesians"],
+      "field": "Philosophy",
+      "year": -585,
+      "dateNote": "Thales is said to have predicted a solar eclipse in 585 BC, the traditional starting date for Greek philosophy.",
+      "place": "Turkey",
+      "continent": "Asia",
+      "originNote": "Miletus was a Greek city in Ionia, on the coast of what is now Turkey.",
+      "focus": ["Reality", "Knowledge"],
+      "figures": ["Thales", "Anaximander", "Anaximenes"],
+      "description": "The first known school of Greek philosophy, based in the city of Miletus on the coast of Asia Minor. Its thinkers looked for natural explanations of the world, each proposing a single basic substance from which everything comes.",
+      "clues": [
+        "This early group tried to explain the world without calling on myths or gods.",
+        "Its members each asked what single basic stuff everything is made of.",
+        "Its first member reportedly said that everything comes from water; his student proposed an 'unlimited' substance instead.",
+        "It is named after a Greek trading city on the coast of what is now Turkey, and is often called the start of Western philosophy.",
+        "Key figures: Thales, Anaximander and Anaximenes."
+      ]
+    },
+    {
+      "id": "jainism",
+      "name": "Jainism",
+      "aliases": ["Jain philosophy"],
+      "field": "Philosophy",
+      "year": -550,
+      "dateNote": "Jain tradition dates Mahavira to 599–527 BC; many historians place him somewhat later. Jains see him as the last of 24 great teachers, so the tradition claims older roots.",
+      "place": "India",
+      "continent": "Asia",
+      "focus": ["Ethics", "Knowledge"],
+      "figures": ["Mahavira", "Parshvanatha", "Umaswati"],
+      "description": "An ancient Indian philosophy and religion built on complete non-violence towards all living beings. It teaches that the soul can be freed from the cycle of rebirth through strict self-discipline, and that truth has many sides.",
+      "clues": [
+        "This tradition makes non-violence towards every living thing its highest rule.",
+        "Some of its monks sweep the path ahead of them and cover their mouths, so as not to harm even tiny creatures.",
+        "It teaches that reality has many sides, as in the story of the blind men who each touch a different part of an elephant.",
+        "It comes from ancient India, where its last great teacher lived around the same time as the Buddha.",
+        "Key figures: Mahavira, his predecessor Parshvanatha, and the later scholar Umaswati."
+      ]
+    },
+    {
+      "id": "pythagoreanism",
+      "name": "Pythagoreanism",
+      "aliases": ["Pythagoreans"],
+      "field": "Philosophy",
+      "year": -530,
+      "dateNote": "Pythagoras set up his community in Croton around 530 BC.",
+      "place": "Italy",
+      "continent": "Europe",
+      "originNote": "Pythagoras came from the Greek island of Samos but founded his community in Croton, a Greek colony in southern Italy.",
+      "focus": ["Reality", "Knowledge"],
+      "figures": ["Pythagoras", "Philolaus", "Archytas"],
+      "description": "A philosophical and religious community which taught that numbers and mathematical harmony lie at the heart of reality. Its members also believed the soul is reborn in new bodies and followed strict rules of living.",
+      "clues": [
+        "This movement held that the order of the universe can be understood through mathematics.",
+        "Its followers lived as a close-knit community with secret teachings and strict rules, including avoiding beans.",
+        "It taught that the soul is reborn in new bodies, and linked musical harmony to simple number ratios.",
+        "It was founded by a thinker from Samos who settled in southern Italy; a famous theorem about right-angled triangles carries his name.",
+        "Key figures: Pythagoras, Philolaus and Archytas."
+      ]
+    },
+    {
+      "id": "buddhism",
+      "name": "Buddhism",
+      "aliases": ["Buddhist philosophy"],
+      "field": "Philosophy",
+      "year": -500,
+      "dateNote": "The Buddha's dates are uncertain: traditional accounts give about 563–483 BC, while many historians now prefer about 480–400 BC.",
+      "place": "India",
+      "continent": "Asia",
+      "originNote": "The Buddha was born in Lumbini, now in Nepal, and taught in northern India.",
+      "focus": ["Mind", "Existence", "Ethics"],
+      "figures": ["Siddhartha Gautama", "Nagarjuna", "Vasubandhu"],
+      "description": "A philosophy and religion founded on the teachings of the Buddha, who taught that suffering comes from craving and can be ended. Its path combines ethical living, meditation and insight into the impermanent, interconnected nature of all things.",
+      "clues": [
+        "This tradition teaches that life involves suffering, and that suffering has a cause and a cure.",
+        "It says craving and attachment cause suffering, and that nothing, including the self, is permanent.",
+        "It offers an Eightfold Path of right living and meditation, leading to nirvana and freedom from rebirth.",
+        "It began in northern India with a prince who left his palace and gained 'awakening' while meditating under a tree.",
+        "Key figures: Siddhartha Gautama, known as the Buddha, and later thinkers such as Nagarjuna and Vasubandhu."
+      ]
+    },
+    {
+      "id": "confucianism",
+      "name": "Confucianism",
+      "aliases": ["Ruism"],
+      "field": "Philosophy",
+      "year": -500,
+      "dateNote": "Confucius is traditionally dated 551–479 BC; his teaching is placed around 500 BC.",
+      "place": "China",
+      "continent": "Asia",
+      "focus": ["Ethics", "Society"],
+      "figures": ["Confucius", "Mencius", "Xunzi"],
+      "description": "A Chinese tradition of ethical and social thought built on the teachings of Confucius. It stresses moral character, respect within family relationships, proper ritual and humane government.",
+      "clues": [
+        "This tradition sees good character and good relationships as the foundation of a well-ordered society.",
+        "It values respect for parents and elders, and treats the family as a model for the state.",
+        "Its central virtue, ren, is often translated as humaneness, and it gives great weight to ritual and proper conduct (li).",
+        "It began in ancient China; its founder's sayings were collected in the Analects, which later shaped imperial civil-service exams.",
+        "Key figures: Confucius, Mencius and Xunzi."
+      ]
+    },
+    {
+      "id": "atomism",
+      "name": "Atomism",
+      "aliases": ["Ancient atomism"],
+      "field": "Philosophy",
+      "year": -440,
+      "dateNote": "Leucippus is thought to have proposed the theory around 440 BC; his student Democritus (about 460–370 BC) developed it.",
+      "place": "Greece",
+      "continent": "Europe",
+      "focus": ["Reality"],
+      "figures": ["Leucippus", "Democritus", "Lucretius"],
+      "description": "An ancient theory that everything is made of tiny, indivisible particles moving through empty space. It explained all change as these particles joining and separating, with no need for purpose or gods.",
+      "clues": [
+        "This view says the world is built from things far too small to see.",
+        "It claims that only two things really exist: tiny solid bodies and the empty space they move in.",
+        "It explained colour, taste and change as different arrangements of tiny particles.",
+        "Its name comes from a Greek word meaning 'uncuttable', and Epicurus later adopted it.",
+        "Key figures: Leucippus, Democritus and, later, Lucretius."
+      ]
+    },
+    {
+      "id": "mohism",
+      "name": "Mohism",
+      "aliases": ["Moism"],
+      "field": "Philosophy",
+      "year": -430,
+      "dateNote": "Mozi lived about 470–391 BC; his school was most active from the 5th to the 3rd centuries BC.",
+      "place": "China",
+      "continent": "Asia",
+      "focus": ["Ethics", "Society"],
+      "figures": ["Mozi"],
+      "description": "An ancient Chinese philosophy that taught impartial care for all people and judged every practice by whether it brings real benefit. It opposed aggressive war and wasteful luxury, and rivalled Confucianism for centuries.",
+      "clues": [
+        "This Chinese school said we should care for everyone equally, not just our own family.",
+        "It judged customs by whether they actually benefit people, and criticised costly funerals and music as wasteful.",
+        "It opposed wars of conquest, yet its followers were also skilled engineers who helped defend cities under siege.",
+        "It was the main rival to the followers of Confucius in ancient China, and is named after its founder.",
+        "Key figure: Mozi, a craftsman-turned-thinker, and the later members of his school."
+      ]
+    },
+    {
+      "id": "cynicism",
+      "name": "Cynicism",
+      "aliases": ["Cynics"],
+      "field": "Philosophy",
+      "year": -400,
+      "dateNote": "Antisthenes, a follower of Socrates, began teaching in Athens in the early 4th century BC; Diogenes made the movement famous a few decades later.",
+      "place": "Greece",
+      "continent": "Europe",
+      "focus": ["Ethics", "Society"],
+      "figures": ["Antisthenes", "Diogenes of Sinope", "Crates of Thebes", "Hipparchia"],
+      "description": "An ancient Greek movement which taught that virtue is the only good and that happiness comes from living simply and in line with nature. Its followers rejected wealth, fame and social customs, often in deliberately shocking ways.",
+      "clues": [
+        "This school believed you need almost nothing to live a good life.",
+        "Its followers openly mocked wealth, power and polite social customs.",
+        "One famous member lived in a large storage jar and told Alexander the Great to stop blocking his sunlight.",
+        "Its name probably comes from the Greek word for 'dog', because its members lived shamelessly in public.",
+        "Key figures: Antisthenes, Diogenes of Sinope, Crates of Thebes and Hipparchia."
+      ]
+    },
+    {
+      "id": "cyrenaics",
+      "name": "Cyrenaics",
+      "aliases": ["Cyrenaic school", "Cyrenaic hedonism"],
+      "field": "Philosophy",
+      "year": -400,
+      "dateNote": "Founded in the early 4th century BC by Aristippus (about 435–356 BC), a follower of Socrates; his grandson turned it into a system.",
+      "place": "Libya",
+      "continent": "Africa",
+      "originNote": "Cyrene was a Greek city in North Africa, in what is now Libya.",
+      "focus": ["Ethics", "Emotion"],
+      "figures": ["Aristippus of Cyrene", "Aristippus the Younger", "Hegesias"],
+      "description": "An ancient school of hedonism which taught that pleasure, especially present physical pleasure, is the highest good. It also argued that we can be certain only of our own sensations, not of the world that causes them.",
+      "clues": [
+        "This school said the goal of life is to enjoy pleasure here and now.",
+        "It valued bodily pleasures of the present moment above long-term planning.",
+        "It also argued that we can only be sure of our own feelings, not of what causes them.",
+        "It was founded by a follower of Socrates in a Greek city in North Africa, in what is now Libya.",
+        "Key figures: Aristippus of Cyrene, his grandson Aristippus the Younger, and Hegesias."
+      ]
+    },
+    {
+      "id": "daoism",
+      "name": "Daoism",
+      "aliases": ["Taoism", "Daoist philosophy"],
+      "field": "Philosophy",
+      "year": -400,
+      "dateNote": "Tradition places Laozi in the 6th century BC, but the Daodejing was probably compiled in the 4th century BC, around the time of Zhuangzi.",
+      "place": "China",
+      "continent": "Asia",
+      "focus": ["Reality", "Existence"],
+      "figures": ["Laozi", "Zhuangzi"],
+      "description": "A Chinese philosophy centred on the Dao, the natural 'Way' that underlies and flows through all things. It teaches simplicity, spontaneity and effortless action in harmony with nature, rather than force or rigid rules.",
+      "clues": [
+        "This philosophy teaches people to go with the flow of nature rather than against it.",
+        "It praises simplicity and compares the best kind of strength to water, which is soft yet wears away stone.",
+        "It recommends 'effortless action' (wu wei) and is linked with the yin-yang symbol.",
+        "It began in ancient China and is named after the 'Way' described in a short classic of about 5,000 characters.",
+        "Key figures: Laozi and Zhuangzi."
+      ]
+    },
+    {
+      "id": "platonism",
+      "name": "Platonism",
+      "aliases": ["Platonic philosophy"],
+      "field": "Philosophy",
+      "year": -387,
+      "dateNote": "Plato founded the Academy in Athens around 387 BC.",
+      "place": "Greece",
+      "continent": "Europe",
+      "focus": ["Reality", "Knowledge"],
+      "figures": ["Plato", "Speusippus", "Xenocrates"],
+      "description": "The philosophy of Plato, which holds that beyond the changing physical world lies a realm of perfect, unchanging Forms. True knowledge, it argues, is knowledge of these Forms, reached through reason rather than the senses.",
+      "clues": [
+        "This philosophy says the world we see is only a shadow of a deeper reality.",
+        "It holds that perfect, unchanging ideas such as Justice and Beauty exist beyond the physical world.",
+        "Its famous story compares ordinary people to prisoners who mistake shadows on a cave wall for real things.",
+        "Its founder, a student of Socrates, set up a school in Athens called the Academy.",
+        "Key figures: Plato and his successors Speusippus and Xenocrates."
+      ]
+    },
+    {
+      "id": "legalism",
+      "name": "Legalism",
+      "aliases": ["Fajia", "Chinese Legalism"],
+      "field": "Philosophy",
+      "year": -350,
+      "dateNote": "Shang Yang's reforms in the state of Qin began around 356 BC; Han Feizi (died 233 BC) gave the school its fullest form.",
+      "place": "China",
+      "continent": "Asia",
+      "focus": ["Society", "Behaviour"],
+      "figures": ["Shang Yang", "Han Feizi", "Li Si"],
+      "description": "An ancient Chinese philosophy of government which held that people are driven by self-interest and must be controlled by strict laws, rewards and punishments. It guided the state of Qin, which unified China in 221 BC.",
+      "clues": [
+        "This philosophy said a ruler should rely on clear rules rather than on people's goodness.",
+        "It assumed people act out of self-interest, so they must be steered with rewards and harsh punishments.",
+        "It wanted the same strict rules applied to everyone and the ruler's power made absolute.",
+        "Its ideas guided the state of Qin, which unified China and founded the first empire.",
+        "Key figures: Shang Yang, Han Feizi and Li Si."
+      ]
+    },
+    {
+      "id": "aristotelianism",
+      "name": "Aristotelianism",
+      "aliases": ["Peripatetic school", "Peripatetics"],
+      "field": "Philosophy",
+      "year": -335,
+      "dateNote": "Aristotle opened his school, the Lyceum, in Athens in 335 BC.",
+      "place": "Greece",
+      "continent": "Europe",
+      "focus": ["Knowledge", "Ethics", "Reality"],
+      "figures": ["Aristotle", "Theophrastus", "Avicenna", "Thomas Aquinas"],
+      "description": "The philosophy of Aristotle, which studies the natural world through careful observation and logical reasoning. It covers everything from logic and biology to ethics, where it argues that a good life comes from developing virtuous habits.",
+      "clues": [
+        "This philosophy trusts careful observation of the natural world as a route to knowledge.",
+        "It created the first formal system of logic, built on arguments called syllogisms.",
+        "Its ethics says happiness (eudaimonia) comes from developing virtues, each a 'golden mean' between two extremes.",
+        "Its founder tutored Alexander the Great and taught at a school in Athens called the Lyceum, reportedly while walking.",
+        "Key figures: Aristotle and his student Theophrastus; later, Avicenna and Thomas Aquinas."
+      ]
+    },
+    {
+      "id": "pyrrhonism",
+      "name": "Pyrrhonism",
+      "aliases": ["Scepticism", "Skepticism", "Pyrrhonian scepticism"],
+      "field": "Philosophy",
+      "year": -320,
+      "dateNote": "Pyrrho (about 360–270 BC) began teaching after returning from Alexander the Great's campaign in India, around 320 BC. Most of what we know comes from Sextus Empiricus, about 500 years later.",
+      "place": "Greece",
+      "continent": "Europe",
+      "focus": ["Knowledge"],
+      "figures": ["Pyrrho of Elis", "Timon of Phlius", "Sextus Empiricus"],
+      "description": "An ancient school of doubt which taught that for every argument there is an equally strong argument against it, so we should suspend judgement. Its followers claimed that giving up the search for certainty brings peace of mind.",
+      "clues": [
+        "This school taught that we should hold back from believing anything we cannot be sure of.",
+        "It set arguments against each other until neither side seemed stronger.",
+        "It promised that suspending judgement would bring calm, untroubled peace of mind.",
+        "Its founder travelled with Alexander the Great's army to India; most of what we know comes from a Greek doctor writing about 500 years later.",
+        "Key figures: Pyrrho of Elis, Timon of Phlius and Sextus Empiricus."
+      ]
+    },
+    {
+      "id": "epicureanism",
+      "name": "Epicureanism",
+      "aliases": ["Epicureans"],
+      "field": "Philosophy",
+      "year": -307,
+      "dateNote": "Epicurus founded his school, the Garden, in Athens around 307 BC.",
+      "place": "Greece",
+      "continent": "Europe",
+      "focus": ["Ethics", "Emotion", "Reality"],
+      "figures": ["Epicurus", "Metrodorus", "Lucretius"],
+      "description": "An ancient school which taught that the goal of life is a calm, simple pleasure: freedom from pain in the body and from fear in the mind. It used an atomic theory of nature to argue that there is nothing to fear in death or the gods.",
+      "clues": [
+        "This school taught that the aim of life is a quiet kind of happiness.",
+        "It said true pleasure means the absence of pain and worry, not luxury or excess.",
+        "It argued that death is nothing to fear, because when death is here, we are not.",
+        "Its founder taught friends in a garden outside Athens, and a Roman poet later explained its ideas in a long poem on the nature of things.",
+        "Key figures: Epicurus, Metrodorus and Lucretius."
+      ]
+    },
+    {
+      "id": "stoicism",
+      "name": "Stoicism",
+      "aliases": ["Stoics", "Stoic philosophy"],
+      "field": "Philosophy",
+      "year": -300,
+      "dateNote": "Zeno of Citium began teaching in Athens around 300 BC; the exact year is not known.",
+      "place": "Greece",
+      "continent": "Europe",
+      "originNote": "Founded in Athens; it later became very popular in Rome.",
+      "focus": ["Ethics", "Emotion"],
+      "figures": ["Zeno of Citium", "Chrysippus", "Seneca", "Epictetus", "Marcus Aurelius"],
+      "description": "An ancient school teaching that virtue is the only true good and that a good life means living in agreement with reason and nature. Its followers trained themselves to accept what they cannot control and to keep destructive emotions in check.",
+      "clues": [
+        "An ancient school that says the key to a good life lies in how you respond to events, not in the events themselves.",
+        "It held that virtue is the only true good, while wealth, health and reputation are 'indifferent'.",
+        "Its followers practised accepting what lies outside their control, and modern cognitive behavioural therapy borrowed some of its ideas.",
+        "It is named after a painted porch in Athens where its founder taught, and it later became popular with Roman writers and an emperor.",
+        "Key figures: Zeno of Citium, Chrysippus, Seneca, Epictetus and Marcus Aurelius."
+      ]
+    },
+    {
+      "id": "madhyamaka",
+      "name": "Madhyamaka",
+      "aliases": ["Madhyamika", "Middle Way school"],
+      "field": "Philosophy",
+      "year": 150,
+      "dateNote": "Nagarjuna's dates are uncertain; he is usually placed around AD 150–250.",
+      "place": "India",
+      "continent": "Asia",
+      "focus": ["Reality", "Knowledge"],
+      "figures": ["Nagarjuna", "Aryadeva", "Chandrakirti"],
+      "description": "A school of Buddhist philosophy which argues that all things are 'empty': nothing exists independently or has a fixed essence of its own. It presents itself as a middle path between believing things truly exist and believing nothing exists at all.",
+      "clues": [
+        "This school argues that nothing exists entirely on its own.",
+        "Its central idea is 'emptiness' (shunyata): everything depends on causes, on its parts and on the way we label it.",
+        "It uses sharp logical arguments to show that every fixed view about reality ends in contradiction.",
+        "It is a school of Indian Buddhist philosophy whose name means 'of the middle'.",
+        "Key figures: Nagarjuna, Aryadeva and Chandrakirti."
+      ]
+    },
+    {
+      "id": "neoplatonism",
+      "name": "Neoplatonism",
+      "aliases": ["Neo-Platonism"],
+      "field": "Philosophy",
+      "year": 244,
+      "dateNote": "Plotinus began teaching in Rome in AD 244. The name 'Neoplatonism' was only given by modern historians.",
+      "place": "Italy",
+      "continent": "Europe",
+      "originNote": "Plotinus was born in Egypt and studied in Alexandria before settling in Rome.",
+      "focus": ["Reality", "Existence"],
+      "figures": ["Plotinus", "Porphyry", "Proclus", "Hypatia"],
+      "description": "A late ancient revival of Plato's ideas which taught that all reality flows from a single, perfect source called the One. It saw the goal of life as the soul's return to that source through philosophy and contemplation.",
+      "clues": [
+        "This school taught that everything that exists flows from a single, perfect source.",
+        "It pictured reality in levels: the One, then Mind, then Soul, and finally the physical world.",
+        "It saw the soul's highest goal as rising back towards its source, an idea that shaped Christian, Jewish and Islamic thought.",
+        "It began in the 3rd century AD, when a philosopher trained in Alexandria started teaching in Rome, reviving a much earlier Athenian thinker.",
+        "Key figures: Plotinus, Porphyry, Proclus and Hypatia."
+      ]
+    },
+    {
+      "id": "zen-buddhism",
+      "name": "Zen Buddhism",
+      "aliases": ["Zen", "Chan Buddhism"],
+      "field": "Philosophy",
+      "year": 600,
+      "dateNote": "Tradition traces it to Bodhidharma, who came to China around AD 500; it became a distinct school in the 7th century and reached Japan in the late 12th century.",
+      "place": "China",
+      "continent": "Asia",
+      "originNote": "It began in China as Chan; its Japanese form, Zen, became the best known in the West.",
+      "focus": ["Mind", "Existence"],
+      "figures": ["Bodhidharma", "Huineng", "Dōgen", "D. T. Suzuki"],
+      "description": "A school of Buddhism which teaches that awakening comes through direct experience and meditation rather than through study of texts. It uses seated meditation and puzzling questions to break through ordinary habits of thought.",
+      "clues": [
+        "This tradition values direct experience of the present moment over book learning.",
+        "It centres on seated meditation and says awakening can happen suddenly.",
+        "Its teachers set puzzling questions (koans), such as 'What is the sound of one hand clapping?'",
+        "It began in China, where its name was Chan, and became famous in its Japanese form.",
+        "Key figures: Bodhidharma, Huineng, Dōgen and D. T. Suzuki."
+      ]
+    },
+    {
+      "id": "advaita-vedanta",
+      "name": "Advaita Vedanta",
+      "aliases": ["Advaita", "Vedanta"],
+      "field": "Philosophy",
+      "year": 750,
+      "dateNote": "Shankara's dates are debated: tradition says 788–820, while many scholars prefer the early 8th century. Gaudapada laid some of the groundwork earlier.",
+      "place": "India",
+      "continent": "Asia",
+      "focus": ["Reality", "Existence"],
+      "figures": ["Adi Shankara", "Gaudapada", "Swami Vivekananda"],
+      "description": "A school of Hindu philosophy which teaches that the true self (Atman) is identical with Brahman, the single ultimate reality. The everyday world of separate things is seen as a kind of illusion (maya) created by ignorance.",
+      "clues": [
+        "This philosophy says that, at the deepest level, there is only one reality.",
+        "It teaches that your innermost self is not separate from that ultimate reality.",
+        "It explains the world of many separate things as an appearance, like mistaking a rope for a snake in dim light.",
+        "It is a Hindu school based on the Upanishads, and its name means 'non-dual end of the Vedas'.",
+        "Key figures: Adi Shankara, his predecessor Gaudapada and, in modern times, Swami Vivekananda."
+      ]
+    },
+    {
+      "id": "falsafa",
+      "name": "Falsafa",
+      "aliases": ["Islamic philosophy", "Arabic philosophy"],
+      "field": "Philosophy",
+      "year": 830,
+      "dateNote": "Al-Kindi, its first major figure, was working in Baghdad by the 830s, as Greek texts were being translated into Arabic.",
+      "place": "Iraq",
+      "continent": "Asia",
+      "originNote": "It began in Baghdad, capital of the Abbasid caliphate, and later flourished in Persia and Spain.",
+      "focus": ["Knowledge", "Reality"],
+      "figures": ["al-Kindi", "al-Farabi", "Avicenna", "Averroes"],
+      "description": "A tradition of philosophy in the medieval Islamic world that built on translated Greek works, especially those of Aristotle and Plato. Its thinkers tried to bring reason and religious faith together, and their writings later reshaped European thought.",
+      "clues": [
+        "This tradition took ancient Greek philosophy and developed it in new directions.",
+        "Its thinkers asked how reason and revealed religion could both be true.",
+        "It grew around a great centre of translation, and its commentaries on Aristotle were later studied in Europe.",
+        "It began in Baghdad under the Abbasid caliphs; its name is simply the Arabic word for 'philosophy'.",
+        "Key figures: al-Kindi, al-Farabi, Avicenna (Ibn Sina) and Averroes (Ibn Rushd)."
+      ]
+    },
+    {
+      "id": "neo-confucianism",
+      "name": "Neo-Confucianism",
+      "aliases": ["Neoconfucianism"],
+      "field": "Philosophy",
+      "year": 1050,
+      "dateNote": "It took shape in the Song dynasty, from Zhou Dunyi and the Cheng brothers in the 11th century to Zhu Xi in the 12th.",
+      "place": "China",
+      "continent": "Asia",
+      "focus": ["Ethics", "Reality"],
+      "figures": ["Zhou Dunyi", "Cheng Yi", "Zhu Xi", "Wang Yangming"],
+      "description": "A revival of Confucian thought in Song dynasty China that added a full account of the universe, partly in response to Buddhism and Daoism. It taught that moral principle runs through all things and that self-cultivation lets us realise it.",
+      "clues": [
+        "This movement renewed an ancient Chinese ethical tradition by giving it a complete theory of the universe.",
+        "It taught that a single moral 'principle' runs through everything, combined with a material energy called qi.",
+        "It answered the challenge of Buddhist and Daoist ideas, and stressed study, quiet sitting and self-cultivation.",
+        "It arose in the Song dynasty, and one thinker's commentaries became the basis of China's civil-service exams for about 600 years.",
+        "Key figures: Zhou Dunyi, Cheng Yi, Zhu Xi and Wang Yangming."
+      ]
+    },
+    {
+      "id": "scholasticism",
+      "name": "Scholasticism",
+      "aliases": ["Scholastic philosophy"],
+      "field": "Philosophy",
+      "year": 1100,
+      "dateNote": "Usually dated from around 1100, with Anselm and Abelard, to about 1500; it peaked in the 13th century with Aquinas.",
+      "place": "France",
+      "continent": "Europe",
+      "originNote": "It grew in the cathedral schools and universities of France, above all Paris, though its thinkers came from all over Europe.",
+      "focus": ["Knowledge", "Reality", "Ethics"],
+      "figures": ["Anselm of Canterbury", "Peter Abelard", "Thomas Aquinas", "William of Ockham"],
+      "description": "The method of philosophy and theology taught in medieval European universities, which used careful logic to reconcile Christian faith with reason. It built especially on Aristotle, rediscovered in Europe through Latin translations from Arabic and Greek.",
+      "clues": [
+        "This approach used strict logic to tackle questions of faith.",
+        "It worked by posing a question, listing objections, and then answering each one in turn.",
+        "It produced famous arguments for God's existence and debated whether general ideas like 'redness' are real.",
+        "It dominated the new universities of medieval Europe, especially Paris, and brought Aristotle's ideas into Christian thought.",
+        "Key figures: Anselm of Canterbury, Peter Abelard, Thomas Aquinas and William of Ockham."
+      ]
+    },
+    {
+      "id": "renaissance-humanism",
+      "name": "Renaissance humanism",
+      "aliases": ["Humanism"],
+      "field": "Philosophy",
+      "year": 1350,
+      "dateNote": "Petrarch, active from the 1330s to the 1370s, is often called its father; 1350 is a rough midpoint.",
+      "place": "Italy",
+      "continent": "Europe",
+      "focus": ["Knowledge", "Society"],
+      "figures": ["Petrarch", "Pico della Mirandola", "Erasmus", "Thomas More"],
+      "description": "A movement that revived the study of ancient Greek and Roman writing, history and language as a guide to living well. It celebrated human dignity and potential, and helped launch the Renaissance.",
+      "clues": [
+        "This movement looked back to the classical past to find wisdom for the present.",
+        "Its scholars hunted for lost ancient manuscripts and studied grammar, poetry, history and moral philosophy.",
+        "It praised human dignity and potential, and its educational ideas gave us the 'humanities'.",
+        "It began in 14th-century Italy and spread north with the new printing presses.",
+        "Key figures: Petrarch, Pico della Mirandola, Erasmus and Thomas More."
+      ]
+    },
+    {
+      "id": "rationalism",
+      "name": "Rationalism",
+      "aliases": ["Continental rationalism"],
+      "field": "Philosophy",
+      "year": 1637,
+      "dateNote": "Descartes's Discourse on the Method (1637) is the usual starting point.",
+      "place": "France",
+      "continent": "Europe",
+      "focus": ["Knowledge"],
+      "figures": ["René Descartes", "Baruch Spinoza", "Gottfried Leibniz"],
+      "description": "The view that reason, rather than sense experience, is the main source of knowledge. Its leading thinkers held that some truths, such as those of mathematics, can be known with certainty by thought alone.",
+      "clues": [
+        "This approach trusts thinking more than the senses as the way to real knowledge.",
+        "It holds that some ideas are inborn rather than learned from experience.",
+        "It took mathematics as its model of certain knowledge, building systems step by step from basic truths.",
+        "Its most famous argument began by doubting everything and arrived at 'I think, therefore I am'.",
+        "Key figures: René Descartes, Baruch Spinoza and Gottfried Leibniz."
+      ]
+    },
+    {
+      "id": "social-contract-theory",
+      "name": "Social contract theory",
+      "aliases": ["Social contract", "Contractarianism"],
+      "field": "Philosophy",
+      "year": 1651,
+      "dateNote": "Hobbes's Leviathan (1651) is usually taken as the start, though the idea has ancient roots.",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Society", "Ethics"],
+      "figures": ["Thomas Hobbes", "John Locke", "Jean-Jacques Rousseau", "John Rawls"],
+      "description": "The idea that governments and moral rules get their authority from an agreement among the people they govern. Its thinkers imagined life in a 'state of nature' without government to explain why people would accept that agreement.",
+      "clues": [
+        "This theory asks why we should obey any government at all.",
+        "It imagines what life would be like in a 'state of nature', with no rulers or laws.",
+        "One version says such a life would be 'nasty, brutish and short', so people agree to hand power to a ruler.",
+        "It shaped the American and French revolutions, and a 20th-century version imagined choosing rules from behind a 'veil of ignorance'.",
+        "Key figures: Thomas Hobbes, John Locke, Jean-Jacques Rousseau and John Rawls."
+      ]
+    },
+    {
+      "id": "empiricism",
+      "name": "Empiricism",
+      "aliases": ["British empiricism"],
+      "field": "Philosophy",
+      "year": 1690,
+      "dateNote": "Locke's Essay Concerning Human Understanding came out in December 1689, dated 1690. Francis Bacon and Thomas Hobbes were earlier forerunners.",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Knowledge", "Mind"],
+      "figures": ["John Locke", "George Berkeley", "David Hume"],
+      "description": "The view that all knowledge comes from experience through the senses. Its leading thinkers argued that the mind starts out empty and builds up ideas from what it perceives.",
+      "clues": [
+        "This approach says we learn everything from experience.",
+        "It describes the newborn mind as a 'blank slate' (tabula rasa).",
+        "One of its thinkers argued we never observe cause and effect, only one event regularly following another.",
+        "It was developed mainly by thinkers from England, Ireland and Scotland, in opposition to Descartes.",
+        "Key figures: John Locke, George Berkeley and David Hume."
+      ]
+    },
+    {
+      "id": "german-idealism",
+      "name": "German idealism",
+      "aliases": ["Hegelianism"],
+      "field": "Philosophy",
+      "year": 1781,
+      "dateNote": "Kant's Critique of Pure Reason (1781) is the usual starting point; the movement ended with Hegel's death in 1831.",
+      "place": "Germany",
+      "continent": "Europe",
+      "focus": ["Reality", "Mind", "Knowledge"],
+      "figures": ["Immanuel Kant", "Johann Gottlieb Fichte", "Friedrich Schelling", "G. W. F. Hegel"],
+      "description": "A movement in German philosophy which held that the mind actively shapes the reality we experience. It ran from Kant's critical philosophy to Hegel's vast system, in which history is the unfolding of reason.",
+      "clues": [
+        "This movement argued that the mind helps to build the world we experience.",
+        "It said we never know things 'in themselves', only as our minds structure them, for example in space and time.",
+        "Its last great thinker described history as reason unfolding through a 'dialectic' of conflict and resolution.",
+        "It flourished in German universities such as Jena and Berlin from the 1780s to the 1830s.",
+        "Key figures: Immanuel Kant, Johann Gottlieb Fichte, Friedrich Schelling and G. W. F. Hegel."
+      ]
+    },
+    {
+      "id": "kantian-ethics",
+      "name": "Kantian ethics",
+      "aliases": ["Deontology", "Kantianism"],
+      "field": "Philosophy",
+      "year": 1785,
+      "dateNote": "Set out in Kant's Groundwork of the Metaphysics of Morals (1785).",
+      "place": "Germany",
+      "continent": "Europe",
+      "originNote": "Kant lived in Königsberg, then in Prussia and now Kaliningrad in Russia.",
+      "focus": ["Ethics"],
+      "figures": ["Immanuel Kant", "Onora O'Neill", "Christine Korsgaard"],
+      "description": "An ethical theory which holds that the morality of an action depends on duty and on the principle behind it, not on its results. Its central test is whether you could will your principle to become a law for everyone.",
+      "clues": [
+        "This theory says some actions are right or wrong no matter what the consequences.",
+        "It holds that a good will, acting from duty, is the only thing good without qualification.",
+        "Its main test asks whether you could make your rule of action a universal law, and it forbids treating people merely as tools.",
+        "Its founder, a professor in Königsberg who never travelled far from home, set it out in a short book on the 'groundwork' of morals.",
+        "Key figures: Immanuel Kant and, in modern times, Onora O'Neill and Christine Korsgaard."
+      ]
+    },
+    {
+      "id": "utilitarianism",
+      "name": "Utilitarianism",
+      "field": "Philosophy",
+      "year": 1789,
+      "dateNote": "Bentham's Introduction to the Principles of Morals and Legislation was printed in 1780 and published in 1789. Mill's essay on the theory appeared in 1861.",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Ethics", "Society"],
+      "figures": ["Jeremy Bentham", "John Stuart Mill", "Henry Sidgwick"],
+      "description": "An ethical theory holding that the right action is the one that produces the greatest overall happiness. It judges actions purely by their consequences and counts everyone's wellbeing equally.",
+      "clues": [
+        "This theory says you should judge an action by its results.",
+        "Its rule of thumb is to aim for the greatest good for the greatest number.",
+        "One of its founders proposed a 'felicific calculus' for adding up pleasures and pains.",
+        "It grew up in England as a guide for reforming laws, and a later version split pleasures into 'higher' and 'lower' kinds.",
+        "Key figures: Jeremy Bentham, John Stuart Mill and Henry Sidgwick."
+      ]
+    },
+    {
+      "id": "feminism",
+      "name": "Feminism",
+      "aliases": ["Feminist philosophy"],
+      "field": "Philosophy",
+      "year": 1792,
+      "dateNote": "Wollstonecraft's A Vindication of the Rights of Woman (1792) is a common starting point. Earlier writers, such as Christine de Pizan around 1405, also defended women, and the word 'feminism' only came into use in the 1890s.",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Society", "Ethics", "Knowledge"],
+      "figures": ["Mary Wollstonecraft", "John Stuart Mill", "Simone de Beauvoir", "bell hooks"],
+      "description": "A tradition of thought which argues that women and men should have equal rights and opportunities, and examines how society has treated women unfairly. In philosophy it asks how gender shapes ideas about knowledge, ethics and politics.",
+      "clues": [
+        "This tradition argues that society has long been organised unfairly around one half of humanity.",
+        "One early book argued that women only seemed less rational because they were denied a proper education.",
+        "A 20th-century classic argued that being a woman is something society makes, not something you are simply born as.",
+        "Its modern history is often traced to a 1790s London book on the rights of women, and it is described as coming in 'waves'.",
+        "Key figures: Mary Wollstonecraft, John Stuart Mill, Simone de Beauvoir and bell hooks."
+      ]
+    },
+    {
+      "id": "positivism",
+      "name": "Positivism",
+      "aliases": ["Comtean positivism"],
+      "field": "Philosophy",
+      "year": 1830,
+      "dateNote": "Comte's Course in Positive Philosophy appeared in volumes from 1830 to 1842.",
+      "place": "France",
+      "continent": "Europe",
+      "focus": ["Knowledge", "Society"],
+      "figures": ["Auguste Comte", "Henri de Saint-Simon", "Émile Durkheim"],
+      "description": "A philosophy which holds that real knowledge comes only from scientific observation and experiment, not from religion or speculation. Its founder also proposed a science of society, which he named sociology.",
+      "clues": [
+        "This philosophy says the only real knowledge is scientific knowledge.",
+        "It dismisses questions that observation can never settle as empty speculation.",
+        "It claimed human thought passes through three stages: religious, then abstract, then scientific.",
+        "Its French founder also coined the word 'sociology' for a science of society.",
+        "Key figures: Auguste Comte, Henri de Saint-Simon and Émile Durkheim."
+      ]
+    },
+    {
+      "id": "transcendentalism",
+      "name": "Transcendentalism",
+      "aliases": ["American transcendentalism"],
+      "field": "Philosophy",
+      "year": 1836,
+      "dateNote": "Emerson's essay Nature and the first meeting of the Transcendental Club both came in 1836.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Meaning", "Reality"],
+      "figures": ["Ralph Waldo Emerson", "Henry David Thoreau", "Margaret Fuller"],
+      "description": "A 19th-century American movement which taught that people are inherently good and can find truth through intuition and closeness to nature. It valued self-reliance and individual conscience over society's institutions.",
+      "clues": [
+        "This movement said truth can be found by looking inward and spending time in nature.",
+        "It believed people are basically good, but are spoiled by society and its institutions.",
+        "One of its members lived alone in a cabin by a pond for two years, and wrote an essay defending civil disobedience.",
+        "It began among writers around Boston, sparked by an essay called 'Nature'.",
+        "Key figures: Ralph Waldo Emerson, Henry David Thoreau and Margaret Fuller."
+      ]
+    },
+    {
+      "id": "anarchism",
+      "name": "Anarchism",
+      "aliases": ["Anarchist philosophy"],
+      "field": "Philosophy",
+      "year": 1840,
+      "dateNote": "Proudhon's What Is Property? (1840) was the first work by someone calling himself an anarchist. William Godwin set out similar ideas in 1793.",
+      "place": "France",
+      "continent": "Europe",
+      "focus": ["Society", "Ethics"],
+      "figures": ["Pierre-Joseph Proudhon", "Mikhail Bakunin", "Peter Kropotkin", "Emma Goldman"],
+      "description": "A political philosophy which holds that the state and other forms of forced authority are unnecessary and harmful. It proposes that society be organised through voluntary cooperation instead.",
+      "clues": [
+        "This philosophy argues that people can organise their lives without rulers.",
+        "It sees the state, and any authority based on force, as unjustified.",
+        "The first thinker to adopt its name declared that 'property is theft'.",
+        "It grew in 19th-century France and Russia, and is often symbolised by a circled letter A.",
+        "Key figures: Pierre-Joseph Proudhon, Mikhail Bakunin, Peter Kropotkin and Emma Goldman."
+      ]
+    },
+    {
+      "id": "marxism",
+      "name": "Marxism",
+      "aliases": ["Marxist theory"],
+      "field": "Philosophy",
+      "year": 1848,
+      "dateNote": "The Communist Manifesto (1848) is the usual starting point; the first volume of Capital followed in 1867.",
+      "place": "Germany",
+      "continent": "Europe",
+      "originNote": "Marx and Engels were German; the Manifesto was written in Brussels and first printed in London.",
+      "focus": ["Society"],
+      "figures": ["Karl Marx", "Friedrich Engels", "Rosa Luxemburg", "Antonio Gramsci"],
+      "description": "A theory of history and society which explains change as the result of conflict between economic classes. It argues that capitalism exploits workers and predicts that it will give way to a classless, communist society.",
+      "clues": [
+        "This theory says economic forces are the main drivers of history.",
+        "It describes history as a struggle between social classes.",
+        "It argues that capitalism exploits workers by taking the extra value they create, leaving them 'alienated' from their work.",
+        "Its most famous short pamphlet ends by calling on the workers of the world to unite.",
+        "Key figures: Karl Marx, Friedrich Engels, Rosa Luxemburg and Antonio Gramsci."
+      ]
+    },
+    {
+      "id": "nihilism",
+      "name": "Nihilism",
+      "field": "Philosophy",
+      "year": 1862,
+      "dateNote": "Jacobi used the word in a philosophical sense in 1799, but it spread through Turgenev's novel Fathers and Sons (1862) and the Russian radicals of the 1860s. Nietzsche made it a major theme in the 1880s.",
+      "place": "Russia",
+      "continent": "Europe",
+      "originNote": "The word first appeared in German philosophy; the movement that made it famous was Russian.",
+      "focus": ["Meaning", "Ethics"],
+      "figures": ["Dmitry Pisarev", "Friedrich Nietzsche", "Ivan Turgenev"],
+      "description": "The view that life has no built-in meaning, purpose or value, and that traditional moral and religious beliefs have no solid foundation. It became famous through the radical youth of 1860s Russia and was later analysed in depth by Nietzsche.",
+      "clues": [
+        "This outlook rejects the idea that life comes with any built-in meaning or purpose.",
+        "It treats traditional morals, religion and authority as having no solid foundation.",
+        "A famous Russian novel made the word popular through a young doctor who rejects every authority.",
+        "Its name comes from the Latin word for 'nothing'.",
+        "Key figures: Dmitry Pisarev, who embraced the label; Friedrich Nietzsche, who analysed it; and Ivan Turgenev, whose novel made the word famous."
+      ]
+    },
+    {
+      "id": "pragmatism",
+      "name": "Pragmatism",
+      "aliases": ["American pragmatism"],
+      "field": "Philosophy",
+      "year": 1878,
+      "dateNote": "Peirce set out its key idea in 'How to Make Our Ideas Clear' (1878), after discussions in the early 1870s; James made the name famous in 1898.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Knowledge", "Meaning"],
+      "figures": ["Charles Sanders Peirce", "William James", "John Dewey"],
+      "description": "An American philosophy which judges ideas by their practical consequences: an idea is true if it works when put into practice. It treats thinking as a tool for solving problems rather than a mirror of reality.",
+      "clues": [
+        "This philosophy judges an idea by what difference it makes in practice.",
+        "It sees thinking as a tool for solving real problems, not for building abstract systems.",
+        "It says the meaning of a belief lies in its effects, and that truth is what proves useful in the long run.",
+        "It began in a discussion group in Cambridge, Massachusetts, called the Metaphysical Club.",
+        "Key figures: Charles Sanders Peirce, William James and John Dewey."
+      ]
+    },
+    {
+      "id": "phenomenology",
+      "name": "Phenomenology",
+      "aliases": ["Phenomenological philosophy"],
+      "field": "Philosophy",
+      "year": 1900,
+      "dateNote": "Husserl's Logical Investigations (1900–01) is the usual starting point.",
+      "place": "Germany",
+      "continent": "Europe",
+      "focus": ["Mind", "Existence"],
+      "figures": ["Edmund Husserl", "Martin Heidegger", "Maurice Merleau-Ponty", "Edith Stein"],
+      "description": "A philosophical method that studies the structures of conscious experience as they are lived, from the first-person point of view. It sets aside assumptions about the outside world in order to describe exactly how things appear to us.",
+      "clues": [
+        "This method studies experience exactly as it appears to the person having it.",
+        "It asks us to 'bracket', or set aside, our assumptions about whether the outside world is real.",
+        "Its motto was 'to the things themselves!', and it stresses that consciousness is always consciousness of something.",
+        "It began in Germany at the start of the 20th century and strongly influenced existentialism.",
+        "Key figures: Edmund Husserl, Martin Heidegger, Maurice Merleau-Ponty and Edith Stein."
+      ]
+    },
+    {
+      "id": "analytic-philosophy",
+      "name": "Analytic philosophy",
+      "aliases": ["Analytical philosophy"],
+      "field": "Philosophy",
+      "year": 1903,
+      "dateNote": "Frege's new logic dates from 1879, but the movement is usually dated from Russell and Moore's break with idealism in Cambridge around 1903.",
+      "place": "UK",
+      "continent": "Europe",
+      "originNote": "Centred on Cambridge, England, with roots in Frege's work in Germany.",
+      "focus": ["Language", "Knowledge"],
+      "figures": ["Bertrand Russell", "G. E. Moore", "Gottlob Frege", "Ludwig Wittgenstein"],
+      "description": "A style of philosophy which aims for clarity by analysing language, logic and concepts with great precision. It became the dominant approach in universities in Britain, Ireland, North America and Australia.",
+      "clues": [
+        "This approach thinks many philosophical problems come from unclear language.",
+        "It prizes clear, precise argument and uses modern formal logic as a key tool.",
+        "One of its founders showed how sentences could be rewritten in logic, using the example 'the present King of France is bald'.",
+        "It grew in early 20th-century Cambridge, building on a German mathematician's new logic, and is often contrasted with 'continental' philosophy.",
+        "Key figures: Bertrand Russell, G. E. Moore, Gottlob Frege and Ludwig Wittgenstein."
+      ]
+    },
+    {
+      "id": "kyoto-school",
+      "name": "Kyoto School",
+      "aliases": ["Kyoto school of philosophy"],
+      "field": "Philosophy",
+      "year": 1911,
+      "dateNote": "Nishida's first book, An Inquiry into the Good, came out in 1911; the name 'Kyoto School' was coined in 1932.",
+      "place": "Japan",
+      "continent": "Asia",
+      "focus": ["Existence", "Reality", "Meaning"],
+      "figures": ["Nishida Kitarō", "Tanabe Hajime", "Nishitani Keiji"],
+      "description": "A 20th-century Japanese school that combined Western philosophy with Buddhist ideas, especially the idea of 'absolute nothingness'. It tried to show that Eastern and Western thought could shed light on each other.",
+      "clues": [
+        "This modern school tried to build a bridge between Eastern and Western philosophy.",
+        "It drew on German philosophy and on Buddhist practice at the same time.",
+        "Its central idea is 'absolute nothingness', a groundless 'place' in which all things arise.",
+        "It is named after the Japanese university city where its founder and his students taught.",
+        "Key figures: Nishida Kitarō, Tanabe Hajime and Nishitani Keiji."
+      ]
+    },
+    {
+      "id": "logical-positivism",
+      "name": "Logical positivism",
+      "aliases": ["Logical empiricism", "Vienna Circle"],
+      "field": "Philosophy",
+      "year": 1924,
+      "dateNote": "The Vienna Circle began meeting around Moritz Schlick in 1924 and published its manifesto in 1929.",
+      "place": "Austria",
+      "continent": "Europe",
+      "focus": ["Knowledge", "Language"],
+      "figures": ["Moritz Schlick", "Rudolf Carnap", "Otto Neurath", "A. J. Ayer"],
+      "description": "A movement which held that a statement is only meaningful if it can be checked by observation or is true by logic alone. On that test it dismissed much of metaphysics, ethics and religion as literally meaningless.",
+      "clues": [
+        "This movement wanted philosophy to be as rigorous as science.",
+        "It said a statement means something only if experience could, in principle, show it to be true or false.",
+        "It therefore dismissed claims about God, ethics or the 'absolute' as neither true nor false, but meaningless.",
+        "It grew from a discussion group of scientists and philosophers that met in Vienna between the two world wars.",
+        "Key figures: Moritz Schlick, Rudolf Carnap, Otto Neurath and A. J. Ayer."
+      ]
+    },
+    {
+      "id": "critical-theory",
+      "name": "Critical theory",
+      "aliases": ["Frankfurt School"],
+      "field": "Philosophy",
+      "year": 1937,
+      "dateNote": "The Institute for Social Research opened in Frankfurt in 1923; Horkheimer named the approach 'critical theory' in a 1937 essay.",
+      "place": "Germany",
+      "continent": "Europe",
+      "focus": ["Society", "Knowledge"],
+      "figures": ["Max Horkheimer", "Theodor Adorno", "Herbert Marcuse", "Jürgen Habermas"],
+      "description": "A school of social philosophy which aims not just to understand society but to change it, by exposing hidden forms of power and domination. It combined ideas from Marx and Freud to criticise capitalism, mass culture and authoritarianism.",
+      "clues": [
+        "This approach says theory should help free people, not just describe the world.",
+        "It blended ideas from Marx and Freud to explain why workers had not rebelled as predicted.",
+        "It attacked the 'culture industry', arguing that mass entertainment keeps people passive.",
+        "It grew from an institute for social research in a German city, whose members fled the Nazis to New York.",
+        "Key figures: Max Horkheimer, Theodor Adorno, Herbert Marcuse and Jürgen Habermas."
+      ]
+    },
+    {
+      "id": "absurdism",
+      "name": "Absurdism",
+      "aliases": ["Philosophy of the absurd"],
+      "field": "Philosophy",
+      "year": 1942,
+      "dateNote": "Camus's essay The Myth of Sisyphus was published in 1942.",
+      "place": "France",
+      "continent": "Europe",
+      "originNote": "Camus grew up in French Algeria; the essay was published in Paris.",
+      "focus": ["Meaning"],
+      "figures": ["Albert Camus", "Søren Kierkegaard", "Thomas Nagel"],
+      "description": "The view that humans long for meaning in a universe that offers none, and that this clash is 'absurd'. Rather than despair or escape into faith, it urges us to live fully and rebelliously in spite of it.",
+      "clues": [
+        "This view describes a clash between our search for meaning and a silent universe.",
+        "It rejects both suicide and leaps of religious faith as ways out of that clash.",
+        "It recommends living fully, with defiance and passion, in the face of meaninglessness.",
+        "Its key essay ends by imagining a figure from Greek myth, forever pushing a boulder uphill, as happy.",
+        "Key figures: Albert Camus, with forerunner Søren Kierkegaard and, later, Thomas Nagel."
+      ]
+    },
+    {
+      "id": "existentialism",
+      "name": "Existentialism",
+      "field": "Philosophy",
+      "year": 1943,
+      "dateNote": "Its roots go back to Kierkegaard in the 1840s, but the name and the movement took shape in 1940s France: Sartre's Being and Nothingness came out in 1943, and the label was coined around 1943–45.",
+      "place": "France",
+      "continent": "Europe",
+      "originNote": "Its forerunners were Kierkegaard (Denmark) and Nietzsche and Heidegger (Germany).",
+      "focus": ["Existence", "Meaning"],
+      "figures": ["Søren Kierkegaard", "Jean-Paul Sartre", "Simone de Beauvoir", "Albert Camus"],
+      "description": "A philosophy that starts from the individual person, who exists first and must then create their own meaning and values through free choices. It stresses freedom, responsibility, authenticity and the anxiety that comes with them.",
+      "clues": [
+        "This philosophy begins with the individual person and their lived experience, not with abstract systems.",
+        "It argues that we are not born with a fixed purpose; we make ourselves who we are through our choices.",
+        "It explores anxiety, freedom, responsibility and the challenge of living authentically.",
+        "Its best-known slogan says we exist first and decide what we are afterwards, and it flourished in Paris cafés after the Second World War.",
+        "Key figures: Søren Kierkegaard, Jean-Paul Sartre, Simone de Beauvoir and Albert Camus."
+      ]
+    },
+    {
+      "id": "virtue-ethics",
+      "name": "Virtue ethics",
+      "aliases": ["Aretaic ethics"],
+      "field": "Philosophy",
+      "year": 1958,
+      "dateNote": "Its roots go back to Aristotle (and to Confucius), but the modern revival is dated from Anscombe's 1958 paper 'Modern Moral Philosophy'.",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Ethics"],
+      "figures": ["G. E. M. Anscombe", "Philippa Foot", "Alasdair MacIntyre", "Rosalind Hursthouse"],
+      "description": "An approach to ethics which focuses on character: what kind of person to be, rather than which rules to follow or results to aim for. It revived Aristotle's idea that a good life comes from developing virtues such as courage, honesty and practical wisdom.",
+      "clues": [
+        "This approach to ethics asks 'What kind of person should I be?' rather than 'What should I do?'",
+        "It focuses on character traits like courage, honesty and generosity.",
+        "It stresses practical wisdom: knowing how to act well in each particular situation.",
+        "It was revived in Britain in the mid-20th century as an alternative to rule-based and results-based ethics, drawing on Aristotle.",
+        "Key figures: Elizabeth Anscombe, Philippa Foot, Alasdair MacIntyre and Rosalind Hursthouse."
+      ]
+    },
+    {
+      "id": "critical-pedagogy",
+      "name": "Critical pedagogy",
+      "aliases": ["Pedagogy of the oppressed"],
+      "field": "Philosophy",
+      "year": 1968,
+      "dateNote": "Freire wrote Pedagogy of the Oppressed in 1968; it was published in English in 1970.",
+      "place": "Brazil",
+      "continent": "South America",
+      "originNote": "Freire developed his methods in Brazil and wrote the book in exile in Chile.",
+      "focus": ["Society", "Development"],
+      "figures": ["Paulo Freire", "Henry Giroux", "Peter McLaren"],
+      "description": "A philosophy of education which sees teaching as a way to help learners recognise and challenge injustice in their own lives. It rejects the idea of students as empty containers to be filled with facts.",
+      "clues": [
+        "This philosophy of education says schooling is never politically neutral.",
+        "It criticises 'banking' education, where teachers simply deposit facts into passive students.",
+        "It favours dialogue, in which teachers and learners question the world together and develop 'critical consciousness'.",
+        "Its founding book was written by a Brazilian educator in exile, after he had taught adult farm workers to read.",
+        "Key figures: Paulo Freire, Henry Giroux and Peter McLaren."
+      ]
+    },
+    {
+      "id": "sage-philosophy",
+      "name": "Sage philosophy",
+      "aliases": ["African sage philosophy"],
+      "field": "Philosophy",
+      "year": 1974,
+      "dateNote": "Odera Oruka set up the research project 'Thoughts of Traditional Kenyan Sages' at the University of Nairobi in 1974.",
+      "place": "Kenya",
+      "continent": "Africa",
+      "focus": ["Knowledge", "Society"],
+      "figures": ["Henry Odera Oruka"],
+      "description": "An approach to African philosophy that records and studies the reasoning of wise individuals in traditional communities. It aimed to show that critical, independent philosophical thinking existed in Africa outside universities and writing.",
+      "clues": [
+        "This approach looks for philosophy in the minds of wise people, not only in books.",
+        "Its researchers interviewed respected elders and recorded their views on God, justice and death.",
+        "It separated 'folk' wisdom that simply repeats tradition from thinkers who question and argue for their own views.",
+        "It began in the 1970s at the University of Nairobi, as an answer to claims that traditional Africa had no philosophy.",
+        "Key figure: Henry Odera Oruka, who interviewed wise elders across rural Kenya."
+      ]
+    },
+    {
+      "id": "postmodernism",
+      "name": "Postmodernism",
+      "aliases": ["Postmodern philosophy"],
+      "field": "Philosophy",
+      "year": 1979,
+      "dateNote": "Lyotard's The Postmodern Condition (1979) made the term central in philosophy; it had been used earlier in art and architecture.",
+      "place": "France",
+      "continent": "Europe",
+      "focus": ["Knowledge", "Language", "Society"],
+      "figures": ["Jean-François Lyotard", "Jacques Derrida", "Michel Foucault", "Jean Baudrillard"],
+      "description": "A late 20th-century movement which is suspicious of grand theories that claim to explain everything, and of claims to objective truth. It emphasises how language, power and culture shape what we take to be real.",
+      "clues": [
+        "This movement is deeply suspicious of any single story that claims to explain everything.",
+        "It questions whether objective truth is possible, stressing how language and power shape knowledge.",
+        "It is linked with 'deconstruction', which looks for hidden tensions and contradictions within texts.",
+        "It was made central to philosophy by a French report on the state of knowledge in computerised societies.",
+        "Key figures: Jean-François Lyotard, Jacques Derrida, Michel Foucault and Jean Baudrillard."
+      ]
+    },
+    {
+      "id": "ubuntu-philosophy",
+      "name": "Ubuntu philosophy",
+      "aliases": ["Ubuntu", "Hunhu"],
+      "field": "Philosophy",
+      "year": 1980,
+      "dateNote": "The idea is centuries old in Southern African cultures. Jordan Ngubane described it as a philosophy in the 1950s, and the first book about it, by Stanlake and Tommie Samkange, appeared in 1980.",
+      "place": "Zimbabwe",
+      "continent": "Africa",
+      "originNote": "Shared across Southern Africa: 'ubuntu' is the Nguni word and 'hunhu' the Shona one. The Samkanges' book came from Zimbabwe; Desmond Tutu made the idea famous in South Africa.",
+      "focus": ["Ethics", "Society"],
+      "figures": ["Stanlake Samkange", "Desmond Tutu", "Mogobe Ramose"],
+      "description": "A Southern African philosophy of shared humanity, summed up in the saying 'a person is a person through other people'. It values community, compassion and reconciliation over individual gain.",
+      "clues": [
+        "This philosophy says we become fully human only through our relationships with others.",
+        "It values community, compassion and sharing above individual success.",
+        "It shaped South Africa's Truth and Reconciliation Commission after apartheid.",
+        "Its name is a Nguni word, and it is summed up in the Zulu saying 'umuntu ngumuntu ngabantu'.",
+        "Key figures: Stanlake and Tommie Samkange, Desmond Tutu and Mogobe Ramose."
+      ]
+    },
+    {
+      "id": "effective-altruism",
+      "name": "Effective altruism",
+      "aliases": ["Effective altruists"],
+      "field": "Philosophy",
+      "year": 2011,
+      "dateNote": "The name was chosen in Oxford in 2011. It was inspired by Peter Singer's essay 'Famine, Affluence, and Morality' (1972).",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Ethics", "Society"],
+      "figures": ["Peter Singer", "Toby Ord", "William MacAskill"],
+      "description": "A movement which uses evidence and careful reasoning to work out how to do the most good with one's time and money. It encourages giving to the most effective charities and choosing careers with the greatest positive impact.",
+      "clues": [
+        "This movement asks: how can I do the most good possible?",
+        "It uses evidence to compare charities, finding some many times more effective than others.",
+        "It grew from an argument that ignoring distant suffering is like refusing to save a drowning child to keep your clothes clean.",
+        "It took its name in Oxford in the early 2010s, and many members pledge a share of their income to charity.",
+        "Key figures: Peter Singer, Toby Ord and William MacAskill."
+      ]
+    },
+    {
+      "id": "phrenology",
+      "name": "Phrenology",
+      "aliases": ["Craniology"],
+      "field": "Psychology",
+      "year": 1796,
+      "dateNote": "Gall began lecturing on his theory in Vienna in 1796; the name 'phrenology' came later, around 1815.",
+      "place": "Austria",
+      "continent": "Europe",
+      "focus": ["Mind", "Behaviour"],
+      "figures": ["Franz Joseph Gall", "Johann Spurzheim", "George Combe"],
+      "description": "A now-discredited theory which claimed that mental abilities and character traits sit in specific areas of the brain, and could be read from bumps on the skull. Although its methods were wrong, its idea that different brain areas do different jobs proved influential.",
+      "clues": [
+        "This approach claimed you could read someone's character from the outside of their head.",
+        "It divided the mind into about 27 separate 'faculties', such as kindness, pride and a talent for language.",
+        "It was hugely popular in the 19th century, though its methods were later shown to be unscientific.",
+        "It began with a Viennese doctor's lectures and was spread across Britain and America, often with porcelain model heads.",
+        "Key figures: Franz Joseph Gall, Johann Spurzheim and George Combe."
+      ]
+    },
+    {
+      "id": "psychophysics",
+      "name": "Psychophysics",
+      "aliases": ["Psycho-physics"],
+      "field": "Psychology",
+      "year": 1860,
+      "dateNote": "Fechner's Elements of Psychophysics was published in 1860, building on Weber's experiments from the 1830s.",
+      "place": "Germany",
+      "continent": "Europe",
+      "focus": ["Mind", "Reality"],
+      "figures": ["Gustav Fechner", "Ernst Weber"],
+      "description": "The scientific study of the relationship between physical stimuli and the sensations they produce. It showed for the first time that mental experiences could be measured, helping to found experimental psychology.",
+      "clues": [
+        "This field measures how strong a sensation feels compared with the physical stimulus causing it.",
+        "It studies thresholds: the faintest sound we can detect, or the smallest difference in weight we notice.",
+        "Its key law says that the smallest noticeable difference is a constant fraction of the original stimulus.",
+        "It was founded by a German physicist and philosopher in Leipzig, who hoped it would link body and mind.",
+        "Key figures: Gustav Fechner and Ernst Weber."
+      ]
+    },
+    {
+      "id": "structuralism",
+      "name": "Structuralism",
+      "aliases": ["Structural psychology"],
+      "field": "Psychology",
+      "year": 1879,
+      "dateNote": "Wundt opened his laboratory in Leipzig in 1879; his student Titchener gave the approach the name 'structuralism' in the USA in 1898.",
+      "place": "Germany",
+      "continent": "Europe",
+      "originNote": "Wundt's laboratory was in Germany; Titchener developed and named the school at Cornell University in the USA.",
+      "focus": ["Mind"],
+      "figures": ["Wilhelm Wundt", "Edward Titchener"],
+      "description": "An early school of psychology which tried to break conscious experience down into its basic elements, such as sensations and feelings. It relied on trained introspection, in which observers carefully reported their own experiences.",
+      "clues": [
+        "This early school tried to find the basic building blocks of conscious experience.",
+        "It used trained 'introspection': observers carefully described their own sensations in response to stimuli.",
+        "It treated the mind a little like chemistry, as if experience could be split into elements.",
+        "It grew from the first psychology laboratory, opened in Leipzig, and was carried to America by an English student.",
+        "Key figures: Wilhelm Wundt and Edward Titchener."
+      ]
+    },
+    {
+      "id": "functionalism",
+      "name": "Functionalism",
+      "aliases": ["Functional psychology"],
+      "field": "Psychology",
+      "year": 1890,
+      "dateNote": "James's The Principles of Psychology (1890) laid its foundations; Dewey's 1896 paper on the reflex arc launched the Chicago school.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Mind", "Behaviour"],
+      "figures": ["William James", "John Dewey", "James Rowland Angell"],
+      "description": "An early school of psychology which asked what the mind does, and how it helps us adapt to our environment, rather than what it is made of. Inspired by Darwin, it studied consciousness as a continuous, useful process.",
+      "clues": [
+        "This early school asked what the mind is for, not what it is made of.",
+        "Inspired by Darwin, it studied how mental processes help living things adapt and survive.",
+        "It described consciousness as a flowing 'stream' rather than a set of separate elements.",
+        "It grew in the USA in reaction to the structuralist approach, centred at Harvard and the University of Chicago.",
+        "Key figures: William James, John Dewey and James Rowland Angell."
+      ]
+    },
+    {
+      "id": "psychoanalysis",
+      "name": "Psychoanalysis",
+      "aliases": ["Psychoanalytic theory", "Freudian psychology"],
+      "field": "Psychology",
+      "year": 1896,
+      "dateNote": "Freud first used the word 'psychoanalysis' in 1896; The Interpretation of Dreams followed in 1899 (dated 1900).",
+      "place": "Austria",
+      "continent": "Europe",
+      "focus": ["Mind", "Development"],
+      "figures": ["Sigmund Freud", "Josef Breuer", "Anna Freud", "Melanie Klein"],
+      "description": "A theory and therapy built on the idea that much of our behaviour is driven by unconscious wishes, conflicts and childhood experiences. Therapy aims to bring this hidden material into awareness through methods such as free association and dream analysis.",
+      "clues": [
+        "This approach says much of what drives us is hidden from our own awareness.",
+        "It sees early childhood experiences as shaping adult personality.",
+        "It divides the mind into three parts that are often in conflict, and describes defence mechanisms such as repression.",
+        "It began in Vienna as a 'talking cure', using free association and the interpretation of dreams.",
+        "Key figures: Sigmund Freud, Josef Breuer, Anna Freud and Melanie Klein."
+      ]
+    },
+    {
+      "id": "gestalt-psychology",
+      "name": "Gestalt psychology",
+      "aliases": ["Gestalt theory", "Gestaltism"],
+      "field": "Psychology",
+      "year": 1912,
+      "dateNote": "Max Wertheimer's 1912 paper on apparent movement (the phi phenomenon) is usually taken as the start.",
+      "place": "Germany",
+      "continent": "Europe",
+      "focus": ["Mind"],
+      "figures": ["Max Wertheimer", "Wolfgang Köhler", "Kurt Koffka"],
+      "description": "A school arguing that we perceive organised wholes rather than adding up separate scraps of sensation. It described principles of grouping, such as proximity and similarity, and studied sudden insight in problem-solving.",
+      "clues": [
+        "This school says the mind naturally organises experience into meaningful patterns.",
+        "Its famous claim is that the whole is something different from the sum of its parts.",
+        "It describes grouping principles such as proximity, similarity and closure, and studied sudden 'insight' in problem-solving.",
+        "It started in Germany with experiments where flashing lights seem to move, and its name is the German word for 'form' or 'shape'.",
+        "Key figures: Max Wertheimer, Wolfgang Köhler and Kurt Koffka."
+      ]
+    },
+    {
+      "id": "individual-psychology",
+      "name": "Individual psychology",
+      "aliases": ["Adlerian psychology"],
+      "field": "Psychology",
+      "year": 1912,
+      "dateNote": "Adler left Freud's circle in 1911 and named his own approach 'individual psychology' in 1912.",
+      "place": "Austria",
+      "continent": "Europe",
+      "focus": ["Development", "Society"],
+      "figures": ["Alfred Adler", "Rudolf Dreikurs"],
+      "description": "A school of psychology which sees people as driven mainly by the need to overcome feelings of inferiority and to belong to a community. It treats each person as a unified whole working towards their own goals.",
+      "clues": [
+        "This approach sees people as striving to overcome feelings of weakness.",
+        "It gave us the term 'inferiority complex'.",
+        "It stressed social interest, a sense of belonging, and the effect of birth order on personality.",
+        "Its founder was an early member of Freud's circle in Vienna who broke away to start his own school.",
+        "Key figures: Alfred Adler and Rudolf Dreikurs."
+      ]
+    },
+    {
+      "id": "analytical-psychology",
+      "name": "Analytical psychology",
+      "aliases": ["Jungian psychology"],
+      "field": "Psychology",
+      "year": 1913,
+      "dateNote": "Jung broke with Freud in 1913 and began calling his approach 'analytical psychology'.",
+      "place": "Switzerland",
+      "continent": "Europe",
+      "focus": ["Mind", "Meaning"],
+      "figures": ["Carl Jung", "Marie-Louise von Franz"],
+      "description": "Carl Jung's school of psychology, which adds a 'collective unconscious' of inherited patterns, the archetypes, to the personal unconscious. It sees the goal of development as individuation: becoming a whole, integrated self.",
+      "clues": [
+        "This approach says we share a deep layer of the mind with all of humanity.",
+        "It describes universal images and characters, called archetypes, that appear in myths and dreams everywhere.",
+        "It introduced the ideas of introverts and extraverts, and the 'shadow' side of personality.",
+        "Its founder was a Swiss psychiatrist who was once Freud's chosen successor, until they split.",
+        "Key figures: Carl Jung and Marie-Louise von Franz."
+      ]
+    },
+    {
+      "id": "behaviourism",
+      "name": "Behaviourism",
+      "aliases": ["Behaviorism", "Behavioural psychology", "Behavioral psychology"],
+      "field": "Psychology",
+      "year": 1913,
+      "dateNote": "John B. Watson's 1913 paper 'Psychology as the Behaviorist Views It' is taken as the starting point.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Behaviour"],
+      "figures": ["John B. Watson", "B. F. Skinner", "Ivan Pavlov", "Edward Thorndike"],
+      "description": "An approach that says psychology should study only observable behaviour, not inner thoughts or feelings. It explains behaviour as learned through conditioning: links formed between stimuli, responses and their consequences.",
+      "clues": [
+        "This approach argues that psychology should study only what can be observed and measured.",
+        "It treats the mind as a 'black box' and focuses on how the environment shapes what we do.",
+        "It explains learning through conditioning, using rewards, punishments and associations.",
+        "It was launched in the USA early in the 20th century; its famous experiments involved dogs drooling at a sound and rats pressing levers.",
+        "Key figures: John B. Watson, B. F. Skinner, Ivan Pavlov and Edward Thorndike."
+      ]
+    },
+    {
+      "id": "morita-therapy",
+      "name": "Morita therapy",
+      "aliases": ["Morita psychotherapy"],
+      "field": "Psychology",
+      "year": 1919,
+      "dateNote": "Morita published his method in 1919; it took its final form around 1920 and was named after him by his student Kora.",
+      "place": "Japan",
+      "continent": "Asia",
+      "focus": ["Emotion", "Behaviour"],
+      "figures": ["Shoma Morita", "Takehisa Kora"],
+      "description": "A Japanese therapy for anxiety which teaches people to accept their feelings as they are, rather than fight them, while doing what needs to be done. It originally began with a period of complete bed rest followed by gradually increasing work.",
+      "clues": [
+        "This therapy teaches that you don't need to get rid of anxiety before you can act.",
+        "It encourages accepting feelings 'as they are' while focusing on purposeful action.",
+        "It traditionally began with about a week of isolated bed rest, then light and gradually harder work.",
+        "It was developed in Japan by a psychiatrist influenced by Zen Buddhism.",
+        "Key figures: Shoma Morita and his student Takehisa Kora."
+      ]
+    },
+    {
+      "id": "constructivism",
+      "name": "Constructivism",
+      "aliases": ["Piaget's theory", "Cognitive development theory"],
+      "field": "Psychology",
+      "year": 1923,
+      "dateNote": "Piaget published his first studies of children's thinking in 1923; the full stage theory took shape in the 1930s and after.",
+      "place": "Switzerland",
+      "continent": "Europe",
+      "focus": ["Development", "Knowledge"],
+      "figures": ["Jean Piaget", "Bärbel Inhelder"],
+      "description": "Jean Piaget's theory that children actively build their own understanding of the world, rather than passively absorbing it. It describes thinking as developing through a series of stages, from the sensorimotor stage of infancy to abstract reasoning.",
+      "clues": [
+        "This theory says children are like little scientists, actively building their own understanding.",
+        "It describes learning as fitting new experiences into existing mental frameworks, or changing those frameworks to fit.",
+        "It proposes four stages of thinking, and a famous task tests whether children realise that pouring water into a taller glass doesn't change the amount.",
+        "Its Swiss founder began as a biologist studying molluscs before spending decades watching how children think.",
+        "Key figures: Jean Piaget and Bärbel Inhelder."
+      ]
+    },
+    {
+      "id": "logotherapy",
+      "name": "Logotherapy",
+      "aliases": ["Existential analysis"],
+      "field": "Psychology",
+      "year": 1926,
+      "dateNote": "Frankl first used the word in 1926 and developed the approach in Vienna in the 1930s; Man's Search for Meaning appeared in 1946.",
+      "place": "Austria",
+      "continent": "Europe",
+      "focus": ["Meaning", "Existence"],
+      "figures": ["Viktor Frankl"],
+      "description": "Viktor Frankl's therapy, based on the idea that the main human drive is the search for meaning. It helps people find meaning through their work, their relationships and the attitude they take towards unavoidable suffering.",
+      "clues": [
+        "This therapy says our deepest need is not pleasure or power, but meaning.",
+        "It holds that meaning can be found through work, through love, and through how we face suffering.",
+        "Its founder survived Nazi concentration camps and wrote a bestselling book about them.",
+        "It is sometimes called the 'third Viennese school' of psychotherapy, after Freud's and Adler's.",
+        "Key figure: Viktor Frankl."
+      ]
+    },
+    {
+      "id": "sociocultural-theory",
+      "name": "Sociocultural theory",
+      "aliases": ["Vygotsky's theory", "Cultural-historical psychology"],
+      "field": "Psychology",
+      "year": 1930,
+      "dateNote": "Vygotsky's main work dates from about 1924 until his death in 1934; Thought and Language appeared in 1934.",
+      "place": "Russia",
+      "continent": "Europe",
+      "originNote": "Developed in Moscow, in the Soviet Union.",
+      "focus": ["Development", "Society", "Language"],
+      "figures": ["Lev Vygotsky", "Alexander Luria", "Jerome Bruner"],
+      "description": "Lev Vygotsky's theory that children's thinking develops through social interaction and the cultural tools, especially language, that they are given. It stresses that learners can do more with help from a more skilled person than they can alone.",
+      "clues": [
+        "This theory says children learn their way of thinking from the people around them.",
+        "It sees language as a tool that is first used socially and later becomes inner thought.",
+        "It introduced the 'zone of proximal development': what a learner can do with help but not yet alone.",
+        "Its founder worked in the Soviet Union and died young of tuberculosis; his ideas reached the West decades later.",
+        "Key figures: Lev Vygotsky, Alexander Luria and Jerome Bruner, who added the idea of 'scaffolding'."
+      ]
+    },
+    {
+      "id": "trait-theory",
+      "name": "Trait theory",
+      "aliases": ["Big Five", "Five-factor model"],
+      "field": "Psychology",
+      "year": 1937,
+      "dateNote": "Allport and Odbert's dictionary study came out in 1936 and Allport's book Personality in 1937; the Big Five model developed from the 1960s to the 1990s.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Behaviour", "Mind"],
+      "figures": ["Gordon Allport", "Raymond Cattell", "Hans Eysenck", "Paul Costa", "Robert McCrae"],
+      "description": "An approach to personality which describes people in terms of stable characteristics, or traits, that can be measured. Its best-known form rates everyone on openness, conscientiousness, extraversion, agreeableness and neuroticism.",
+      "clues": [
+        "This approach describes personality as a set of lasting characteristics that can be measured.",
+        "It began by searching the dictionary for every word that describes a person.",
+        "It uses statistics to group many characteristics into a few broad dimensions.",
+        "Its best-known modern form scores people on openness, conscientiousness, extraversion, agreeableness and neuroticism.",
+        "Key figures: Gordon Allport, Raymond Cattell, Hans Eysenck, and Paul Costa with Robert McCrae."
+      ]
+    },
+    {
+      "id": "object-relations-theory",
+      "name": "Object relations theory",
+      "aliases": ["Object relations"],
+      "field": "Psychology",
+      "year": 1944,
+      "dateNote": "Klein's work began in the 1920s; Fairbairn's papers of the 1940s, including a key one in 1944, gave the theory its name.",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Development", "Emotion", "Mind"],
+      "figures": ["Melanie Klein", "Ronald Fairbairn", "Donald Winnicott"],
+      "description": "A branch of psychoanalysis which sees the need for relationships, starting with the bond between baby and caregiver, as the core of human development. It studies how early relationships become inner images that shape our later ones.",
+      "clues": [
+        "This approach says our earliest relationships shape the inner world we carry for life.",
+        "It argues that we are driven to seek relationships, not just to satisfy instincts.",
+        "It gave us the 'good enough mother' and the idea of a comfort blanket as a 'transitional object'.",
+        "It grew among psychoanalysts in Britain in the 1930s and 1940s, as a development of Freud's ideas.",
+        "Key figures: Melanie Klein, Ronald Fairbairn and Donald Winnicott."
+      ]
+    },
+    {
+      "id": "cognitive-dissonance-theory",
+      "name": "Cognitive dissonance theory",
+      "aliases": ["Cognitive dissonance"],
+      "field": "Psychology",
+      "year": 1957,
+      "dateNote": "Festinger's A Theory of Cognitive Dissonance was published in 1957.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Mind", "Emotion"],
+      "figures": ["Leon Festinger", "James Carlsmith", "Elliot Aronson"],
+      "description": "Leon Festinger's theory that holding two conflicting beliefs, or acting against our beliefs, causes discomfort that we are driven to reduce. We often reduce it by changing our attitudes to match what we have done.",
+      "clues": [
+        "This theory is about the uncomfortable feeling of holding two beliefs that don't fit together.",
+        "It predicts that people often change their attitudes to justify what they have already done.",
+        "In a famous experiment, people paid only $1 to call a dull task interesting came to like it more than those paid $20.",
+        "It began with a study of a group that predicted the end of the world and became more committed when it didn't happen.",
+        "Key figures: Leon Festinger, James Carlsmith and Elliot Aronson."
+      ]
+    },
+    {
+      "id": "attachment-theory",
+      "name": "Attachment theory",
+      "aliases": ["Bowlby's theory"],
+      "field": "Psychology",
+      "year": 1958,
+      "dateNote": "Bowlby's paper 'The Nature of the Child's Tie to his Mother' (1958) is usually taken as the start; Ainsworth's Strange Situation followed in the 1970s.",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Development", "Emotion"],
+      "figures": ["John Bowlby", "Mary Ainsworth", "Harry Harlow"],
+      "description": "John Bowlby's theory that babies have an inborn need to form a close bond with a caregiver, which gives them a secure base for exploring the world. The quality of this early bond is thought to shape later relationships.",
+      "clues": [
+        "This theory says babies are born needing a close bond with a caregiver.",
+        "It describes the caregiver as a 'secure base' from which a child explores.",
+        "Its 'Strange Situation' test sorts toddlers' reactions to a short separation into secure and insecure types.",
+        "It began with a British psychiatrist's work on children separated from their families, influenced by studies of animal behaviour.",
+        "Key figures: John Bowlby, Mary Ainsworth and Harry Harlow."
+      ]
+    },
+    {
+      "id": "social-learning-theory",
+      "name": "Social learning theory",
+      "aliases": ["Social cognitive theory"],
+      "field": "Psychology",
+      "year": 1961,
+      "dateNote": "Miller and Dollard used the term in 1941; Bandura's Bobo doll experiments began in 1961, and his book Social Learning Theory appeared in 1977.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Behaviour", "Development"],
+      "figures": ["Albert Bandura", "Richard Walters", "Neal Miller", "John Dollard"],
+      "description": "Albert Bandura's theory that people learn many behaviours by observing and imitating others, not only through their own rewards and punishments. It highlights role models, attention, memory and motivation in learning.",
+      "clues": [
+        "This theory says we learn much of our behaviour simply by watching others.",
+        "It describes learning by imitating 'models', and by seeing others rewarded or punished.",
+        "In a famous experiment, children who watched an adult hit an inflatable doll were more likely to do the same.",
+        "It built on behaviourism but added thinking processes such as attention, memory and, later, 'self-efficacy'.",
+        "Key figures: Albert Bandura, Richard Walters and, earlier, Neal Miller and John Dollard."
+      ]
+    },
+    {
+      "id": "humanistic-psychology",
+      "name": "Humanistic psychology",
+      "aliases": ["Humanistic approach", "Third force psychology"],
+      "field": "Psychology",
+      "year": 1962,
+      "dateNote": "It grew through the 1950s (Maslow's Motivation and Personality came out in 1954). The Journal of Humanistic Psychology began in 1961 and the Association for Humanistic Psychology was formally founded in 1962.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Development", "Meaning"],
+      "figures": ["Abraham Maslow", "Carl Rogers", "Rollo May", "Charlotte Bühler"],
+      "description": "An approach that focuses on the whole person, their free will and their drive to grow and reach their potential. It arose as a reaction against behaviourism and psychoanalysis, which it saw as too mechanical or too pessimistic.",
+      "clues": [
+        "This approach sees people as basically good and able to choose their own path.",
+        "It was called a 'third force' because it reacted against the two big approaches of its day.",
+        "It stresses personal growth, free will and the drive to reach your full potential.",
+        "It gave us the hierarchy of needs, client-centred therapy and the idea of unconditional positive regard.",
+        "Key figures: Abraham Maslow, Carl Rogers, Rollo May and Charlotte Bühler."
+      ]
+    },
+    {
+      "id": "cognitive-behavioural-therapy",
+      "name": "Cognitive behavioural therapy",
+      "aliases": ["CBT", "Cognitive behavioral therapy", "Cognitive therapy"],
+      "field": "Psychology",
+      "year": 1963,
+      "dateNote": "Ellis began his rational emotive approach in 1955 and Beck developed cognitive therapy for depression in the early 1960s; both merged with behaviour therapy in the 1970s.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Mind", "Emotion", "Behaviour"],
+      "figures": ["Aaron Beck", "Albert Ellis", "Judith Beck"],
+      "description": "A talking therapy based on the idea that our thoughts, feelings and actions are linked, and that changing unhelpful thinking patterns can change how we feel and behave. It is structured, short-term and focused on present problems.",
+      "clues": [
+        "This therapy focuses on how the way we think affects the way we feel.",
+        "It teaches people to spot and challenge unhelpful automatic thoughts, like 'I always fail'.",
+        "It combines changing thoughts with practical changes in behaviour, often with homework between sessions.",
+        "It grew from an American psychiatrist's work on depression in the 1960s, and is now one of the most widely used therapies.",
+        "Key figures: Aaron Beck, Albert Ellis and Judith Beck."
+      ]
+    },
+    {
+      "id": "ecological-psychology",
+      "name": "Ecological psychology",
+      "aliases": ["Gibsonian psychology", "Ecological approach"],
+      "field": "Psychology",
+      "year": 1966,
+      "dateNote": "Gibson's The Senses Considered as Perceptual Systems (1966) set out the approach; The Ecological Approach to Visual Perception followed in 1979.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Mind", "Behaviour"],
+      "figures": ["James J. Gibson", "Eleanor Gibson"],
+      "description": "An approach to perception which argues that people and animals perceive the world directly, by picking up information from their surroundings, without needing to build inner pictures. It focuses on 'affordances', the possibilities for action that the environment offers.",
+      "clues": [
+        "This approach says we perceive the world directly, without building pictures of it in our heads.",
+        "It studies perception as something we do while moving around, not as passive seeing.",
+        "It introduced 'affordances': what an object offers us, such as a chair affording sitting.",
+        "Its founder developed his ideas while training pilots during the Second World War, and studied perception in natural settings.",
+        "Key figures: James J. Gibson and Eleanor Gibson."
+      ]
+    },
+    {
+      "id": "cognitive-psychology",
+      "name": "Cognitive psychology",
+      "aliases": ["Cognitivism"],
+      "field": "Psychology",
+      "year": 1967,
+      "dateNote": "Neisser's book Cognitive Psychology (1967) named the field; the 'cognitive revolution' began in the 1950s.",
+      "place": "USA",
+      "continent": "North America",
+      "originNote": "Neisser named it in the USA, but British researchers such as Broadbent were key early figures.",
+      "focus": ["Mind", "Knowledge"],
+      "figures": ["Ulric Neisser", "Donald Broadbent", "Alan Baddeley", "Elizabeth Loftus"],
+      "description": "The branch of psychology that studies internal mental processes such as attention, memory, perception, language and problem-solving. It treats the mind as an information processor, often comparing it to a computer.",
+      "clues": [
+        "This approach studies what goes on inside the mind, which behaviourists had ignored.",
+        "It compares the mind to a computer that takes in, stores and retrieves information.",
+        "It produced models of memory with separate short-term and long-term stores, and showed how unreliable eyewitnesses can be.",
+        "It was named in an American psychologist's textbook in the 1960s, after a 'revolution' against behaviourism.",
+        "Key figures: Ulric Neisser, Donald Broadbent, Alan Baddeley and Elizabeth Loftus."
+      ]
+    },
+    {
+      "id": "transpersonal-psychology",
+      "name": "Transpersonal psychology",
+      "aliases": ["Fourth force psychology"],
+      "field": "Psychology",
+      "year": 1969,
+      "dateNote": "The Journal of Transpersonal Psychology was founded in 1969.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Meaning", "Mind"],
+      "figures": ["Abraham Maslow", "Stanislav Grof", "Anthony Sutich", "Ken Wilber"],
+      "description": "A school of psychology which studies spiritual experiences and states of consciousness that go beyond the ordinary sense of self. It grew out of humanistic psychology and draws on Eastern traditions and meditation.",
+      "clues": [
+        "This school studies experiences that go beyond the everyday sense of 'me'.",
+        "It takes mystical, spiritual and 'peak' experiences seriously as subjects for psychology.",
+        "It draws on meditation and Eastern traditions as well as Western research.",
+        "It was founded in the USA in the late 1960s as a 'fourth force', growing out of the humanistic movement.",
+        "Key figures: Abraham Maslow, Stanislav Grof, Anthony Sutich and Ken Wilber."
+      ]
+    },
+    {
+      "id": "social-identity-theory",
+      "name": "Social identity theory",
+      "aliases": ["Tajfel's theory"],
+      "field": "Psychology",
+      "year": 1979,
+      "dateNote": "Tajfel's minimal group studies began around 1970; the theory was set out with Turner in 1979.",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Society", "Behaviour"],
+      "figures": ["Henri Tajfel", "John Turner"],
+      "description": "Henri Tajfel and John Turner's theory that part of our sense of who we are comes from the groups we belong to. It explains why people favour their own group and can become prejudiced against others.",
+      "clues": [
+        "This theory says that part of who we are comes from the groups we belong to.",
+        "It explains why people tend to favour their own group over others.",
+        "Its 'minimal group' experiments showed people favouring their group even when groups were formed on trivial grounds.",
+        "It was developed at the University of Bristol by a Polish-born psychologist who had survived the Second World War as a prisoner of war.",
+        "Key figures: Henri Tajfel and John Turner."
+      ]
+    },
+    {
+      "id": "multiple-intelligences",
+      "name": "Multiple intelligences",
+      "aliases": ["Theory of multiple intelligences"],
+      "field": "Psychology",
+      "year": 1983,
+      "dateNote": "Gardner set out the theory in Frames of Mind (1983).",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Mind", "Development"],
+      "figures": ["Howard Gardner"],
+      "description": "Howard Gardner's theory that intelligence is not one general ability but several separate kinds, such as linguistic, logical-mathematical, musical and interpersonal intelligence. It has been popular in education, though many psychologists question the evidence for it.",
+      "clues": [
+        "This theory says there is more than one way to be clever.",
+        "It rejects the idea that a single IQ score captures someone's ability.",
+        "It lists separate kinds of ability, such as musical, spatial, bodily, interpersonal and naturalistic.",
+        "It was proposed by a Harvard psychologist in a book called Frames of Mind.",
+        "Key figure: Howard Gardner."
+      ]
+    },
+    {
+      "id": "self-determination-theory",
+      "name": "Self-determination theory",
+      "aliases": ["SDT"],
+      "field": "Psychology",
+      "year": 1985,
+      "dateNote": "Deci began studying intrinsic motivation in the early 1970s; the theory was set out with Ryan in 1985.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Behaviour", "Development"],
+      "figures": ["Edward Deci", "Richard Ryan"],
+      "description": "Edward Deci and Richard Ryan's theory of motivation, which says people thrive when three basic needs are met: autonomy, competence and relatedness. It distinguishes doing things for their own sake from doing them for rewards or under pressure.",
+      "clues": [
+        "This theory is about why we do things, and what makes motivation last.",
+        "It separates doing something because you enjoy it from doing it for rewards or to avoid punishment.",
+        "It says we have three basic needs: to feel in control of our choices, to feel capable, and to feel connected to others.",
+        "Its experiments found that paying people for an activity they already enjoyed could reduce their interest in it.",
+        "Key figures: Edward Deci and Richard Ryan."
+      ]
+    },
+    {
+      "id": "liberation-psychology",
+      "name": "Liberation psychology",
+      "aliases": ["Psychology of liberation"],
+      "field": "Psychology",
+      "year": 1986,
+      "dateNote": "Martín-Baró's essay calling for this approach was published in 1986; he was killed in San Salvador in 1989.",
+      "place": "El Salvador",
+      "continent": "North America",
+      "originNote": "Developed in El Salvador, in Central America, which is part of the North American continent.",
+      "focus": ["Society", "Ethics"],
+      "figures": ["Ignacio Martín-Baró"],
+      "description": "A Latin American approach which holds that psychology should start from the experiences of oppressed people and help them change the conditions that harm them. It criticises mainstream psychology for treating social problems as purely personal ones.",
+      "clues": [
+        "This approach says psychology should serve the poor and oppressed, not just study them.",
+        "It criticises treating problems caused by poverty and violence as purely individual issues.",
+        "It drew on the education methods of Paulo Freire and on Latin American liberation theology.",
+        "Its founder was a Spanish-born Jesuit priest and psychologist killed during a civil war in Central America.",
+        "Key figure: Ignacio Martín-Baró."
+      ]
+    },
+    {
+      "id": "narrative-therapy",
+      "name": "Narrative therapy",
+      "aliases": ["Narrative practice"],
+      "field": "Psychology",
+      "year": 1990,
+      "dateNote": "White and Epston's book Narrative Means to Therapeutic Ends (1990) set it out, after work through the 1980s.",
+      "place": "Australia",
+      "continent": "Oceania",
+      "originNote": "Michael White worked in Adelaide, Australia, and David Epston in Auckland, New Zealand.",
+      "focus": ["Meaning", "Language"],
+      "figures": ["Michael White", "David Epston"],
+      "description": "A form of therapy which sees people's lives as shaped by the stories they tell about themselves, and helps them rewrite those stories. It separates people from their problems, treating the problem, not the person, as the problem.",
+      "clues": [
+        "This therapy helps people retell the stories they live by.",
+        "Its motto is that the person is not the problem; the problem is the problem.",
+        "It uses 'externalising' conversations, in which a problem like anxiety is given a name and discussed as if it were outside the person.",
+        "It was developed in Adelaide, Australia, and Auckland, New Zealand, in the 1980s.",
+        "Key figures: Michael White and David Epston."
+      ]
+    },
+    {
+      "id": "evolutionary-psychology",
+      "name": "Evolutionary psychology",
+      "aliases": ["Evolutionary approach"],
+      "field": "Psychology",
+      "year": 1992,
+      "dateNote": "Its ideas go back to Darwin and to sociobiology in the 1970s; the book The Adapted Mind (1992) gave the field its modern form.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Mind", "Behaviour"],
+      "figures": ["Leda Cosmides", "John Tooby", "David Buss", "Steven Pinker"],
+      "description": "An approach which explains human thoughts and behaviour as adaptations, shaped by natural selection to solve problems our ancestors faced. It sees the mind as a set of specialised mechanisms that evolved in the Stone Age.",
+      "clues": [
+        "This approach asks how our ancestors' survival problems shaped the way we think today.",
+        "It explains things such as fear of snakes and choice of partners as products of natural selection.",
+        "It describes the mind as a collection of specialised tools that evolved for life as hunter-gatherers.",
+        "It took off in the 1990s after an influential collection of essays called The Adapted Mind.",
+        "Key figures: Leda Cosmides, John Tooby, David Buss and Steven Pinker."
+      ]
+    },
+    {
+      "id": "positive-psychology",
+      "name": "Positive psychology",
+      "aliases": ["Science of well-being"],
+      "field": "Psychology",
+      "year": 1998,
+      "dateNote": "Seligman launched it in his 1998 presidential address to the American Psychological Association.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Emotion", "Meaning"],
+      "figures": ["Martin Seligman", "Mihaly Csikszentmihalyi", "Christopher Peterson"],
+      "description": "A branch of psychology which studies what makes life go well, such as happiness, strengths, meaning and resilience, rather than only treating illness. It aims to help people and communities flourish.",
+      "clues": [
+        "This branch studies what makes life worth living, not only what goes wrong.",
+        "It researches happiness, gratitude, resilience and character strengths.",
+        "It made famous the idea of 'flow', the absorbing state of being fully engaged in a challenging task.",
+        "It was launched by a psychologist known for 'learned helplessness', during his year as president of the American Psychological Association.",
+        "Key figures: Martin Seligman, Mihaly Csikszentmihalyi and Christopher Peterson."
+      ]
+    },
+    {
+      "id": "associationism",
+      "name": "Associationism",
+      "aliases": ["Association of ideas"],
+      "field": "Both",
+      "year": 1749,
+      "dateNote": "Locke coined the phrase 'association of ideas' in 1700, and Hartley's Observations on Man (1749) turned it into a full theory.",
+      "place": "UK",
+      "continent": "Europe",
+      "focus": ["Mind", "Knowledge"],
+      "figures": ["David Hartley", "David Hume", "James Mill", "Alexander Bain"],
+      "description": "The idea that the mind works by linking ideas together through experience, so that one thought calls up another. Starting in philosophy, it became a foundation for early experimental psychology and theories of learning.",
+      "clues": [
+        "This approach says thinking works by connecting one idea to another.",
+        "It holds that ideas experienced together, or one after the other, become linked in the mind.",
+        "It named laws of connection such as resemblance, closeness in time or place, and cause and effect.",
+        "It began with British philosophers and an English doctor who linked it to vibrations in the nerves, and it later shaped studies of learning and memory.",
+        "Key figures: David Hartley, David Hume, James Mill and Alexander Bain."
+      ]
+    },
+    {
+      "id": "cognitive-science",
+      "name": "Cognitive science",
+      "field": "Both",
+      "year": 1956,
+      "dateNote": "Often dated to a symposium at MIT on 11 September 1956; the name itself was only coined in 1973.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Mind", "Knowledge", "Language"],
+      "figures": ["George A. Miller", "Noam Chomsky", "Herbert Simon", "Allen Newell", "Marvin Minsky"],
+      "description": "An interdisciplinary field that studies the mind as an information-processing system. It brings together psychology, philosophy, linguistics, neuroscience, computer science and anthropology.",
+      "clues": [
+        "This field treats thinking as a kind of information processing.",
+        "It is less a single theory than a meeting point of several subjects, from philosophy to computer science.",
+        "It grew out of a mid-century 'revolution' that brought the study of thinking back after behaviourism, partly inspired by early computers.",
+        "Many date its birth to a meeting at MIT with talks on memory limits ('seven, plus or minus two'), grammar and a machine that proved logic theorems.",
+        "Key figures: George A. Miller, Noam Chomsky, Herbert Simon, Allen Newell and Marvin Minsky."
+      ]
+    },
+    {
+      "id": "mind-brain-identity-theory",
+      "name": "Mind-brain identity theory",
+      "aliases": ["Identity theory", "Australian materialism", "Type physicalism"],
+      "field": "Both",
+      "year": 1956,
+      "dateNote": "Place's paper 'Is Consciousness a Brain Process?' appeared in the British Journal of Psychology in 1956; Smart and the American Herbert Feigl followed in 1958–59.",
+      "place": "Australia",
+      "continent": "Oceania",
+      "originNote": "Place and Smart were British-born and worked at the University of Adelaide, which is why it is also called 'Australian materialism'.",
+      "focus": ["Mind", "Reality"],
+      "figures": ["U. T. Place", "J. J. C. Smart", "Herbert Feigl", "David Armstrong"],
+      "description": "The theory that mental states, such as pains and thoughts, are literally the same thing as processes in the brain. It offered a scientific, materialist answer to the old mind-body problem.",
+      "clues": [
+        "This theory says the mind is not something extra on top of the body.",
+        "It claims that each kind of experience, such as pain, simply is a certain kind of brain process.",
+        "It compared this to discovering that lightning is an electrical discharge: two descriptions of one thing.",
+        "It was first proposed in a psychology journal by a British psychologist and philosopher working in South Australia.",
+        "Key figures: U. T. Place, J. J. C. Smart, Herbert Feigl and David Armstrong."
+      ]
+    },
+    {
+      "id": "social-constructionism",
+      "name": "Social constructionism",
+      "aliases": ["Social construction of reality"],
+      "field": "Both",
+      "year": 1966,
+      "dateNote": "Berger and Luckmann's The Social Construction of Reality (1966) is the starting point; Kenneth Gergen brought the idea into psychology in 1985.",
+      "place": "USA",
+      "continent": "North America",
+      "originNote": "Berger was born in Austria and Luckmann in Slovenia, but both worked in New York.",
+      "focus": ["Society", "Knowledge", "Language"],
+      "figures": ["Peter Berger", "Thomas Luckmann", "Kenneth Gergen"],
+      "description": "The view that much of what we take to be natural or obvious, such as categories of gender, race or mental illness, is created and kept going through social processes and language. It asks how shared meanings are built up and passed on.",
+      "clues": [
+        "This view says many things we think of as natural are actually created by society.",
+        "It argues that categories like 'childhood' or 'madness' have changed across cultures and history.",
+        "It focuses on how language and everyday interaction build up shared versions of reality.",
+        "It takes its name from a 1960s book by two sociologists about how reality is 'constructed', and later spread into psychology.",
+        "Key figures: Peter Berger, Thomas Luckmann and Kenneth Gergen."
+      ]
+    },
+    {
+      "id": "embodied-cognition",
+      "name": "Embodied cognition",
+      "aliases": ["Embodied mind", "Enactivism"],
+      "field": "Both",
+      "year": 1991,
+      "dateNote": "The Embodied Mind by Varela, Thompson and Rosch (1991) is a key starting point; Lakoff and Johnson's work on metaphor began in 1980.",
+      "place": "USA",
+      "continent": "North America",
+      "focus": ["Mind", "Knowledge"],
+      "figures": ["Francisco Varela", "Evan Thompson", "Eleanor Rosch", "George Lakoff", "Andy Clark"],
+      "description": "The view that thinking does not just happen in the brain but is shaped by the body and its interactions with the world. It challenges the idea of the mind as a computer running abstract symbols.",
+      "clues": [
+        "This view says we think with our whole body, not just our brain.",
+        "It argues that our concepts are built from bodily experiences such as balance, movement and touch.",
+        "It points to everyday metaphors, like 'grasping an idea' or 'feeling down', that come from the body.",
+        "It challenged the computer model of the mind in the 1990s, drawing on Buddhist ideas and phenomenology.",
+        "Key figures: Francisco Varela, Evan Thompson, Eleanor Rosch, George Lakoff and Andy Clark."
+      ]
+    }
+  ]
+}
