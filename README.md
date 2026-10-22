@@ -42,9 +42,9 @@ To try it on the iPhone Simulator, open http://127.0.0.1:8080 in its Safari.
 | **Specialty** | exactly the same specialties | at least one shared | none shared |
 | **Began** | within 20 years | within 100 years | further apart |
 | **Origin** | same country | same continent | elsewhere |
-| **Type** | same type | — | different type |
+| **Method** | exactly the same methods | at least one shared | none shared |
 
-  The **Began** box also shows ↑ if the answer began later, or ↓ if earlier. **Specialty** is the area an answer works in (e.g. Ethics, Mind, Clinical). **Type** is what kind of thing it is: School, Movement, Tradition, Theory, Therapy or Method.
+  The **Began** box also shows ↑ if the answer began later, or ↓ if earlier. **Specialty** is the area an answer works in (e.g. Ethics, Mind, Clinical). **Method** is how it gets its answers: Argument, Thought experiment, Dialogue or Observation in philosophy; Experiment, Case study, Observation, Therapy or Survey in psychology.
 - **Daily** has two puzzles each day, one **Philosophy** and one **Psychology**. Pick one with the switch under the mode buttons. Each is the same for everyone, changes at midnight and has its own stats and streak. The guess list only offers answers from that subject. The five answers that belong to both subjects can appear in either.
 - **Practice** gives unlimited random rounds in Philosophy or Psychology.
 - Every answer you meet is saved in the **Encyclopedia** for revision.
@@ -102,6 +102,7 @@ The game replays every day since launch to know what's left in each bag. It soun
   "aliases": ["Mind-body dualism"],
   "type": "Theory",
   "specialties": ["Mind", "Metaphysics"],
+  "methods": ["Argument", "Thought experiment"],
   "year": 1641,
   "dateNote": "Descartes set it out in his Meditations on First Philosophy (1641).",
   "place": "France",
@@ -118,8 +119,9 @@ The game replays every day since launch to know what's left in each bag. It soun
 | `id` | lower-case words joined by hyphens. Never change it later: stats depend on it |
 | `name` | the answer as players will pick it |
 | `aliases` | *optional.* Other names or spellings the search box should find (e.g. "Behaviorism") |
-| `type` | one of the `"types"` at the top of `data.json`: School, Movement, Tradition, Theory, Therapy or Method |
+| `type` | one of the `"types"` at the top of `data.json`: School, Movement, Tradition, Theory, Therapy or Method. Shown in the Encyclopedia, not on the board |
 | `specialties` | 1 to 3 from the `"specialties"` lists at the top of `data.json`. **These also decide the subject:** philosophy specialties put it in the Philosophy daily, psychology ones in Psychology, and one from each list puts it in both |
+| `methods` | 1 to 3 from the `"methods"` list for its subject at the top of `data.json`: how it gets its answers. An answer in both subjects can use either list |
 | `year` | the year it began; negative for BC (`-300` is 300 BC). There is no year 0 |
 | `dateNote` | *optional.* Explain the date if it's disputed or approximate |
 | `place` | the modern country where it began (`"UK"`, `"USA"`, `"Greece"`…) |
@@ -138,7 +140,7 @@ The game replays every day since launch to know what's left in each bag. It soun
 node tools/check-data.mjs
 ```
 
-This catches missing fields, misspelled specialties or types, duplicate names and clues that give the answer away.
+This catches missing fields, misspelled specialties, methods or types, duplicate names and clues that give the answer away.
 
 3. Refresh the game. Your new answer is in Practice straight away, and in its subject's daily bag (both bags if it has specialties from both lists) from its `added` date.
 

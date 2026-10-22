@@ -79,6 +79,7 @@ function entryCard(answer) {
     el('p', { class: 'entry-meta', text: `${answer.type} · ${answer.subjects.join(' & ')} · began ${formatYear(answer.year)} · ${answer.place}` }),
     el('ul', { class: 'tag-list', 'aria-label': 'Specialties' }, ...answer.specialties.map((s) => el('li', { class: 'tag-chip', text: s }))),
     el('p', { text: answer.description }),
+    el('p', {}, el('strong', { text: 'Method: ' }), answer.methods.join(', ')),
     el('p', {}, el('strong', { text: 'Key figures: ' }), answer.figures.join(', ')),
     notes.length ? el('div', { class: 'answer-notes' }, ...notes) : '',
     el('details', { class: 'entry-clues' },

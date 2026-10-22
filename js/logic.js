@@ -7,20 +7,15 @@ export const MAX_GUESSES = 6;
 export const YEAR_CLOSE = 20; // green if the years are at most this far apart
 export const YEAR_NEAR = 100; // amber if at most this far apart
 
-// Specialty: green if the two lists are exactly the same (in any order),
-// amber if they share at least one, otherwise grey.
-export function compareSpecialties(guessList, answerList) {
+// Specialty and Method are lists: green if the two lists are exactly the same
+// (in any order), amber if they share at least one, otherwise grey.
+export function compareLists(guessList, answerList) {
   const shared = guessList.filter((item) => answerList.includes(item));
   const exact = shared.length === guessList.length && shared.length === answerList.length;
   let status = 'grey';
   if (exact) status = 'green';
   else if (shared.length > 0) status = 'amber';
   return { status, shared };
-}
-
-// Type (School, Movement, Tradition, Theory, Therapy or Method): green if the same, otherwise grey.
-export function compareType(guess, answer) {
-  return guess === answer ? 'green' : 'grey';
 }
 
 // Year: colour by how far apart, plus which way to go.
@@ -47,16 +42,16 @@ export function compareOrigin(guess, answer) {
 
 // Score one guess against the answer. Both are entries from data.json.
 // The four parts, in the order they appear on the board.
-export const CLUE_PARTS = ['specialty', 'year', 'origin', 'type'];
+export const CLUE_PARTS = ['specialty', 'year', 'origin', 'method'];
 
 export function scoreGuess(guess, answer) {
   return {
     id: guess.id,
     correct: guess.id === answer.id,
-    specialty: compareSpecialties(guess.specialties, answer.specialties),
+    specialty: compareLists(guess.specialties, answer.specialties),
     year: compareYear(guess.year, answer.year),
     origin: { status: compareOrigin(guess, answer) },
-    type: { status: compareType(guess.type, answer.type) },
+    method: compareLists(guess.methods, answer.methods),
   };
 }
 
@@ -291,7 +286,7 @@ export function winRate(stats) {
 
 const SQUARES = { green: '🟩', amber: '🟨', grey: '⬜' };
 
-// One row of squares per guess: Specialty, Year, Origin, Type.
+// One row of squares per guess: Specialty, Year, Origin, Method.
 export function shareText({ title, won, scores, url }) {
   const result = won ? `${scores.length}/${MAX_GUESSES}` : `X/${MAX_GUESSES}`;
   const rows = scores.map((s) => CLUE_PARTS.map((part) => SQUARES[s[part].status]).join(''));
@@ -313,10 +308,12 @@ export function encyclopediaGroups(answers, results) {
   };
 }
 
-// Encyclopedia search: looks in the name, other names, key figures, specialties, type and place.
+// Encyclopedia search: looks in the name, other names, key figures, specialties, methods, type and place.
 export function matchesSearch(answer, query) {
   const q = normalise(query);
   if (!q) return true;
-  const haystack = [answer.name, ...(answer.aliases || []), ...answer.figures, ...answer.specialties, answer.type, answer.place];
+  const haystack = [
+    answer.name, ...(answer.aliases || []), ...answer.figures, ...answer.specialties, ...answer.methods, answer.type, answer.place,
+  ];
   return haystack.some((text) => normalise(text).includes(q));
 }

@@ -6,7 +6,7 @@ import fs from 'node:fs';
 
 const FILE = new URL('../data.json', import.meta.url);
 const SUBJECTS = ['Philosophy', 'Psychology'];
-const REQUIRED = ['id', 'name', 'type', 'specialties', 'year', 'place', 'continent', 'figures', 'description', 'clues'];
+const REQUIRED = ['id', 'name', 'type', 'specialties', 'methods', 'year', 'place', 'continent', 'figures', 'description', 'clues'];
 const OPTIONAL = ['aliases', 'dateNote', 'originNote', 'added'];
 
 const errors = [];
@@ -22,11 +22,13 @@ try {
 }
 
 const specialtyLists = data.specialties || {};
+const methodLists = data.methods || {};
 const types = data.types || [];
 const continents = data.continents || [];
 const answers = data.answers || [];
 for (const subject of SUBJECTS) {
   if (!specialtyLists[subject]?.length) errors.push(`the "specialties" list for ${subject} at the top is missing or empty`);
+  if (!methodLists[subject]?.length) errors.push(`the "methods" list for ${subject} at the top is missing or empty`);
 }
 if (!types.length) errors.push('the "types" list at the top is missing or empty');
 if (!continents.length) errors.push('the "continents" list at the top is missing or empty');
@@ -75,6 +77,19 @@ answers.forEach((a, index) => {
         if (!allSpecialties.includes(s)) err(`specialty "${s}" is not in either specialties list at the top`);
       }
       if (new Set(a.specialties).size !== a.specialties.length) err('a specialty is listed twice');
+    }
+  }
+
+  if ('methods' in a) {
+    if (!Array.isArray(a.methods) || a.methods.length < 1 || a.methods.length > 3) {
+      err('"methods" must be a list of 1 to 3');
+    } else {
+      // Methods come from the list for the answer's own subject (either list if it's in both).
+      const allowed = subjectsOf(a).flatMap((s) => methodLists[s] || []);
+      for (const m of a.methods) {
+        if (!allowed.includes(m)) err(`method "${m}" is not in the methods list for ${subjectsOf(a).join(' or ') || 'its subject'}`);
+      }
+      if (new Set(a.methods).size !== a.methods.length) err('a method is listed twice');
     }
   }
 

@@ -41,6 +41,7 @@ const els = {
   answerName: $('answer-name'),
   answerMeta: $('answer-meta'),
   answerDescription: $('answer-description'),
+  answerMethods: $('answer-methods'),
   answerFigures: $('answer-figures'),
   answerNotes: $('answer-notes'),
   share: $('share'),
@@ -61,7 +62,6 @@ const els = {
 
 // Words shown in each feedback cell, so the colours are never the only signal.
 const ICONS = { green: '✓', amber: '≈', grey: '✗' };
-const TYPE_NOTES = { green: 'Same type', grey: 'Different type' };
 const ORIGIN_NOTES = { green: 'Same place', amber: 'Same continent', grey: 'Elsewhere' };
 const YEAR_RANGES = { green: 'within 20 yrs', amber: 'within 100 yrs', grey: 'over 100 yrs' };
 const WIN_WORDS = ['Brilliant!', 'Excellent!', 'Great!', 'Nice!', 'Phew!', 'Just made it!'];
@@ -437,10 +437,10 @@ function showWrongToast(score) {
 
 function addGuessRow(entry, score, number, animate) {
   const cells = el('div', { class: 'cells' },
-    cell('Specialty', listWithShared(entry.specialties, score.specialty.shared), score.specialty.status, specialtyNote(score.specialty)),
+    cell('Specialty', listWithShared(entry.specialties, score.specialty.shared), score.specialty.status, sharedNote(score.specialty)),
     cell('Began', formatYear(entry.year), score.year.status, yearNote(score.year)),
     cell('Origin', entry.place, score.origin.status, ORIGIN_NOTES[score.origin.status]),
-    cell('Type', entry.type, score.type.status, TYPE_NOTES[score.type.status]));
+    cell('Method', listWithShared(entry.methods, score.method.shared), score.method.status, sharedNote(score.method)));
 
   // A new row gets 'correct' or 'wrong' too, which picks its animation in style.css.
   const classes = animate ? `guess new ${score.correct ? 'correct' : 'wrong'}` : 'guess';
@@ -470,7 +470,7 @@ function yearNote(year) {
     `${word} · ${YEAR_RANGES[year.status]}`);
 }
 
-// Shared specialties are underlined (and labelled for screen readers).
+// Shared specialties and methods are underlined (and labelled for screen readers).
 function listWithShared(items, shared) {
   const span = el('span', {});
   items.forEach((item, i) => {
@@ -484,9 +484,10 @@ function listWithShared(items, shared) {
   return span;
 }
 
-function specialtyNote(specialty) {
-  if (specialty.status === 'green') return 'Exact match';
-  if (specialty.status === 'amber') return `${specialty.shared.length} shared`;
+// The note under a Specialty or Method box.
+function sharedNote(list) {
+  if (list.status === 'green') return 'Exact match';
+  if (list.status === 'amber') return `${list.shared.length} shared`;
   return 'None shared';
 }
 
@@ -495,7 +496,7 @@ function describeScore(entry, score) {
   const year = score.year.direction === 'same'
     ? 'exact year'
     : `answer began ${score.year.direction}, ${YEAR_RANGES[score.year.status]}`;
-  return `${entry.name}: specialty ${specialtyNote(score.specialty)}; ${year}; ${ORIGIN_NOTES[score.origin.status]}; ${TYPE_NOTES[score.type.status]}.`;
+  return `${entry.name}: specialty ${sharedNote(score.specialty)}; ${year}; ${ORIGIN_NOTES[score.origin.status]}; method ${sharedNote(score.method)}.`;
 }
 
 // ---------- end of round ----------
@@ -511,6 +512,7 @@ function showResult(moveFocus) {
   els.answerName.textContent = answer.name;
   els.answerMeta.textContent = `${answer.type} · ${answer.subjects.join(' & ')} · began ${formatYear(answer.year)} · ${answer.place}`;
   els.answerDescription.textContent = answer.description;
+  els.answerMethods.textContent = answer.methods.join(', ');
   els.answerFigures.textContent = answer.figures.join(', ');
   const notes = [];
   if (answer.dateNote) notes.push(el('p', {}, el('strong', { text: 'About the date: ' }), answer.dateNote));

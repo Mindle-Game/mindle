@@ -6,7 +6,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {
-  compareSpecialties, compareType, compareYear, compareOrigin, scoreGuess, prepareAnswers,
+  compareLists, compareYear, compareOrigin, scoreGuess, prepareAnswers,
   formatYear, normalise, findByName, searchAnswers, pickRandom, filterAnswers,
   dateKey, daysBetween, addDays, puzzleNumber, msUntilMidnight, hash, dailySchedule, dailyAnswer,
   emptyStats, recordDaily, currentStreak, winRate, shareText, encyclopediaGroups, matchesSearch,
@@ -17,9 +17,13 @@ const data = JSON.parse(fs.readFileSync(new URL('../data.json', import.meta.url)
 data.answers = prepareAnswers(data); // adds each answer's subjects, as the game does
 const byId = (id) => data.answers.find((a) => a.id === id);
 
-test('type: the same type is green, anything else grey', () => {
-  assert.equal(compareType('Theory', 'Theory'), 'green');
-  assert.equal(compareType('Theory', 'Therapy'), 'grey');
+test('method: scored like specialty, from the answer bank', () => {
+  // Psychoanalysis (Case study, Therapy) vs Individual psychology (Therapy, Case study): same set.
+  assert.equal(scoreGuess(byId('psychoanalysis'), byId('individual-psychology')).method.status, 'green');
+  // Platonism (Dialogue, Thought experiment) vs Stoicism (Argument): nothing shared.
+  assert.equal(scoreGuess(byId('platonism'), byId('stoicism')).method.status, 'grey');
+  // Rationalism (Argument, Thought experiment) vs Stoicism (Argument): one shared.
+  assert.deepEqual(scoreGuess(byId('rationalism'), byId('stoicism')).method, { status: 'amber', shared: ['Argument'] });
 });
 
 test('subjects come from specialties: philosophy, psychology, or both', () => {
@@ -45,17 +49,17 @@ test('origin: same place green, same continent amber, otherwise grey', () => {
   assert.equal(compareOrigin(vienna, { place: 'USA', continent: 'North America' }), 'grey');
 });
 
-test('specialty: exact same set green (order ignored), any overlap amber, none grey', () => {
-  assert.deepEqual(compareSpecialties(['Ethics', 'Political'], ['Political', 'Ethics']), { status: 'green', shared: ['Ethics', 'Political'] });
-  assert.deepEqual(compareSpecialties(['Ethics'], ['Ethics', 'Logic']), { status: 'amber', shared: ['Ethics'] });
-  assert.deepEqual(compareSpecialties(['Cognitive', 'Social'], ['Cognitive']), { status: 'amber', shared: ['Cognitive'] });
-  assert.deepEqual(compareSpecialties(['Clinical'], ['Behavioural']), { status: 'grey', shared: [] });
+test('lists (specialty, method): exact same set green (order ignored), any overlap amber, none grey', () => {
+  assert.deepEqual(compareLists(['Ethics', 'Political'], ['Political', 'Ethics']), { status: 'green', shared: ['Ethics', 'Political'] });
+  assert.deepEqual(compareLists(['Ethics'], ['Ethics', 'Logic']), { status: 'amber', shared: ['Ethics'] });
+  assert.deepEqual(compareLists(['Cognitive', 'Social'], ['Cognitive']), { status: 'amber', shared: ['Cognitive'] });
+  assert.deepEqual(compareLists(['Clinical'], ['Behavioural']), { status: 'grey', shared: [] });
 });
 
 test('scoreGuess: the right answer is green everywhere', () => {
   const s = scoreGuess(byId('stoicism'), byId('stoicism'));
   assert.equal(s.correct, true);
-  for (const part of ['specialty', 'year', 'origin', 'type']) assert.equal(s[part].status, 'green');
+  for (const part of ['specialty', 'year', 'origin', 'method']) assert.equal(s[part].status, 'green');
 });
 
 test('scoreGuess: a real wrong guess (Psychoanalysis when the answer is Behaviourism)', () => {
@@ -64,7 +68,7 @@ test('scoreGuess: a real wrong guess (Psychoanalysis when the answer is Behaviou
   assert.equal(s.specialty.status, 'grey'); // Psychoanalytic, Clinical, Developmental vs Behavioural
   assert.deepEqual([s.year.status, s.year.direction], ['green', 'later']); // 1896 -> 1913
   assert.equal(s.origin.status, 'grey'); // Austria vs USA
-  assert.equal(s.type.status, 'green'); // both are Schools
+  assert.equal(s.method.status, 'grey'); // Case study, Therapy vs Experiment, Observation
 });
 
 test('formatYear shows BC for negative years', () => {
@@ -181,7 +185,7 @@ test('stats: missing a day breaks the streak', () => {
 test('share: one row of squares per guess, X/6 for a loss', () => {
   const scores = [scoreGuess(byId('psychoanalysis'), byId('behaviourism')), scoreGuess(byId('behaviourism'), byId('behaviourism'))];
   assert.equal(shareText({ title: 'Mindle #4', won: true, scores, url: 'https://example.org/mindle/' }),
-    'Mindle #4 2/6\n⬜🟩⬜🟩\n🟩🟩🟩🟩\nhttps://example.org/mindle/'); // Specialty, Year, Origin, Type
+    'Mindle #4 2/6\n⬜🟩⬜⬜\n🟩🟩🟩🟩\nhttps://example.org/mindle/'); // Specialty, Year, Origin, Method
   assert.ok(shareText({ title: 'Mindle #4', won: false, scores: scores.slice(0, 1) }).startsWith('Mindle #4 X/6'));
 });
 
@@ -200,12 +204,13 @@ test('encyclopedia: solved, to revise, and how many are still unseen', () => {
   assert.deepEqual(encyclopediaGroups(data.answers, {}).solved, []);
 });
 
-test('encyclopedia search: finds names, other names, thinkers, specialties, types and places', () => {
+test('encyclopedia search: finds names, other names, thinkers, specialties, methods, types and places', () => {
   assert.ok(matchesSearch(byId('psychoanalysis'), 'freud'));
   assert.ok(matchesSearch(byId('behaviourism'), 'behaviorism'));
   assert.ok(matchesSearch(byId('gestalt-psychology'), 'kohler')); // accents ignored
   assert.ok(matchesSearch(byId('confucianism'), 'china'));
   assert.ok(matchesSearch(byId('stoicism'), 'ethics'));
+  assert.ok(matchesSearch(byId('platonism'), 'dialogue'));
   assert.ok(matchesSearch(byId('morita-therapy'), 'therapy'));
   assert.ok(!matchesSearch(byId('stoicism'), 'freud'));
   assert.ok(matchesSearch(byId('stoicism'), '  '));
