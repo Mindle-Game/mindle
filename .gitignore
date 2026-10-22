@@ -1,2 +1,9 @@
 # macOS folder files
 .DS_Store
+
+# Installed packages (Mindle has none, but just in case)
+node_modules/
+
+# Secret settings files: never publish these
+.env
+.env.*
