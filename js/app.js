@@ -68,7 +68,7 @@ const WRONG_WORDS = ['Not it', 'Not quite', 'Getting close', 'So close!'];
 const RESULT_DELAY = 900; // ms to enjoy the last row before the answer card slides in
 
 let answers = []; // every entry from data.json
-// { mode: 'daily' | 'practice', dailyTopic: 'Philosophy' | 'Psychology', filter: 'Both' | 'Philosophy' | 'Psychology' }
+// { mode: 'daily' | 'practice', dailyTopic: 'Philosophy' | 'Psychology', filter: 'Philosophy' | 'Psychology' }
 let settings = loadSettings();
 let round = null; // the round on screen (see makeRound)
 let practiceRound = null; // kept so switching to Daily and back doesn't lose it
@@ -93,7 +93,9 @@ async function start() {
     return;
   }
   moveOldMixedDaily(answers);
+  // Older versions saved other values (Practice used to have "Both"): fall back to Philosophy.
   if (!DAILY_TOPICS.includes(settings.dailyTopic)) settings.dailyTopic = 'Philosophy';
+  if (!DAILY_TOPICS.includes(settings.filter)) settings.filter = 'Philosophy';
   els.loading.hidden = true;
   els.game.hidden = false;
   setUpInput();
@@ -189,8 +191,7 @@ function renderTitle() {
     const day = new Date(y, m - 1, d).toLocaleDateString('en-IE', { weekday: 'long', day: 'numeric', month: 'long' });
     els.roundTitle.textContent = `Mindle ${round.topic} #${puzzleNumber(round.date)} · ${day}`;
   } else {
-    const topic = settings.filter === 'Both' ? 'all topics' : settings.filter;
-    els.roundTitle.textContent = `Practice round · ${topic} (${round.pool.length} answers)`;
+    els.roundTitle.textContent = `Practice round · ${settings.filter} (${round.pool.length} answers)`;
   }
 }
 

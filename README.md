@@ -46,7 +46,7 @@ To try it on the iPhone Simulator, open http://127.0.0.1:8080 in its Safari.
 
   The **Began** box also shows ↑ if the answer began later, or ↓ if earlier.
 - **Daily** has two puzzles each day, one **Philosophy** and one **Psychology**. Pick one with the switch under the mode buttons. Each is the same for everyone, changes at midnight and has its own stats and streak. The guess list only offers answers from that subject, and the five "Both" answers can appear in either.
-- **Practice** gives unlimited random rounds, filtered by Philosophy, Psychology or Both.
+- **Practice** gives unlimited random rounds in Philosophy or Psychology.
 - Every answer you meet is saved in the **Encyclopedia** for revision.
 
 ## What's in the folder

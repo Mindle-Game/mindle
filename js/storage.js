@@ -97,7 +97,7 @@ export function markHelpSeen() {
 
 // Which mode and practice filter you used last.
 export function loadSettings() {
-  return { mode: 'daily', filter: 'Both', dailyTopic: 'Philosophy', ...load('settings', {}) };
+  return { mode: 'daily', filter: 'Philosophy', dailyTopic: 'Philosophy', ...load('settings', {}) };
 }
 export function saveSettings(settings) {
   save('settings', settings);
