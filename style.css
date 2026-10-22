@@ -364,6 +364,9 @@ h2 { font-size: 1.05rem; margin: 0 0 8px; }
   font-weight: 700;
 }
 .tag.shared { text-decoration: underline; text-underline-offset: 3px; }
+/* The colour key under the guesses: the How to play chips, a little smaller. */
+.guess-key { justify-content: center; margin: 12px 0 0; }
+.guess-key .key-chip { font-size: 0.8rem; padding: 3px 8px; }
 
 /* ---------- result ---------- */
 

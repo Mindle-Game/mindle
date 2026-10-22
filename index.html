@@ -46,7 +46,7 @@
         </button>
       </span>
     </div>
-    <p class="tagline">Guess the school of thought in psychology or philosophy</p>
+    <p id="tagline" class="tagline">Guess the school of thought in psychology or philosophy</p>
   </header>
 
   <main id="main">
@@ -95,7 +95,7 @@
             <input id="guess-input" class="text-input" type="text" role="combobox"
                    aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions"
                    aria-describedby="form-message"
-                   placeholder="Start typing, e.g. Stoicism" spellcheck="false" autocapitalize="off" autocorrect="off">
+                   placeholder="e.g. Stoicism" spellcheck="false" autocapitalize="off" autocorrect="off">
             <ul id="suggestions" class="suggestions" role="listbox" aria-label="Matching answers" hidden></ul>
           </div>
           <button type="submit" class="button primary">Guess</button>
@@ -129,6 +129,11 @@
       <section aria-labelledby="guesses-heading">
         <h2 id="guesses-heading" class="visually-hidden">Your guesses, newest first</h2>
         <ol id="guess-list" class="guess-list" reversed></ol>
+        <p id="guess-key" class="key guess-key" hidden>
+          <span class="key-chip green"><span aria-hidden="true">✓</span> Match</span>
+          <span class="key-chip amber"><span aria-hidden="true">≈</span> Close</span>
+          <span class="key-chip grey"><span aria-hidden="true">✗</span> Not close</span>
+        </p>
       </section>
     </div>
 
@@ -180,7 +185,7 @@
     <h3>Reading the colours</h3>
     <p class="key">
       <span class="key-chip green"><span aria-hidden="true">✓</span> Match</span>
-      <span class="key-chip amber"><span aria-hidden="true">~</span> Close</span>
+      <span class="key-chip amber"><span aria-hidden="true">≈</span> Close</span>
       <span class="key-chip grey"><span aria-hidden="true">✗</span> Not close</span>
     </p>
     <ul>

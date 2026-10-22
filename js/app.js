@@ -24,6 +24,7 @@ const els = {
   filterPicker: $('filter-picker'),
   filterInputs: document.querySelectorAll('input[name="filter"]'),
   statsInputs: document.querySelectorAll('input[name="stats-topic"]'),
+  tagline: $('tagline'),
   roundTitle: $('round-title'),
   clueList: $('clue-list'),
   clueCount: $('clue-count'),
@@ -33,6 +34,7 @@ const els = {
   guessCount: $('guess-count'),
   message: $('form-message'),
   guessList: $('guess-list'),
+  guessKey: $('guess-key'),
   result: $('result'),
   resultHeading: $('result-heading'),
   resultSummary: $('result-summary'),
@@ -58,7 +60,7 @@ const els = {
 };
 
 // Words shown in each feedback cell, so the colours are never the only signal.
-const ICONS = { green: '✓', amber: '~', grey: '✗' };
+const ICONS = { green: '✓', amber: '≈', grey: '✗' };
 const TYPE_NOTES = { green: 'Same type', grey: 'Different type' };
 const ORIGIN_NOTES = { green: 'Same place', amber: 'Same continent', grey: 'Elsewhere' };
 const YEAR_RANGES = { green: 'within 20 yrs', amber: 'within 100 yrs', grey: 'over 100 yrs' };
@@ -66,6 +68,8 @@ const WIN_WORDS = ['Brilliant!', 'Excellent!', 'Great!', 'Nice!', 'Phew!', 'Just
 // Pop-up title for a wrong guess, by how many of the four boxes were green.
 const WRONG_WORDS = ['Not it', 'Not quite', 'Getting close', 'So close!'];
 const RESULT_DELAY = 900; // ms to enjoy the last row before the answer card slides in
+// The example in the guess box, by subject.
+const EXAMPLES = { Philosophy: 'Stoicism', Psychology: 'Behaviourism' };
 
 let answers = []; // every entry from data.json
 // { mode: 'daily' | 'practice', dailyTopic: 'Philosophy' | 'Psychology', filter: 'Philosophy' | 'Psychology' }
@@ -112,7 +116,7 @@ async function start() {
 
 // A round is one puzzle. `pool` is the list of answers it can be, and that
 // you can guess from (one subject for the dailies; all or one subject in practice).
-// `topic` says which daily it is (Philosophy or Psychology).
+// `topic` is its subject (Philosophy or Psychology), in both modes.
 function makeRound(mode, answer, pool, date = null, topic = null) {
   return { mode, answer, pool, date, topic, guesses: [], scores: [], over: false, won: false };
 }
@@ -164,7 +168,7 @@ function dailyDoneToday(topic) {
 
 function newPracticeRound() {
   const pool = filterAnswers(answers, settings.filter);
-  practiceRound = makeRound('practice', pickRandom(pool, practiceRound?.answer.id), pool);
+  practiceRound = makeRound('practice', pickRandom(pool, practiceRound?.answer.id), pool, null, settings.filter);
   showRound(practiceRound);
 }
 
@@ -173,6 +177,7 @@ function showRound(next) {
   round = next;
   stopCountdown();
   els.guessList.replaceChildren();
+  els.guessKey.hidden = true;
   round.guesses.forEach((entry, i) => addGuessRow(entry, round.scores[i], i + 1, false));
   els.input.value = '';
   setMessage('');
@@ -185,14 +190,19 @@ function showRound(next) {
   else els.result.hidden = true;
 }
 
+// The round's title, plus the subtitle and the guess box's example, which follow its subject.
 function renderTitle() {
+  const subject = round.topic.toLowerCase();
   if (round.mode === 'daily') {
     const [y, m, d] = round.date.split('-').map(Number);
     const day = new Date(y, m - 1, d).toLocaleDateString('en-IE', { weekday: 'long', day: 'numeric', month: 'long' });
     els.roundTitle.textContent = `Mindle ${round.topic} #${puzzleNumber(round.date)} · ${day}`;
+    els.tagline.textContent = `Guess today's school of thought in ${subject}`;
   } else {
-    els.roundTitle.textContent = `Practice round · ${settings.filter} (${round.pool.length} answers)`;
+    els.roundTitle.textContent = `Practice round · ${round.topic} (${round.pool.length} answers)`;
+    els.tagline.textContent = `Guess a school of thought in ${subject}`;
   }
+  els.input.placeholder = `e.g. ${EXAMPLES[round.topic]}`;
 }
 
 function setUpControls() {
@@ -439,6 +449,7 @@ function addGuessRow(entry, score, number, animate) {
     el('p', { class: 'guess-name' }, el('span', { class: 'guess-no', text: `Guess ${number}: ` }), entry.name),
     cells);
   els.guessList.prepend(row);
+  els.guessKey.hidden = false; // the colour key, shown under the guesses once there are some
 }
 
 function cell(label, value, status, note) {

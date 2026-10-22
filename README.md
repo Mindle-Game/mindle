@@ -37,7 +37,7 @@ To try it on the iPhone Simulator, open http://127.0.0.1:8080 in its Safari.
 - Pick guesses from the list that appears as you type.
 - Each guess is compared with the answer:
 
-| Box | Green ✓ | Amber ~ | Grey ✗ |
+| Box | Green ✓ | Amber ≈ | Grey ✗ |
 |---|---|---|---|
 | **Specialty** | exactly the same specialties | at least one shared | none shared |
 | **Began** | within 20 years | within 100 years | further apart |
