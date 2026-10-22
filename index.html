@@ -5,14 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Mindle: guess the school of thought in psychology and philosophy in six tries.">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#131418" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4eee0">
   <meta name="apple-mobile-web-app-title" content="Mindle">
   <title>Mindle</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
+  <script>
+    // Before the page draws: pick the colour mood for the subject last played, and
+    // Reduce motion, from the saved settings, so nothing flashes. app.js keeps them
+    // up to date after this. The browser bar's colour matches the page background.
+    (() => {
+      const root = document.documentElement;
+      let settings = {};
+      try { settings = JSON.parse(localStorage.getItem('mindle.settings')) || {}; } catch {}
+      const topic = settings.mode === 'practice' ? settings.filter : settings.dailyTopic;
+      root.dataset.mood = topic === 'Psychology' ? 'psychology' : 'philosophy';
+      root.classList.toggle('reduce-motion', Boolean(settings.reduceMotion));
+      document.querySelector('meta[name="theme-color"]').content = getComputedStyle(root).getPropertyValue('--bg').trim();
+    })();
+  </script>
   <script type="module" src="js/app.js"></script>
 </head>
 <body>

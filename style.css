@@ -1,19 +1,11 @@
 /* Mindle styles. Phone first: the base rules are for small screens, and the
    @media (min-width: …) blocks at the bottom adjust things for wider ones.
-   Every colour is a variable on :root, so dark mode only has to swap the variables. */
+   Every colour is a variable on :root, so dark mode and the two subjects' moods
+   only have to swap the variables. */
 
+/* Shared by both moods. */
 :root {
-  --bg: #f6f5f1;
-  --card: #ffffff;
-  --text: #1d1f23;
-  --muted: #5b606a;
-  --line: #dcdad3;
-  --accent: #4b3fc4;
-  --accent-text: #ffffff;
-  --focus: #1a73e8;
-  --bar: #8e88c9; /* stats bars; today's result uses --accent */
-
-  /* Feedback colours. Each pair has a contrast ratio of at least 4.5:1. */
+  /* Feedback colours, the same in both moods. Each pair has a contrast ratio of at least 4.5:1. */
   --green: #2f7a43;
   --green-text: #ffffff;
   --amber: #f0b429;
@@ -27,25 +19,83 @@
   color-scheme: light dark;
 }
 
+/* The moods: <html data-mood="philosophy" | "psychology">, set from the subject
+   being played (see applyMood in app.js). Philosophy is warm and scholarly:
+   parchment, deep indigo, gold accents and serif clues. Psychology is cool and
+   modern: misty white, teal and violet, all sans-serif. Every text colour here
+   has a contrast ratio of at least 4.5:1 with the backgrounds it's used on. */
+:root {
+  --bg: #f4eee0;
+  --card: #fcf9f1;
+  --text: #1f1b3a;
+  --muted: #5b5573;
+  --line: #e2d7bd;
+  --accent: #2e2a6b; /* buttons, links, the logo */
+  --accent-text: #fcf9f1;
+  --highlight: #c9a24a; /* clue numbers and the answer card's border */
+  --highlight-text: #1f1b3a;
+  --focus: #1a73e8;
+  --bar: #8f89c4; /* stats bars; today's result uses --accent */
+  --clue-font: var(--font-display);
+  --heading-font: var(--font-display);
+  /* Paper grain: faint brown speckles over the page (see body::before). */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.27 0 0 0 0 0.12 0.45 0 0 0 -0.13'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --grain-opacity: 1;
+}
+:root[data-mood="psychology"] {
+  --bg: #eef5f5;
+  --card: #ffffff;
+  --text: #10282b;
+  --muted: #4a6466;
+  --line: #cfe0df;
+  --accent: #0d6e69;
+  --accent-text: #ffffff;
+  --highlight: #6a4fd6;
+  --highlight-text: #ffffff;
+  --bar: #4a9893;
+  --clue-font: var(--font);
+  --heading-font: var(--font);
+  --grain-opacity: 0;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #131418;
-    --card: #1e2026;
-    --text: #e9e9ec;
-    --muted: #a3a7b0;
-    --line: #34373f;
-    --accent: #a69dff;
-    --accent-text: #15131f;
-    --focus: #8ab4f8;
-    --bar: #6f689e;
-
     --green: #3c8f53;
-    --green-text: #ffffff;
     --amber: #e3a72a;
-    --amber-text: #1f1a0a;
     --grey: #4b4f58;
-    --grey-text: #ffffff;
+
+    --bg: #14122a;
+    --card: #1e1b3b;
+    --text: #efe8d6;
+    --muted: #b8b0d2;
+    --line: #353060;
+    --accent: #e0bf68;
+    --accent-text: #14122a;
+    --highlight: #e0bf68;
+    --highlight-text: #14122a;
+    --focus: #8ab4f8;
+    --bar: #6a62a8;
+    /* Cream speckles, fainter, on the dark indigo. */
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.94 0 0 0 0 0.9 0 0 0 0 0.8 0.3 0 0 0 -0.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   }
+  :root[data-mood="psychology"] {
+    --bg: #0c191c;
+    --card: #142529;
+    --text: #e2f1f0;
+    --muted: #9ebdbb;
+    --line: #24403f;
+    --accent: #4fd1c5;
+    --accent-text: #0c191c;
+    --highlight: #b3a3ff;
+    --highlight-text: #1a1240;
+    --bar: #2f8a83;
+  }
+}
+
+/* Switching subject fades between the moods over half a second (app.js adds
+   this class for a moment). Settings → Reduce motion turns it off, further down. */
+.mood-changing, .mood-changing *, .mood-changing *::before, .mood-changing *::after {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease !important;
 }
 
 * { box-sizing: border-box; }
@@ -59,6 +109,16 @@ body {
   font-size: 16px;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
+}
+/* The Philosophy mood's paper grain, fixed behind everything. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--grain);
+  opacity: var(--grain-opacity);
 }
 
 /* Keyboard users always see where they are. */
@@ -244,12 +304,12 @@ h2 { font-size: 1.05rem; margin: 0 0 8px; }
   place-items: center;
   width: 2rem; height: 2rem;
   border-radius: 50%;
-  background: var(--accent);
-  color: var(--accent-text);
+  background: var(--highlight);
+  color: var(--highlight-text);
   font-weight: 700;
   font-size: 0.9rem;
 }
-.clue p { margin: 0.2rem 0 0; }
+.clue p { margin: 0.2rem 0 0; font-family: var(--clue-font); }
 .clue.locked .clue-number { background: var(--line); color: var(--muted); }
 .clue.locked p { color: var(--muted); font-style: italic; }
 .clue.newest p { font-weight: 600; }
@@ -373,10 +433,10 @@ h2 { font-size: 1.05rem; margin: 0 0 8px; }
 
 /* ---------- result ---------- */
 
-.result { border-width: 2px; border-color: var(--accent); }
+.result { border-width: 2px; border-color: var(--highlight); }
 .result h2 { font-size: 1.3rem; outline: none; }
 .result-summary { margin-top: 0; color: var(--muted); }
-.answer-name { font-family: var(--font-display); font-size: 1.5rem; margin: 0; }
+.answer-name { font-family: var(--heading-font); font-size: 1.5rem; margin: 0; }
 .answer-meta { margin: 2px 0 8px; color: var(--muted); }
 .answer-notes { font-size: 0.9rem; color: var(--muted); }
 .answer-notes:empty { display: none; }
@@ -649,7 +709,7 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .section-note { color: var(--muted); margin: 0 0 8px; font-size: 0.95rem; }
 .entries { list-style: none; margin: 0; padding: 0; }
 .entry { scroll-margin: 16px; }
-.entry-name { font-family: var(--font-display); font-size: 1.35rem; margin: 0; }
+.entry-name { font-family: var(--heading-font); font-size: 1.35rem; margin: 0; }
 .entry-meta { color: var(--muted); margin: 2px 0 8px; }
 #revise-list .entry { border-left: 5px solid var(--amber); }
 .tag-list { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; padding: 0; }

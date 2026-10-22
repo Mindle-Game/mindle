@@ -2,7 +2,7 @@
 // It reads the same saved results the game writes (see storage.js).
 
 import { formatYear, filterAnswers, encyclopediaGroups, matchesSearch, prepareAnswers } from './logic.js';
-import { loadResults, loadSettings } from './storage.js';
+import { loadResults } from './storage.js';
 import { el } from './dom.js';
 import { registerServiceWorker } from './pwa.js';
 
@@ -11,8 +11,6 @@ const $ = (id) => document.getElementById(id);
 let answers = []; // every entry from data.json
 let results = {}; // { id: { wins, losses, last } } for each answer you've met
 
-// The game's Settings → Reduce motion switch applies here too (see style.css).
-document.documentElement.classList.toggle('reduce-motion', Boolean(loadSettings().reduceMotion));
 registerServiceWorker();
 start();
 

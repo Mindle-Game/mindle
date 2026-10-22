@@ -62,6 +62,7 @@ const els = {
   statNumbers: $('stat-numbers'),
   distribution: $('distribution'),
   announcer: $('announcer'),
+  themeColour: document.querySelector('meta[name="theme-color"]'),
 };
 
 // Words shown in each feedback cell, so the colours are never the only signal.
@@ -73,6 +74,7 @@ const WIN_WORDS = ['Brilliant!', 'Excellent!', 'Great!', 'Nice!', 'Phew!', 'Just
 const WRONG_WORDS = ['Not it', 'Not quite', 'Getting close', 'So close!'];
 const REVEAL_TIME = 1100; // ms for a new row's four boxes to flip over (see .guess.new in style.css)
 const RESULT_DELAY = 800; // then ms to enjoy the last row before the answer card slides in
+const MOOD_FADE = 600; // ms the colours take to fade when the subject changes (see .mood-changing)
 // The example in the guess box, by subject.
 const EXAMPLES = { Philosophy: 'Stoicism', Psychology: 'Behaviourism' };
 
@@ -85,6 +87,7 @@ let practiceRound = null; // kept so switching to Daily and back doesn't lose it
 let suggestions = []; // what the autocomplete list is showing
 let active = -1; // which suggestion is highlighted (-1 = none)
 let countdownTimer = null;
+let moodTimer = null;
 
 applyMotionSetting();
 registerServiceWorker();
@@ -210,6 +213,27 @@ function renderTitle() {
     els.tagline.textContent = `Guess a school of thought in ${subject}`;
   }
   els.input.placeholder = `e.g. ${EXAMPLES[round.topic]}`;
+  applyMood(round.topic);
+}
+
+// Each subject has its own colours, its "mood" (data-mood on <html>, see style.css).
+// Switching subject fades between them, unless motion is reduced.
+function applyMood(topic) {
+  const root = document.documentElement;
+  const mood = topic.toLowerCase();
+  if (root.dataset.mood === mood) return;
+  if (!reduceMotion()) {
+    root.classList.add('mood-changing');
+    clearTimeout(moodTimer);
+    moodTimer = setTimeout(() => root.classList.remove('mood-changing'), MOOD_FADE);
+  }
+  root.dataset.mood = mood;
+  updateThemeColour();
+}
+
+// The phone's browser bar matches the page background.
+function updateThemeColour() {
+  els.themeColour.content = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
 }
 
 function setUpControls() {
@@ -254,6 +278,7 @@ function setUpControls() {
     applyMotionSetting();
   });
   els.resultStats.addEventListener('click', openStats);
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeColour);
   // If the page was left open overnight, pick up the new daily puzzle when you come back.
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') checkForNewDay();
