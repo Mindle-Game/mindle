@@ -10,6 +10,7 @@ import {
   formatYear, normalise, findByName, searchAnswers, pickRandom, filterAnswers,
   dateKey, daysBetween, addDays, puzzleNumber, msUntilMidnight, hash, dailySchedule, dailyAnswer,
   emptyStats, recordDaily, currentStreak, winRate, shareText, encyclopediaGroups, matchesSearch,
+  DAILY_TOPICS, topicDailyAnswer, dailyFinished,
 } from '../js/logic.js';
 
 const data = JSON.parse(fs.readFileSync(new URL('../data.json', import.meta.url), 'utf8'));
@@ -201,4 +202,35 @@ test('encyclopedia search: finds names, other names, thinkers, tags and places',
   assert.ok(matchesSearch(byId('stoicism'), 'emotion'));
   assert.ok(!matchesSearch(byId('stoicism'), 'freud'));
   assert.ok(matchesSearch(byId('stoicism'), '  '));
+});
+
+// ---------- Two daily puzzles: Philosophy and Psychology ----------
+
+test('topic dailies: each only draws from its own subject (plus "Both")', () => {
+  const launch = '2026-10-22';
+  for (const topic of DAILY_TOPICS) {
+    const pool = filterAnswers(data.answers, topic);
+    const seed = `${topic.toLowerCase()}:`;
+    const schedule = dailySchedule(pool, addDays(launch, pool.length - 1), launch, seed);
+    assert.ok(schedule.every((a) => a.field === topic || a.field === 'Both'), `${topic} drew another subject`);
+    assert.equal(new Set(schedule.map((a) => a.id)).size, pool.length, `${topic} repeated before using every answer`);
+    assert.equal(topicDailyAnswer(data.answers, topic, addDays(launch, 9), launch).id, schedule[9].id);
+  }
+});
+
+test('topic dailies: the two subjects are drawn in different orders', () => {
+  const launch = '2026-10-22';
+  let same = 0;
+  for (let day = 0; day < 60; day++) {
+    const key = addDays(launch, day);
+    if (topicDailyAnswer(data.answers, 'Philosophy', key, launch).id === topicDailyAnswer(data.answers, 'Psychology', key, launch).id) same++;
+  }
+  assert.ok(same <= 2, `the two dailies matched on ${same} of 60 days`); // only a "Both" answer could ever match
+});
+
+test('dailyFinished: won, lost after 6 guesses, or still going', () => {
+  assert.equal(dailyFinished(null), false);
+  assert.equal(dailyFinished({ answerId: 'stoicism', guesses: ['nihilism', 'stoicism'] }), true);
+  assert.equal(dailyFinished({ answerId: 'stoicism', guesses: ['a', 'b', 'c', 'd', 'e', 'f'] }), true);
+  assert.equal(dailyFinished({ answerId: 'stoicism', guesses: ['nihilism'] }), false);
 });

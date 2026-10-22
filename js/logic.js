@@ -185,8 +185,9 @@ export function hash(text) {
 //  - when the bag is empty it is refilled, leaving out yesterday's answer;
 //  - an entry with "added": "2027-01-31" only joins the bag from that date.
 // To know what's left in the bag, it replays every day since launch.
+// `seed` is mixed into every hash, so each topic's bag is drawn in its own order.
 // Returns the whole schedule up to today; the last item is today's answer.
-export function dailySchedule(answers, todayKey, launchKey = LAUNCH_DATE) {
+export function dailySchedule(answers, todayKey, launchKey = LAUNCH_DATE, seed = '') {
   const days = Math.max(0, daysBetween(launchKey, todayKey));
   const schedule = [];
   let used = new Set();
@@ -203,9 +204,9 @@ export function dailySchedule(answers, todayKey, launchKey = LAUNCH_DATE) {
     }
 
     let pick = bag[0];
-    let best = hash(`${day}:${pick.id}`);
+    let best = hash(`${seed}${day}:${pick.id}`);
     for (const entry of bag) {
-      const score = hash(`${day}:${entry.id}`);
+      const score = hash(`${seed}${day}:${entry.id}`);
       if (score < best) {
         best = score;
         pick = entry;
@@ -219,8 +220,22 @@ export function dailySchedule(answers, todayKey, launchKey = LAUNCH_DATE) {
   return schedule;
 }
 
-export function dailyAnswer(answers, todayKey, launchKey = LAUNCH_DATE) {
-  return dailySchedule(answers, todayKey, launchKey).at(-1);
+export function dailyAnswer(answers, todayKey, launchKey = LAUNCH_DATE, seed = '') {
+  return dailySchedule(answers, todayKey, launchKey, seed).at(-1);
+}
+
+// There are two daily puzzles, one per subject. Each draws only from its own
+// subject's answers (plus the "Both" ones), using its own seed.
+export const DAILY_TOPICS = ['Philosophy', 'Psychology'];
+
+export function topicDailyAnswer(answers, topic, todayKey, launchKey = LAUNCH_DATE) {
+  return dailyAnswer(filterAnswers(answers, topic), todayKey, launchKey, `${topic.toLowerCase()}:`);
+}
+
+// Is a saved daily game ({ answerId, guesses }) over, won or lost?
+export function dailyFinished(saved) {
+  if (!saved) return false;
+  return saved.guesses.includes(saved.answerId) || saved.guesses.length >= MAX_GUESSES;
 }
 
 // ---------- stats ----------

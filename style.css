@@ -422,6 +422,7 @@ h2 { font-size: 1.05rem; margin: 0 0 8px; }
 .dialog-head h2 { margin: 0; font-size: 1.3rem; }
 .dialog-head form { margin: 0; }
 .dialog-note { margin: 2px 0 12px; color: var(--muted); font-size: 0.9rem; }
+.stats-picker { display: flex; width: fit-content; margin: 0 auto; }
 
 /* Four numbers in a row: the big number on top, its label underneath. */
 .stat-numbers {

@@ -27,21 +27,49 @@ function save(key, value) {
   }
 }
 
-// Daily stats: played, wins, streaks, guess distribution.
-export function loadStats() {
-  return { ...emptyStats(), ...load('stats', {}) };
-}
-export function saveStats(stats) {
-  save('stats', stats);
+function remove(key) {
+  try {
+    localStorage.removeItem(PREFIX + key);
+  } catch {
+    // Nothing to do.
+  }
 }
 
-// Today's daily game, so a refresh doesn't lose it: { date, answerId, guesses: [ids] }.
-// Saving the answer's id also "locks" today's answer, even if data.json changes mid-day.
-export function loadDaily() {
-  return load('daily', null);
+// There are two daily puzzles, Philosophy and Psychology, and each has its own
+// stats and saved game, stored under keys like "mindle.stats.psychology".
+const topicKey = (name, topic) => `${name}.${topic.toLowerCase()}`;
+
+// Daily stats for one topic: played, wins, streaks, guess distribution.
+export function loadStats(topic) {
+  return { ...emptyStats(), ...load(topicKey('stats', topic), {}) };
 }
-export function saveDaily(daily) {
-  save('daily', daily);
+export function saveStats(topic, stats) {
+  save(topicKey('stats', topic), stats);
+}
+
+// Today's daily game for one topic, so a refresh doesn't lose it:
+// { date, answerId, guesses: [ids] }. Saving the answer's id also "locks" today's
+// answer, even if data.json changes mid-day.
+export function loadDaily(topic) {
+  return load(topicKey('daily', topic), null);
+}
+export function saveDaily(topic, daily) {
+  save(topicKey('daily', topic), daily);
+}
+
+// Before the split there was one mixed daily, saved as "mindle.daily" and
+// "mindle.stats". Move them over once, into the topic of the answer that was
+// played (a "Both" answer counts as Philosophy), so nobody loses a game or a streak.
+export function moveOldMixedDaily(answers) {
+  const oldDaily = load('daily', null);
+  const oldStats = load('stats', null);
+  if (!oldDaily && !oldStats) return;
+  const answer = oldDaily && answers.find((a) => a.id === oldDaily.answerId);
+  const topic = answer?.field === 'Psychology' ? 'Psychology' : 'Philosophy';
+  if (oldDaily && !loadDaily(topic)) saveDaily(topic, oldDaily);
+  if (oldStats && !load(topicKey('stats', topic), null)) save(topicKey('stats', topic), oldStats);
+  remove('daily');
+  remove('stats');
 }
 
 // Every answer you've met, in either mode, for the Encyclopedia:
@@ -69,7 +97,7 @@ export function markHelpSeen() {
 
 // Which mode and practice filter you used last.
 export function loadSettings() {
-  return { mode: 'daily', filter: 'Both', ...load('settings', {}) };
+  return { mode: 'daily', filter: 'Both', dailyTopic: 'Philosophy', ...load('settings', {}) };
 }
 export function saveSettings(settings) {
   save('settings', settings);

@@ -4,11 +4,11 @@
 
 import {
   MAX_GUESSES, scoreGuess, formatYear, findByName, searchAnswers, pickRandom, filterAnswers,
-  dateKey, puzzleNumber, msUntilMidnight, dailyAnswer,
+  dateKey, puzzleNumber, msUntilMidnight, topicDailyAnswer, dailyFinished, DAILY_TOPICS,
   recordDaily, currentStreak, winRate, shareText,
 } from './logic.js';
 import {
-  loadStats, saveStats, loadDaily, saveDaily, recordResult, loadSettings, saveSettings,
+  loadStats, saveStats, loadDaily, saveDaily, moveOldMixedDaily, recordResult, loadSettings, saveSettings,
   hasSeenHelp, markHelpSeen,
 } from './storage.js';
 import { el } from './dom.js';
@@ -19,8 +19,11 @@ const els = {
   loading: $('loading'),
   game: $('game'),
   modeInputs: document.querySelectorAll('input[name="mode"]'),
+  dailyPicker: $('daily-picker'),
+  dailyInputs: document.querySelectorAll('input[name="daily-topic"]'),
   filterPicker: $('filter-picker'),
   filterInputs: document.querySelectorAll('input[name="filter"]'),
+  statsInputs: document.querySelectorAll('input[name="stats-topic"]'),
   roundTitle: $('round-title'),
   clueList: $('clue-list'),
   clueCount: $('clue-count'),
@@ -65,7 +68,8 @@ const WRONG_WORDS = ['Not it', 'Not quite', 'Getting close', 'So close!'];
 const RESULT_DELAY = 900; // ms to enjoy the last row before the answer card slides in
 
 let answers = []; // every entry from data.json
-let settings = loadSettings(); // { mode: 'daily' | 'practice', filter: 'Both' | 'Philosophy' | 'Psychology' }
+// { mode: 'daily' | 'practice', dailyTopic: 'Philosophy' | 'Psychology', filter: 'Both' | 'Philosophy' | 'Psychology' }
+let settings = loadSettings();
 let round = null; // the round on screen (see makeRound)
 let practiceRound = null; // kept so switching to Daily and back doesn't lose it
 let suggestions = []; // what the autocomplete list is showing
@@ -88,6 +92,8 @@ async function start() {
       'Could not load the answers. Mindle has to be opened through a local web server, not by double-clicking the file (see README).';
     return;
   }
+  moveOldMixedDaily(answers);
+  if (!DAILY_TOPICS.includes(settings.dailyTopic)) settings.dailyTopic = 'Philosophy';
   els.loading.hidden = true;
   els.game.hidden = false;
   setUpInput();
@@ -103,16 +109,19 @@ async function start() {
 // ---------- rounds and modes ----------
 
 // A round is one puzzle. `pool` is the list of answers it can be, and that
-// you can guess from (all of them, or one subject in practice).
-function makeRound(mode, answer, pool, date = null) {
-  return { mode, answer, pool, date, guesses: [], scores: [], over: false, won: false };
+// you can guess from (one subject for the dailies; all or one subject in practice).
+// `topic` says which daily it is (Philosophy or Psychology).
+function makeRound(mode, answer, pool, date = null, topic = null) {
+  return { mode, answer, pool, date, topic, guesses: [], scores: [], over: false, won: false };
 }
 
 function setMode(mode) {
   settings.mode = mode;
   saveSettings(settings);
   for (const input of els.modeInputs) input.checked = input.value === mode;
+  for (const input of els.dailyInputs) input.checked = input.value === settings.dailyTopic;
   for (const input of els.filterInputs) input.checked = input.value === settings.filter;
+  els.dailyPicker.hidden = mode !== 'daily';
   els.filterPicker.hidden = mode !== 'practice';
 
   if (mode === 'daily') startDaily();
@@ -120,22 +129,35 @@ function setMode(mode) {
   else newPracticeRound();
 }
 
-// Today's puzzle: carry on from where you left off today, or start it fresh.
+// Today's puzzle for the chosen subject: carry on from where you left off
+// today, or start it fresh. Each subject's daily is saved separately.
 function startDaily() {
+  const topic = settings.dailyTopic;
+  const pool = filterAnswers(answers, topic);
   const today = dateKey();
-  let saved = loadDaily();
+  let saved = loadDaily(topic);
   let answer = saved && saved.date === today ? answers.find((a) => a.id === saved.answerId) : null;
   if (!answer) {
-    answer = dailyAnswer(answers, today);
+    answer = topicDailyAnswer(answers, topic, today);
     saved = { date: today, answerId: answer.id, guesses: [] };
-    saveDaily(saved);
+    saveDaily(topic, saved);
   }
-  const daily = makeRound('daily', answer, answers, today);
+  const daily = makeRound('daily', answer, pool, today, topic);
   for (const id of saved.guesses) {
     const entry = answers.find((a) => a.id === id);
     if (entry) applyGuess(daily, entry);
   }
   showRound(daily);
+}
+
+function otherTopic(topic) {
+  return topic === 'Philosophy' ? 'Psychology' : 'Philosophy';
+}
+
+// Has today's daily for this subject been played to the end?
+function dailyDoneToday(topic) {
+  const saved = loadDaily(topic);
+  return saved?.date === dateKey() && dailyFinished(saved);
 }
 
 function newPracticeRound() {
@@ -165,7 +187,7 @@ function renderTitle() {
   if (round.mode === 'daily') {
     const [y, m, d] = round.date.split('-').map(Number);
     const day = new Date(y, m - 1, d).toLocaleDateString('en-IE', { weekday: 'long', day: 'numeric', month: 'long' });
-    els.roundTitle.textContent = `Mindle #${puzzleNumber(round.date)} · ${day}`;
+    els.roundTitle.textContent = `Mindle ${round.topic} #${puzzleNumber(round.date)} · ${day}`;
   } else {
     const topic = settings.filter === 'Both' ? 'all topics' : settings.filter;
     els.roundTitle.textContent = `Practice round · ${topic} (${round.pool.length} answers)`;
@@ -176,6 +198,9 @@ function setUpControls() {
   for (const input of els.modeInputs) {
     input.addEventListener('change', () => setMode(input.value));
   }
+  for (const input of els.dailyInputs) {
+    input.addEventListener('change', () => switchDailyTopic(input.value));
+  }
   for (const input of els.filterInputs) {
     input.addEventListener('change', () => {
       settings.filter = input.value;
@@ -183,10 +208,17 @@ function setUpControls() {
       newPracticeRound();
     });
   }
+  for (const input of els.statsInputs) {
+    input.addEventListener('change', () => renderStats(input.value));
+  }
+  // After a daily: on to today's other subject if it isn't done yet, otherwise Practice.
   els.nextRound.addEventListener('click', () => {
     if (round.mode === 'practice') {
       newPracticeRound();
       els.input.focus();
+    } else if (!dailyDoneToday(otherTopic(round.topic))) {
+      switchDailyTopic(otherTopic(round.topic));
+      window.scrollTo({ top: 0, behavior: smoothOrInstant() });
     } else {
       setMode('practice');
     }
@@ -199,6 +231,13 @@ function setUpControls() {
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') checkForNewDay();
   });
+}
+
+function switchDailyTopic(topic) {
+  settings.dailyTopic = topic;
+  saveSettings(settings);
+  for (const input of els.dailyInputs) input.checked = input.value === topic;
+  startDaily();
 }
 
 function checkForNewDay() {
@@ -279,7 +318,11 @@ function submitGuess() {
   const entry = findByName(round.pool, typed);
   if (!entry) {
     let text = typed.trim() ? 'Pick an answer from the list.' : 'Type a few letters, then pick an answer from the list.';
-    if (findByName(answers, typed)) text = `That isn't one of the ${settings.filter} answers. Change the topic to guess it.`;
+    if (findByName(answers, typed)) {
+      text = round.mode === 'daily'
+        ? `That isn't a ${round.topic} answer, so it can't be today's ${round.topic} puzzle.`
+        : `That isn't one of the ${settings.filter} answers. Change the topic to guess it.`;
+    }
     setMessage(text);
     return;
   }
@@ -290,7 +333,7 @@ function submitGuess() {
 
   const score = applyGuess(round, entry);
   if (round.mode === 'daily') {
-    saveDaily({ date: round.date, answerId: round.answer.id, guesses: round.guesses.map((g) => g.id) });
+    saveDaily(round.topic, { date: round.date, answerId: round.answer.id, guesses: round.guesses.map((g) => g.id) });
   }
 
   els.input.value = '';
@@ -315,7 +358,7 @@ function submitGuess() {
 function finishRound() {
   recordResult(round.answer.id, round.won, round.date || dateKey());
   if (round.mode === 'daily') {
-    saveStats(recordDaily(loadStats(), round.date, round.won, round.guesses.length));
+    saveStats(round.topic, recordDaily(loadStats(round.topic), round.date, round.won, round.guesses.length));
   }
   els.form.hidden = true;
 
@@ -453,7 +496,9 @@ function showResult(moveFocus) {
   els.encyclopediaLink.href = `encyclopedia.html#entry-${answer.id}`;
 
   const daily = round.mode === 'daily';
-  els.nextRound.textContent = daily ? 'Practice mode' : 'Next round';
+  if (!daily) els.nextRound.textContent = 'Next round';
+  else if (!dailyDoneToday(otherTopic(round.topic))) els.nextRound.textContent = `Today's ${otherTopic(round.topic)}`;
+  else els.nextRound.textContent = 'Practice mode';
   els.resultStats.hidden = !daily;
   els.shareMessage.textContent = '';
   els.shareFallback.hidden = true;
@@ -496,7 +541,7 @@ function stopCountdown() {
 
 async function shareResult() {
   const text = shareText({
-    title: round.mode === 'daily' ? `Mindle #${puzzleNumber(round.date)}` : 'Mindle practice',
+    title: round.mode === 'daily' ? `Mindle ${round.topic} #${puzzleNumber(round.date)}` : 'Mindle practice',
     won: round.won,
     scores: round.scores,
     url: location.origin + location.pathname,
@@ -535,13 +580,16 @@ async function copyText(text) {
 
 // ---------- statistics ----------
 
+// Opens on the subject of the daily you're looking at (or your last daily subject).
 function openStats() {
-  renderStats();
+  const topic = round?.mode === 'daily' ? round.topic : settings.dailyTopic;
+  for (const input of els.statsInputs) input.checked = input.value === topic;
+  renderStats(topic);
   els.statsDialog.showModal();
 }
 
-function renderStats() {
-  const stats = loadStats();
+function renderStats(topic) {
+  const stats = loadStats(topic);
   const today = dateKey();
   const numbers = [
     ['Played', stats.played],
@@ -553,7 +601,8 @@ function renderStats() {
     el('div', {}, el('dt', { text: label }), el('dd', { text: value }))));
 
   // Highlight today's bar if today's daily was won.
-  const todayRow = stats.lastWon === today && round?.mode === 'daily' && round.won ? round.guesses.length - 1 : -1;
+  const showingTodaysWin = stats.lastWon === today && round?.mode === 'daily' && round.topic === topic && round.won;
+  const todayRow = showingTodaysWin ? round.guesses.length - 1 : -1;
   const most = Math.max(1, ...stats.distribution);
   const rows = stats.distribution.map((count, i) => {
     // The longest bar fills the row, leaving room for its count.

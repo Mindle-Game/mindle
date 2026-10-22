@@ -62,6 +62,14 @@
           <label for="mode-practice">Practice</label>
         </fieldset>
 
+        <fieldset class="segmented small" id="daily-picker" hidden>
+          <legend class="visually-hidden">Daily puzzle topic</legend>
+          <input type="radio" name="daily-topic" id="daily-philosophy" value="Philosophy">
+          <label for="daily-philosophy">Philosophy</label>
+          <input type="radio" name="daily-topic" id="daily-psychology" value="Psychology">
+          <label for="daily-psychology">Psychology</label>
+        </fieldset>
+
         <fieldset class="segmented small" id="filter-picker" hidden>
           <legend class="visually-hidden">Practice topics</legend>
           <input type="radio" name="filter" id="filter-both" value="Both">
@@ -141,6 +149,13 @@
       </form>
     </div>
     <p class="dialog-note">Daily puzzles only. Practice rounds don't count.</p>
+    <fieldset class="segmented small stats-picker">
+      <legend class="visually-hidden">Show stats for</legend>
+      <input type="radio" name="stats-topic" id="stats-philosophy" value="Philosophy">
+      <label for="stats-philosophy">Philosophy</label>
+      <input type="radio" name="stats-topic" id="stats-psychology" value="Psychology">
+      <label for="stats-psychology">Psychology</label>
+    </fieldset>
     <dl id="stat-numbers" class="stat-numbers"></dl>
     <h3 class="dist-title" id="dist-title">Guess distribution</h3>
     <p class="dialog-note">How many guesses your daily wins took.</p>
@@ -179,7 +194,7 @@
 
     <h3>Daily and Practice</h3>
     <ul>
-      <li><strong>Daily:</strong> one puzzle for everyone each day, new at midnight. It counts towards your stats and streak.</li>
+      <li><strong>Daily:</strong> two puzzles each day, one Philosophy and one Psychology. They're the same for everyone and new at midnight, and each has its own stats and streak.</li>
       <li><strong>Practice:</strong> as many rounds as you like, filtered by topic if you want.</li>
       <li>Every answer you meet is saved in your <a href="encyclopedia.html">Encyclopedia</a> for revision.</li>
     </ul>

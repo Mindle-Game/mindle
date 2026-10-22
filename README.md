@@ -45,7 +45,7 @@ To try it on the iPhone Simulator, open http://127.0.0.1:8080 in its Safari.
 | **Focus** | same topics | at least one shared | none shared |
 
   The **Began** box also shows ↑ if the answer began later, or ↓ if earlier.
-- **Daily** gives everyone the same puzzle each day, changing at midnight. It counts towards your stats and streak.
+- **Daily** has two puzzles each day, one **Philosophy** and one **Psychology**. Pick one with the switch under the mode buttons. Each is the same for everyone, changes at midnight and has its own stats and streak. The guess list only offers answers from that subject, and the five "Both" answers can appear in either.
 - **Practice** gives unlimited random rounds, filtered by Philosophy, Psychology or Both.
 - Every answer you meet is saved in the **Encyclopedia** for revision.
 
@@ -77,15 +77,15 @@ tools/
 
 **The rules are kept apart from the screen.** `logic.js` holds only rules (how a guess is scored, which answer is today's). It never touches the page, which is why `tools/test-logic.mjs` can test it on its own. `app.js` reads what you do, asks `logic.js` what it means, and draws the result.
 
-**How the daily answer is chosen (the "bag").** There's no server choosing a puzzle, so every phone has to work out the same answer by itself. Picture all the answers in a bag:
+**How the daily answers are chosen (the "bags").** There's no server choosing puzzles, so every phone has to work out the same answers by itself. There are two bags: one holds the Philosophy answers, the other the Psychology answers, and the "Both" answers go in both.
 
 1. Today's date is turned into a day number (days since `LAUNCH_DATE` in `logic.js`).
-2. Each day, one answer is drawn. The draw is decided by a **hash**, a recipe that turns text like `"12:stoicism"` into a scrambled number. The answer with the lowest number wins. The same text always gives the same number, so every phone draws the same answer.
-3. Drawn answers stay out of the bag, so nothing repeats until every answer has been used. Then the bag refills (skipping yesterday's answer).
+2. Each day, one answer is drawn from each bag. The draw is decided by a **hash**, a recipe that turns text like `"psychology:12:behaviourism"` into a scrambled number. The answer with the lowest number wins. The same text always gives the same number, so every phone draws the same answers. The subject's name at the front (the "seed") makes each bag draw in its own order.
+3. Drawn answers stay out of their bag, so nothing repeats in a subject until all of its answers have been used. Then that bag refills (skipping yesterday's answer).
 
-The game replays every day since launch to know what's left in the bag. It sounds like a lot, but ten years of days takes about 20 milliseconds.
+The game replays every day since launch to know what's left in each bag. It sounds like a lot, but ten years of days takes about 20 milliseconds.
 
-**Saving.** Your stats, today's progress and your Encyclopedia live in **localStorage**, a small store each website gets inside your browser. Nothing is sent anywhere. It stays on that one device and browser, and clearing your browser's website data wipes it.
+**Saving.** Your stats and today's progress for each daily, plus your Encyclopedia, live in **localStorage**, a small store each website gets inside your browser. Nothing is sent anywhere. It stays on that one device and browser, and clearing your browser's website data wipes it.
 
 **Working offline.** `sw.js` is a **service worker**, a script the browser runs in the background between the page and the internet. It keeps a copy of every file. When you're online it always fetches fresh files (and updates its copies). When you're offline it hands over the saved copies instead.
 
@@ -138,7 +138,7 @@ node tools/check-data.mjs
 
 This catches missing fields, typos in tags, duplicate names and clues that give the answer away.
 
-3. Refresh the game. Your new answer is in Practice straight away, and in the daily bag from its `added` date.
+3. Refresh the game. Your new answer is in Practice straight away, and in its subject's daily bag (both bags for a "Both" answer) from its `added` date.
 
 ## Checking your work
 
@@ -146,7 +146,7 @@ This catches missing fields, typos in tags, duplicate names and clues that give 
 node tools/test-logic.mjs
 ```
 
-This runs automatic tests of the rules: scoring, dates, the daily bag never repeating, streaks and sharing. All tests should show ✔.
+This runs automatic tests of the rules: scoring, dates, each daily bag never repeating and staying in its subject, streaks and sharing. All tests should show ✔.
 
 ```bash
 node tools/check-data.mjs
