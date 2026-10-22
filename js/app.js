@@ -53,6 +53,10 @@ const els = {
   openStats: $('open-stats'),
   statsDialog: $('stats-dialog'),
   openHelp: $('open-help'),
+  openSettings: $('open-settings'),
+  settingsDialog: $('settings-dialog'),
+  reduceMotionInput: $('reduce-motion'),
+  deviceMotionNote: $('device-motion-note'),
   helpDialog: $('help-dialog'),
   encyclopediaLink: $('encyclopedia-link'),
   statNumbers: $('stat-numbers'),
@@ -67,12 +71,14 @@ const YEAR_RANGES = { green: 'within 20 yrs', amber: 'within 100 yrs', grey: 'ov
 const WIN_WORDS = ['Brilliant!', 'Excellent!', 'Great!', 'Nice!', 'Phew!', 'Just made it!'];
 // Pop-up title for a wrong guess, by how many of the four boxes were green.
 const WRONG_WORDS = ['Not it', 'Not quite', 'Getting close', 'So close!'];
-const RESULT_DELAY = 900; // ms to enjoy the last row before the answer card slides in
+const REVEAL_TIME = 1100; // ms for a new row's four boxes to flip over (see .guess.new in style.css)
+const RESULT_DELAY = 800; // then ms to enjoy the last row before the answer card slides in
 // The example in the guess box, by subject.
 const EXAMPLES = { Philosophy: 'Stoicism', Psychology: 'Behaviourism' };
 
 let answers = []; // every entry from data.json
-// { mode: 'daily' | 'practice', dailyTopic: 'Philosophy' | 'Psychology', filter: 'Philosophy' | 'Psychology' }
+// { mode: 'daily' | 'practice', dailyTopic: 'Philosophy' | 'Psychology', filter: 'Philosophy' | 'Psychology',
+//   reduceMotion: true | false }
 let settings = loadSettings();
 let round = null; // the round on screen (see makeRound)
 let practiceRound = null; // kept so switching to Daily and back doesn't lose it
@@ -80,6 +86,7 @@ let suggestions = []; // what the autocomplete list is showing
 let active = -1; // which suggestion is highlighted (-1 = none)
 let countdownTimer = null;
 
+applyMotionSetting();
 registerServiceWorker();
 start();
 
@@ -237,6 +244,15 @@ function setUpControls() {
   els.share.addEventListener('click', shareResult);
   els.openStats.addEventListener('click', openStats);
   els.openHelp.addEventListener('click', () => els.helpDialog.showModal());
+  els.openSettings.addEventListener('click', openSettings);
+  els.reduceMotionInput.addEventListener('change', () => {
+    settings.reduceMotion = els.reduceMotionInput.checked;
+    saveSettings(settings);
+    // Rows and clues already on screen shouldn't replay their animation when it's switched back on.
+    for (const row of document.querySelectorAll('.guess.new')) row.classList.remove('new');
+    for (const clue of document.querySelectorAll('.clue.appear')) clue.classList.remove('appear');
+    applyMotionSetting();
+  });
   els.resultStats.addEventListener('click', openStats);
   // If the page was left open overnight, pick up the new daily puzzle when you come back.
   document.addEventListener('visibilitychange', () => {
@@ -265,12 +281,15 @@ function cluesShown() {
 
 // Shows the unlocked clues, plus one line saying the next one is still locked.
 // (Listing every locked clue pushed the guesses off the bottom of a phone screen.)
-function renderClues() {
+// `animate` fades in the newest clue (just after a wrong guess).
+function renderClues(animate = false) {
   const total = round.answer.clues.length;
   const shown = cluesShown();
   const items = round.answer.clues.slice(0, shown).map((text, i) => {
     const newest = i === shown - 1 && !round.over;
-    return clueItem(i + 1, text, newest ? 'clue newest' : 'clue');
+    let classes = 'clue';
+    if (newest) classes += animate ? ' newest appear' : ' newest';
+    return clueItem(i + 1, text, classes);
   });
   if (shown < total) items.push(clueItem(shown + 1, 'Unlocks after your next wrong guess', 'clue locked'));
   els.clueList.replaceChildren(...items);
@@ -350,13 +369,14 @@ function submitGuess() {
   els.input.value = '';
   closeSuggestions();
   addGuessRow(entry, score, round.guesses.length, true);
-  renderClues();
+  renderClues(true);
   renderCount();
 
   if (round.over) {
     finishRound();
   } else {
-    showWrongToast(score);
+    const [title, detail] = wrongToastText(score); // worked out now, shown once the boxes have flipped
+    afterReveal(() => showToast('bad', title, detail));
     const clue = round.answer.clues[cluesShown() - 1];
     announce(`${describeScore(entry, score)} Clue ${cluesShown()}: ${clue}`);
     // On a touch screen, close the keyboard so the new clue and feedback can be read.
@@ -377,16 +397,23 @@ function finishRound() {
   }
   els.form.hidden = true;
 
+  // Once the boxes have flipped: the pop-up, then (after a short pause to enjoy
+  // the last row) the answer card.
   const used = round.guesses.length;
-  if (round.won) showToast('good', 'Correct!', `${round.answer.name} in ${used} ${used === 1 ? 'guess' : 'guesses'}`);
-  else showToast('bad', 'Out of guesses', `It was ${round.answer.name}`);
+  const { name } = round.answer;
+  if (round.won) afterReveal(() => showToast('good', 'Correct!', `${name} in ${used} ${used === 1 ? 'guess' : 'guesses'}`));
+  else afterReveal(() => showToast('bad', 'Out of guesses', `It was ${name}`));
+  afterReveal(() => showResult(true), RESULT_DELAY);
+}
 
-  // A short pause first, so the last row's animation can be seen. If the player
-  // switches mode during the pause, this round is no longer on screen: skip it.
-  const finished = round;
+// Runs `action` once a new row's boxes have flipped over (straight away with
+// reduced motion), plus `extra` ms. If the player switches mode or round in the
+// meantime, the round it was for is no longer on screen, so it's skipped.
+function afterReveal(action, extra = 0) {
+  const current = round;
   setTimeout(() => {
-    if (round === finished) showResult(true);
-  }, reduceMotion() ? 0 : RESULT_DELAY);
+    if (round === current) action();
+  }, reduceMotion() ? 0 : REVEAL_TIME + extra);
 }
 
 // Counts an anonymous event with GoatCounter (no cookies, no personal data); its
@@ -396,8 +423,14 @@ function countEvent(path, title) {
   window.goatcounter?.count?.({ path, title, event: true });
 }
 
+// Less movement if the device asks for it, or the Reduce motion switch in Settings is on.
 function reduceMotion() {
-  return matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return Boolean(settings.reduceMotion) || matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// The switch works through a class on <html>, which style.css uses to turn off all animation.
+function applyMotionSetting() {
+  document.documentElement.classList.toggle('reduce-motion', Boolean(settings.reduceMotion));
 }
 
 function smoothOrInstant() {
@@ -423,14 +456,15 @@ function showToast(kind, title, detail) {
   }, 1800);
 }
 
-// "So close!" when 3 of the 4 boxes were green, down to "Not it" for none.
-function showWrongToast(score) {
+// The pop-up's title and detail after a wrong guess: "So close!" when 3 of the
+// 4 boxes were green, down to "Not it" for none.
+function wrongToastText(score) {
   const greens = CLUE_PARTS.filter((part) => score[part].status === 'green').length;
   const left = MAX_GUESSES - round.guesses.length;
   const guessesLeft = `${left} ${left === 1 ? 'guess' : 'guesses'} left`;
   // After the 4th wrong guess every clue is already showing.
   const newClue = round.guesses.length < round.answer.clues.length ? `Clue ${cluesShown()} unlocked · ` : '';
-  showToast('bad', WRONG_WORDS[greens], newClue + guessesLeft);
+  return [WRONG_WORDS[greens], newClue + guessesLeft];
 }
 
 // ---------- feedback rows ----------
@@ -607,6 +641,12 @@ async function copyText(text) {
 // ---------- statistics ----------
 
 // Opens on the subject of the daily you're looking at (or your last daily subject).
+function openSettings() {
+  els.reduceMotionInput.checked = Boolean(settings.reduceMotion);
+  els.deviceMotionNote.hidden = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  els.settingsDialog.showModal();
+}
+
 function openStats() {
   const topic = round?.mode === 'daily' ? round.topic : settings.dailyTopic;
   for (const input of els.statsInputs) input.checked = input.value === topic;

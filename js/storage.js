@@ -95,9 +95,9 @@ export function markHelpSeen() {
   save('seenHelp', true);
 }
 
-// Which mode and practice filter you used last.
+// Which mode and topics you used last, and the Reduce motion switch.
 export function loadSettings() {
-  return { mode: 'daily', filter: 'Philosophy', dailyTopic: 'Philosophy', ...load('settings', {}) };
+  return { mode: 'daily', filter: 'Philosophy', dailyTopic: 'Philosophy', reduceMotion: false, ...load('settings', {}) };
 }
 export function saveSettings(settings) {
   save('settings', settings);

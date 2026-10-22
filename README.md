@@ -48,6 +48,7 @@ To try it on the iPhone Simulator, open http://127.0.0.1:8080 in its Safari.
 - **Daily** has two puzzles each day, one **Philosophy** and one **Psychology**. Pick one with the switch under the mode buttons. Each is the same for everyone, changes at midnight and has its own stats and streak. The guess list only offers answers from that subject. The five answers that belong to both subjects can appear in either.
 - **Practice** gives unlimited random rounds in Philosophy or Psychology.
 - Every answer you meet is saved in the **Encyclopedia** for revision.
+- **Settings** (the gear) has a **Reduce motion** switch that turns off the flips, slides and shakes. Devices set to reduce motion get this automatically.
 
 ## What's in the folder
 
