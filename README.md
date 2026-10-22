@@ -39,13 +39,13 @@ To try it on the iPhone Simulator, open http://127.0.0.1:8080 in its Safari.
 
 | Box | Green ✓ | Amber ~ | Grey ✗ |
 |---|---|---|---|
-| **Field** | same field | one of them is "Both" | different |
+| **Specialty** | exactly the same specialties | at least one shared | none shared |
 | **Began** | within 20 years | within 100 years | further apart |
 | **Origin** | same country | same continent | elsewhere |
-| **Focus** | same topics | at least one shared | none shared |
+| **Type** | same type | — | different type |
 
-  The **Began** box also shows ↑ if the answer began later, or ↓ if earlier.
-- **Daily** has two puzzles each day, one **Philosophy** and one **Psychology**. Pick one with the switch under the mode buttons. Each is the same for everyone, changes at midnight and has its own stats and streak. The guess list only offers answers from that subject, and the five "Both" answers can appear in either.
+  The **Began** box also shows ↑ if the answer began later, or ↓ if earlier. **Specialty** is the area an answer works in (e.g. Ethics, Mind, Clinical). **Type** is what kind of thing it is: School, Movement, Tradition, Theory, Therapy or Method.
+- **Daily** has two puzzles each day, one **Philosophy** and one **Psychology**. Pick one with the switch under the mode buttons. Each is the same for everyone, changes at midnight and has its own stats and streak. The guess list only offers answers from that subject. The five answers that belong to both subjects can appear in either.
 - **Practice** gives unlimited random rounds in Philosophy or Psychology.
 - Every answer you meet is saved in the **Encyclopedia** for revision.
 
@@ -77,7 +77,7 @@ tools/
 
 **The rules are kept apart from the screen.** `logic.js` holds only rules (how a guess is scored, which answer is today's). It never touches the page, which is why `tools/test-logic.mjs` can test it on its own. `app.js` reads what you do, asks `logic.js` what it means, and draws the result.
 
-**How the daily answers are chosen (the "bags").** There's no server choosing puzzles, so every phone has to work out the same answers by itself. There are two bags: one holds the Philosophy answers, the other the Psychology answers, and the "Both" answers go in both.
+**How the daily answers are chosen (the "bags").** There's no server choosing puzzles, so every phone has to work out the same answers by itself. There are two bags: one holds the Philosophy answers, the other the Psychology answers, and answers that belong to both go in both.
 
 1. Today's date is turned into a day number (days since `LAUNCH_DATE` in `logic.js`).
 2. Each day, one answer is drawn from each bag. The draw is decided by a **hash**, a recipe that turns text like `"psychology:12:behaviourism"` into a scrambled number. The answer with the lowest number wins. The same text always gives the same number, so every phone draws the same answers. The subject's name at the front (the "seed") makes each bag draw in its own order.
@@ -91,19 +91,19 @@ The game replays every day since launch to know what's left in each bag. It soun
 
 ## Adding a new answer
 
-1. Open `data.json` and add an entry to the `"answers"` list. Copy an existing one as a template. Answers are grouped by field and sorted by year, but the order doesn't affect the game.
+1. Open `data.json` and add an entry to the `"answers"` list. Copy an existing one as a template. Answers are grouped by subject and sorted by year, but the order doesn't affect the game.
 
 ```json
 {
   "id": "cartesian-dualism",
   "name": "Cartesian dualism",
   "aliases": ["Mind-body dualism"],
-  "field": "Philosophy",
+  "type": "Theory",
+  "specialties": ["Mind", "Metaphysics"],
   "year": 1641,
   "dateNote": "Descartes set it out in his Meditations on First Philosophy (1641).",
   "place": "France",
   "continent": "Europe",
-  "focus": ["Mind", "Reality"],
   "figures": ["René Descartes", "Elisabeth of Bohemia", "Nicolas Malebranche"],
   "description": "Two sentences explaining it, in your own words.",
   "clues": ["vaguest clue", "…", "…", "…", "Key figures: René Descartes, Elisabeth of Bohemia and Nicolas Malebranche."],
@@ -116,13 +116,13 @@ The game replays every day since launch to know what's left in each bag. It soun
 | `id` | lower-case words joined by hyphens. Never change it later: stats depend on it |
 | `name` | the answer as players will pick it |
 | `aliases` | *optional.* Other names or spellings the search box should find (e.g. "Behaviorism") |
-| `field` | `"Philosophy"`, `"Psychology"` or `"Both"` |
+| `type` | one of the `"types"` at the top of `data.json`: School, Movement, Tradition, Theory, Therapy or Method |
+| `specialties` | 1 to 3 from the `"specialties"` lists at the top of `data.json`. **These also decide the subject:** philosophy specialties put it in the Philosophy daily, psychology ones in Psychology, and one from each list puts it in both |
 | `year` | the year it began; negative for BC (`-300` is 300 BC). There is no year 0 |
 | `dateNote` | *optional.* Explain the date if it's disputed or approximate |
 | `place` | the modern country where it began (`"UK"`, `"USA"`, `"Greece"`…) |
 | `continent` | one of the continents listed at the top of `data.json` |
 | `originNote` | *optional.* Explain the origin if it's complicated |
-| `focus` | 1 to 3 tags from the `"tags"` list at the top of `data.json` |
 | `figures` | the key thinkers |
 | `description` | two sentences, in your own words |
 | `clues` | exactly five, from vague to specific; the last names the key figures. No clue may contain the answer's name |
@@ -136,9 +136,9 @@ The game replays every day since launch to know what's left in each bag. It soun
 node tools/check-data.mjs
 ```
 
-This catches missing fields, typos in tags, duplicate names and clues that give the answer away.
+This catches missing fields, misspelled specialties or types, duplicate names and clues that give the answer away.
 
-3. Refresh the game. Your new answer is in Practice straight away, and in its subject's daily bag (both bags for a "Both" answer) from its `added` date.
+3. Refresh the game. Your new answer is in Practice straight away, and in its subject's daily bag (both bags if it has specialties from both lists) from its `added` date.
 
 ## Checking your work
 

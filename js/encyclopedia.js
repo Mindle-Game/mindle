@@ -1,7 +1,7 @@
 // The Encyclopedia page: every answer you've met in Mindle, for revision.
 // It reads the same saved results the game writes (see storage.js).
 
-import { formatYear, filterAnswers, encyclopediaGroups, matchesSearch } from './logic.js';
+import { formatYear, filterAnswers, encyclopediaGroups, matchesSearch, prepareAnswers } from './logic.js';
 import { loadResults } from './storage.js';
 import { el } from './dom.js';
 import { registerServiceWorker } from './pwa.js';
@@ -18,7 +18,7 @@ async function start() {
   try {
     const response = await fetch('data.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`data.json returned ${response.status}`);
-    answers = (await response.json()).answers;
+    answers = prepareAnswers(await response.json());
   } catch (error) {
     console.error(error);
     $('loading').textContent = 'Could not load the answers. Open Mindle through a local web server (see README).';
@@ -76,8 +76,8 @@ function entryCard(answer) {
 
   return el('li', { class: 'card entry', id: `entry-${answer.id}`, tabindex: '-1' },
     el('h3', { class: 'entry-name', text: answer.name }),
-    el('p', { class: 'entry-meta', text: `${answer.field} · began ${formatYear(answer.year)} · ${answer.place}` }),
-    el('ul', { class: 'tag-list', 'aria-label': 'Focus' }, ...answer.focus.map((tag) => el('li', { class: 'tag-chip', text: tag }))),
+    el('p', { class: 'entry-meta', text: `${answer.type} · ${answer.subjects.join(' & ')} · began ${formatYear(answer.year)} · ${answer.place}` }),
+    el('ul', { class: 'tag-list', 'aria-label': 'Specialties' }, ...answer.specialties.map((s) => el('li', { class: 'tag-chip', text: s }))),
     el('p', { text: answer.description }),
     el('p', {}, el('strong', { text: 'Key figures: ' }), answer.figures.join(', ')),
     notes.length ? el('div', { class: 'answer-notes' }, ...notes) : '',

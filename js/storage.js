@@ -58,14 +58,14 @@ export function saveDaily(topic, daily) {
 }
 
 // Before the split there was one mixed daily, saved as "mindle.daily" and
-// "mindle.stats". Move them over once, into the topic of the answer that was
-// played (a "Both" answer counts as Philosophy), so nobody loses a game or a streak.
+// "mindle.stats". Move them over once, into the subject of the answer that was
+// played (one that belongs to both counts as Philosophy), so nobody loses a game or a streak.
 export function moveOldMixedDaily(answers) {
   const oldDaily = load('daily', null);
   const oldStats = load('stats', null);
   if (!oldDaily && !oldStats) return;
   const answer = oldDaily && answers.find((a) => a.id === oldDaily.answerId);
-  const topic = answer?.field === 'Psychology' ? 'Psychology' : 'Philosophy';
+  const topic = answer?.subjects.includes('Philosophy') === false ? 'Psychology' : 'Philosophy';
   if (oldDaily && !loadDaily(topic)) saveDaily(topic, oldDaily);
   if (oldStats && !load(topicKey('stats', topic), null)) save(topicKey('stats', topic), oldStats);
   remove('daily');

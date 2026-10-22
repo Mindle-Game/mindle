@@ -3,7 +3,7 @@
 // guess was, and draws the result.
 
 import {
-  MAX_GUESSES, scoreGuess, formatYear, findByName, searchAnswers, pickRandom, filterAnswers,
+  MAX_GUESSES, CLUE_PARTS, scoreGuess, prepareAnswers, formatYear, findByName, searchAnswers, pickRandom, filterAnswers,
   dateKey, puzzleNumber, msUntilMidnight, topicDailyAnswer, dailyFinished, DAILY_TOPICS,
   recordDaily, currentStreak, winRate, shareText,
 } from './logic.js';
@@ -59,7 +59,7 @@ const els = {
 
 // Words shown in each feedback cell, so the colours are never the only signal.
 const ICONS = { green: '✓', amber: '~', grey: '✗' };
-const FIELD_NOTES = { green: 'Same field', amber: 'Overlaps (Both)', grey: 'Different field' };
+const TYPE_NOTES = { green: 'Same type', grey: 'Different type' };
 const ORIGIN_NOTES = { green: 'Same place', amber: 'Same continent', grey: 'Elsewhere' };
 const YEAR_RANGES = { green: 'within 20 yrs', amber: 'within 100 yrs', grey: 'over 100 yrs' };
 const WIN_WORDS = ['Brilliant!', 'Excellent!', 'Great!', 'Nice!', 'Phew!', 'Just made it!'];
@@ -85,7 +85,7 @@ async function start() {
     // (a quick "not changed" reply if it hasn't), so new entries show up straight away.
     const response = await fetch('data.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`data.json returned ${response.status}`);
-    answers = (await response.json()).answers;
+    answers = prepareAnswers(await response.json());
   } catch (error) {
     console.error(error);
     els.loading.textContent =
@@ -404,7 +404,7 @@ function showToast(kind, title, detail) {
 
 // "So close!" when 3 of the 4 boxes were green, down to "Not it" for none.
 function showWrongToast(score) {
-  const greens = ['field', 'year', 'origin', 'focus'].filter((part) => score[part].status === 'green').length;
+  const greens = CLUE_PARTS.filter((part) => score[part].status === 'green').length;
   const left = MAX_GUESSES - round.guesses.length;
   const guessesLeft = `${left} ${left === 1 ? 'guess' : 'guesses'} left`;
   // After the 4th wrong guess every clue is already showing.
@@ -416,10 +416,10 @@ function showWrongToast(score) {
 
 function addGuessRow(entry, score, number, animate) {
   const cells = el('div', { class: 'cells' },
-    cell('Field', entry.field, score.field.status, FIELD_NOTES[score.field.status]),
+    cell('Specialty', listWithShared(entry.specialties, score.specialty.shared), score.specialty.status, specialtyNote(score.specialty)),
     cell('Began', formatYear(entry.year), score.year.status, yearNote(score.year)),
     cell('Origin', entry.place, score.origin.status, ORIGIN_NOTES[score.origin.status]),
-    cell('Focus', focusTags(entry.focus, score.focus.shared), score.focus.status, focusNote(score.focus)));
+    cell('Type', entry.type, score.type.status, TYPE_NOTES[score.type.status]));
 
   // A new row gets 'correct' or 'wrong' too, which picks its animation in style.css.
   const classes = animate ? `guess new ${score.correct ? 'correct' : 'wrong'}` : 'guess';
@@ -448,23 +448,23 @@ function yearNote(year) {
     `${word} · ${YEAR_RANGES[year.status]}`);
 }
 
-// Shared tags are underlined (and labelled for screen readers).
-function focusTags(tags, shared) {
+// Shared specialties are underlined (and labelled for screen readers).
+function listWithShared(items, shared) {
   const span = el('span', {});
-  tags.forEach((tag, i) => {
+  items.forEach((item, i) => {
     if (i > 0) span.append(', ');
-    if (shared.includes(tag)) {
-      span.append(el('span', { class: 'tag shared', text: tag }), el('span', { class: 'visually-hidden', text: ' (shared)' }));
+    if (shared.includes(item)) {
+      span.append(el('span', { class: 'tag shared', text: item }), el('span', { class: 'visually-hidden', text: ' (shared)' }));
     } else {
-      span.append(tag);
+      span.append(item);
     }
   });
   return span;
 }
 
-function focusNote(focus) {
-  if (focus.status === 'green') return 'Exact match';
-  if (focus.status === 'amber') return `${focus.shared.length} shared`;
+function specialtyNote(specialty) {
+  if (specialty.status === 'green') return 'Exact match';
+  if (specialty.status === 'amber') return `${specialty.shared.length} shared`;
   return 'None shared';
 }
 
@@ -473,7 +473,7 @@ function describeScore(entry, score) {
   const year = score.year.direction === 'same'
     ? 'exact year'
     : `answer began ${score.year.direction}, ${YEAR_RANGES[score.year.status]}`;
-  return `${entry.name}: ${FIELD_NOTES[score.field.status]}; ${year}; ${ORIGIN_NOTES[score.origin.status]}; focus ${focusNote(score.focus)}.`;
+  return `${entry.name}: specialty ${specialtyNote(score.specialty)}; ${year}; ${ORIGIN_NOTES[score.origin.status]}; ${TYPE_NOTES[score.type.status]}.`;
 }
 
 // ---------- end of round ----------
@@ -487,7 +487,7 @@ function showResult(moveFocus) {
     ? `You got it in ${used} of ${MAX_GUESSES} guesses.`
     : `The answer was ${answer.name}.`;
   els.answerName.textContent = answer.name;
-  els.answerMeta.textContent = `${answer.field} · began ${formatYear(answer.year)} · ${answer.place}`;
+  els.answerMeta.textContent = `${answer.type} · ${answer.subjects.join(' & ')} · began ${formatYear(answer.year)} · ${answer.place}`;
   els.answerDescription.textContent = answer.description;
   els.answerFigures.textContent = answer.figures.join(', ');
   const notes = [];

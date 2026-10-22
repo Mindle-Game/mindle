@@ -5,8 +5,8 @@
 import fs from 'node:fs';
 
 const FILE = new URL('../data.json', import.meta.url);
-const FIELDS = ['Philosophy', 'Psychology', 'Both'];
-const REQUIRED = ['id', 'name', 'field', 'year', 'place', 'continent', 'focus', 'figures', 'description', 'clues'];
+const SUBJECTS = ['Philosophy', 'Psychology'];
+const REQUIRED = ['id', 'name', 'type', 'specialties', 'year', 'place', 'continent', 'figures', 'description', 'clues'];
 const OPTIONAL = ['aliases', 'dateNote', 'originNote', 'added'];
 
 const errors = [];
@@ -21,11 +21,17 @@ try {
   process.exit(1);
 }
 
-const tags = data.tags || [];
+const specialtyLists = data.specialties || {};
+const types = data.types || [];
 const continents = data.continents || [];
 const answers = data.answers || [];
-if (!tags.length) errors.push('the "tags" list at the top is missing or empty');
+for (const subject of SUBJECTS) {
+  if (!specialtyLists[subject]?.length) errors.push(`the "specialties" list for ${subject} at the top is missing or empty`);
+}
+if (!types.length) errors.push('the "types" list at the top is missing or empty');
 if (!continents.length) errors.push('the "continents" list at the top is missing or empty');
+const allSpecialties = SUBJECTS.flatMap((s) => specialtyLists[s] || []);
+const subjectsOf = (a) => SUBJECTS.filter((s) => (a.specialties || []).some((x) => (specialtyLists[s] || []).includes(x)));
 
 const ids = new Map();
 const names = new Map();
@@ -55,15 +61,21 @@ answers.forEach((a, index) => {
   }
   if ('aliases' in a && !Array.isArray(a.aliases)) err('"aliases" must be a list, e.g. ["Behaviorism"]');
 
-  if ('field' in a && !FIELDS.includes(a.field)) err(`field "${a.field}" must be one of ${FIELDS.join(', ')}`);
+  if ('type' in a && !types.includes(a.type)) err(`type "${a.type}" must be one of ${types.join(', ')}`);
   if ('year' in a && (!Number.isInteger(a.year) || a.year === 0)) err(`year ${a.year} must be a whole number (negative for BC, no year 0)`);
   if ('year' in a && a.year > new Date().getFullYear()) err(`year ${a.year} is in the future`);
   if ('place' in a && !isText(a.place)) err('"place" must be some text');
   if ('continent' in a && !continents.includes(a.continent)) err(`continent "${a.continent}" must be one of ${continents.join(', ')}`);
 
-  if ('focus' in a) {
-    if (!Array.isArray(a.focus) || a.focus.length < 1 || a.focus.length > 3) err('"focus" must be a list of 1 to 3 tags');
-    else for (const tag of a.focus) if (!tags.includes(tag)) err(`focus tag "${tag}" is not in the tags list (${tags.join(', ')})`);
+  if ('specialties' in a) {
+    if (!Array.isArray(a.specialties) || a.specialties.length < 1 || a.specialties.length > 3) {
+      err('"specialties" must be a list of 1 to 3');
+    } else {
+      for (const s of a.specialties) {
+        if (!allSpecialties.includes(s)) err(`specialty "${s}" is not in either specialties list at the top`);
+      }
+      if (new Set(a.specialties).size !== a.specialties.length) err('a specialty is listed twice');
+    }
   }
 
   if ('figures' in a && (!Array.isArray(a.figures) || !a.figures.every(isText) || !a.figures.length)) {
@@ -99,8 +111,14 @@ answers.forEach((a, index) => {
   if ('added' in a && !/^\d{4}-\d{2}-\d{2}$/.test(a.added)) err(`added "${a.added}" must be a date like 2027-01-31`);
 });
 
-const count = (field) => answers.filter((a) => a.field === field).length;
-console.log(`${answers.length} answers: ${count('Philosophy')} Philosophy, ${count('Psychology')} Psychology, ${count('Both')} Both.`);
+// An answer's subject comes from its specialties; count how many fall in each.
+const subjectCounts = { Philosophy: 0, Psychology: 0, Both: 0 };
+for (const a of answers) {
+  const s = subjectsOf(a);
+  if (s.length === 2) subjectCounts.Both += 1;
+  else if (s.length === 1) subjectCounts[s[0]] += 1;
+}
+console.log(`${answers.length} answers: ${subjectCounts.Philosophy} Philosophy, ${subjectCounts.Psychology} Psychology, ${subjectCounts.Both} in both.`);
 for (const w of warnings) console.log(`! ${w}`);
 for (const e of errors) console.log(`✖ ${e}`);
 if (errors.length) {

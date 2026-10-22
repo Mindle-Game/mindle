@@ -6,7 +6,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {
-  compareField, compareYear, compareOrigin, compareFocus, scoreGuess,
+  compareSpecialties, compareType, compareYear, compareOrigin, scoreGuess, prepareAnswers,
   formatYear, normalise, findByName, searchAnswers, pickRandom, filterAnswers,
   dateKey, daysBetween, addDays, puzzleNumber, msUntilMidnight, hash, dailySchedule, dailyAnswer,
   emptyStats, recordDaily, currentStreak, winRate, shareText, encyclopediaGroups, matchesSearch,
@@ -14,14 +14,18 @@ import {
 } from '../js/logic.js';
 
 const data = JSON.parse(fs.readFileSync(new URL('../data.json', import.meta.url), 'utf8'));
+data.answers = prepareAnswers(data); // adds each answer's subjects, as the game does
 const byId = (id) => data.answers.find((a) => a.id === id);
 
-test('field: same is green, "Both" on either side is amber, otherwise grey', () => {
-  assert.equal(compareField('Psychology', 'Psychology'), 'green');
-  assert.equal(compareField('Both', 'Both'), 'green');
-  assert.equal(compareField('Both', 'Philosophy'), 'amber');
-  assert.equal(compareField('Psychology', 'Both'), 'amber');
-  assert.equal(compareField('Philosophy', 'Psychology'), 'grey');
+test('type: the same type is green, anything else grey', () => {
+  assert.equal(compareType('Theory', 'Theory'), 'green');
+  assert.equal(compareType('Theory', 'Therapy'), 'grey');
+});
+
+test('subjects come from specialties: philosophy, psychology, or both', () => {
+  assert.deepEqual(byId('stoicism').subjects, ['Philosophy']);
+  assert.deepEqual(byId('behaviourism').subjects, ['Psychology']);
+  assert.deepEqual(byId('cognitive-science').subjects, ['Philosophy', 'Psychology']);
 });
 
 test('year: green within 20, amber within 100, grey beyond, with direction', () => {
@@ -41,26 +45,26 @@ test('origin: same place green, same continent amber, otherwise grey', () => {
   assert.equal(compareOrigin(vienna, { place: 'USA', continent: 'North America' }), 'grey');
 });
 
-test('focus: exact match green (order ignored), any overlap amber, none grey', () => {
-  assert.deepEqual(compareFocus(['Mind', 'Development'], ['Development', 'Mind']), { status: 'green', shared: ['Mind', 'Development'] });
-  assert.deepEqual(compareFocus(['Mind'], ['Mind', 'Knowledge']), { status: 'amber', shared: ['Mind'] });
-  assert.deepEqual(compareFocus(['Mind', 'Ethics'], ['Mind']), { status: 'amber', shared: ['Mind'] });
-  assert.deepEqual(compareFocus(['Ethics'], ['Mind']), { status: 'grey', shared: [] });
+test('specialty: exact same set green (order ignored), any overlap amber, none grey', () => {
+  assert.deepEqual(compareSpecialties(['Ethics', 'Political'], ['Political', 'Ethics']), { status: 'green', shared: ['Ethics', 'Political'] });
+  assert.deepEqual(compareSpecialties(['Ethics'], ['Ethics', 'Logic']), { status: 'amber', shared: ['Ethics'] });
+  assert.deepEqual(compareSpecialties(['Cognitive', 'Social'], ['Cognitive']), { status: 'amber', shared: ['Cognitive'] });
+  assert.deepEqual(compareSpecialties(['Clinical'], ['Behavioural']), { status: 'grey', shared: [] });
 });
 
 test('scoreGuess: the right answer is green everywhere', () => {
   const s = scoreGuess(byId('stoicism'), byId('stoicism'));
   assert.equal(s.correct, true);
-  for (const part of ['field', 'year', 'origin', 'focus']) assert.equal(s[part].status, 'green');
+  for (const part of ['specialty', 'year', 'origin', 'type']) assert.equal(s[part].status, 'green');
 });
 
 test('scoreGuess: a real wrong guess (Psychoanalysis when the answer is Behaviourism)', () => {
   const s = scoreGuess(byId('psychoanalysis'), byId('behaviourism'));
   assert.equal(s.correct, false);
-  assert.equal(s.field.status, 'green'); // both Psychology
+  assert.equal(s.specialty.status, 'grey'); // Psychoanalytic, Clinical, Developmental vs Behavioural
   assert.deepEqual([s.year.status, s.year.direction], ['green', 'later']); // 1896 -> 1913
   assert.equal(s.origin.status, 'grey'); // Austria vs USA
-  assert.equal(s.focus.status, 'grey'); // Mind, Development vs Behaviour
+  assert.equal(s.type.status, 'green'); // both are Schools
 });
 
 test('formatYear shows BC for negative years', () => {
@@ -92,11 +96,13 @@ test('pickRandom never repeats the round just played', () => {
 
 // ---------- Stage 2: practice filters, dates, the daily bag, stats, sharing ----------
 
-test('filters: one subject also includes the "Both" entries; "Both" means everything', () => {
+test('filters: one subject includes answers that belong to both; anything else means everything', () => {
   const psych = filterAnswers(data.answers, 'Psychology');
-  assert.ok(psych.every((a) => a.field === 'Psychology' || a.field === 'Both'));
+  assert.ok(psych.every((a) => a.subjects.includes('Psychology')));
   assert.ok(psych.some((a) => a.id === 'cognitive-science'));
-  assert.equal(filterAnswers(data.answers, 'Both').length, data.answers.length);
+  assert.equal(psych.length, 35);
+  assert.equal(filterAnswers(data.answers, 'Philosophy').length, 55);
+  assert.equal(filterAnswers(data.answers, 'Both').length, data.answers.length); // the Encyclopedia's "show everything"
 });
 
 test('dates: day counting ignores summer-time clock changes', () => {
@@ -175,7 +181,7 @@ test('stats: missing a day breaks the streak', () => {
 test('share: one row of squares per guess, X/6 for a loss', () => {
   const scores = [scoreGuess(byId('psychoanalysis'), byId('behaviourism')), scoreGuess(byId('behaviourism'), byId('behaviourism'))];
   assert.equal(shareText({ title: 'Mindle #4', won: true, scores, url: 'https://example.org/mindle/' }),
-    'Mindle #4 2/6\n🟩🟩⬜⬜\n🟩🟩🟩🟩\nhttps://example.org/mindle/');
+    'Mindle #4 2/6\n⬜🟩⬜🟩\n🟩🟩🟩🟩\nhttps://example.org/mindle/'); // Specialty, Year, Origin, Type
   assert.ok(shareText({ title: 'Mindle #4', won: false, scores: scores.slice(0, 1) }).startsWith('Mindle #4 X/6'));
 });
 
@@ -194,25 +200,31 @@ test('encyclopedia: solved, to revise, and how many are still unseen', () => {
   assert.deepEqual(encyclopediaGroups(data.answers, {}).solved, []);
 });
 
-test('encyclopedia search: finds names, other names, thinkers, tags and places', () => {
+test('encyclopedia search: finds names, other names, thinkers, specialties, types and places', () => {
   assert.ok(matchesSearch(byId('psychoanalysis'), 'freud'));
   assert.ok(matchesSearch(byId('behaviourism'), 'behaviorism'));
   assert.ok(matchesSearch(byId('gestalt-psychology'), 'kohler')); // accents ignored
   assert.ok(matchesSearch(byId('confucianism'), 'china'));
-  assert.ok(matchesSearch(byId('stoicism'), 'emotion'));
+  assert.ok(matchesSearch(byId('stoicism'), 'ethics'));
+  assert.ok(matchesSearch(byId('morita-therapy'), 'therapy'));
   assert.ok(!matchesSearch(byId('stoicism'), 'freud'));
   assert.ok(matchesSearch(byId('stoicism'), '  '));
 });
 
 // ---------- Two daily puzzles: Philosophy and Psychology ----------
 
-test('topic dailies: each only draws from its own subject (plus "Both")', () => {
+test('topic dailies: the live puzzles are unchanged (launch day was Pragmatism and Cognitive dissonance theory)', () => {
+  assert.equal(topicDailyAnswer(data.answers, 'Philosophy', '2026-10-22', '2026-10-22').id, 'pragmatism');
+  assert.equal(topicDailyAnswer(data.answers, 'Psychology', '2026-10-22', '2026-10-22').id, 'cognitive-dissonance-theory');
+});
+
+test('topic dailies: each only draws from its own subject (including answers in both)', () => {
   const launch = '2026-10-22';
   for (const topic of DAILY_TOPICS) {
     const pool = filterAnswers(data.answers, topic);
     const seed = `${topic.toLowerCase()}:`;
     const schedule = dailySchedule(pool, addDays(launch, pool.length - 1), launch, seed);
-    assert.ok(schedule.every((a) => a.field === topic || a.field === 'Both'), `${topic} drew another subject`);
+    assert.ok(schedule.every((a) => a.subjects.includes(topic)), `${topic} drew another subject`);
     assert.equal(new Set(schedule.map((a) => a.id)).size, pool.length, `${topic} repeated before using every answer`);
     assert.equal(topicDailyAnswer(data.answers, topic, addDays(launch, 9), launch).id, schedule[9].id);
   }

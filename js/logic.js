@@ -7,11 +7,20 @@ export const MAX_GUESSES = 6;
 export const YEAR_CLOSE = 20; // green if the years are at most this far apart
 export const YEAR_NEAR = 100; // amber if at most this far apart
 
-// Field: green if the same, amber if either one is "Both", otherwise grey.
-export function compareField(guess, answer) {
-  if (guess === answer) return 'green';
-  if (guess === 'Both' || answer === 'Both') return 'amber';
-  return 'grey';
+// Specialty: green if the two lists are exactly the same (in any order),
+// amber if they share at least one, otherwise grey.
+export function compareSpecialties(guessList, answerList) {
+  const shared = guessList.filter((item) => answerList.includes(item));
+  const exact = shared.length === guessList.length && shared.length === answerList.length;
+  let status = 'grey';
+  if (exact) status = 'green';
+  else if (shared.length > 0) status = 'amber';
+  return { status, shared };
+}
+
+// Type (School, Movement, Tradition, Theory, Therapy or Method): green if the same, otherwise grey.
+export function compareType(guess, answer) {
+  return guess === answer ? 'green' : 'grey';
 }
 
 // Year: colour by how far apart, plus which way to go.
@@ -36,26 +45,33 @@ export function compareOrigin(guess, answer) {
   return 'grey';
 }
 
-// Focus: green if the tag lists match exactly, amber if they share at least one tag.
-export function compareFocus(guessTags, answerTags) {
-  const shared = guessTags.filter((tag) => answerTags.includes(tag));
-  const exact = shared.length === guessTags.length && shared.length === answerTags.length;
-  let status = 'grey';
-  if (exact) status = 'green';
-  else if (shared.length > 0) status = 'amber';
-  return { status, shared };
-}
-
 // Score one guess against the answer. Both are entries from data.json.
+// The four parts, in the order they appear on the board.
+export const CLUE_PARTS = ['specialty', 'year', 'origin', 'type'];
+
 export function scoreGuess(guess, answer) {
   return {
     id: guess.id,
     correct: guess.id === answer.id,
-    field: { status: compareField(guess.field, answer.field) },
+    specialty: compareSpecialties(guess.specialties, answer.specialties),
     year: compareYear(guess.year, answer.year),
     origin: { status: compareOrigin(guess, answer) },
-    focus: compareFocus(guess.focus, answer.focus),
+    type: { status: compareType(guess.type, answer.type) },
   };
+}
+
+// The two subjects. An answer belongs to a subject if it has at least one of
+// that subject's specialties (the lists are at the top of data.json), so an
+// answer with specialties from both lists belongs to both.
+export const SUBJECTS = ['Philosophy', 'Psychology'];
+
+// Reads data.json's contents and gives back the answers, each with a
+// `subjects` list worked out from its specialties.
+export function prepareAnswers(data) {
+  return data.answers.map((answer) => ({
+    ...answer,
+    subjects: SUBJECTS.filter((subject) => answer.specialties.some((s) => data.specialties[subject].includes(s))),
+  }));
 }
 
 // -300 -> "300 BC", 1913 -> "1913"
@@ -112,12 +128,11 @@ export function pickRandom(answers, avoidId = null, random = Math.random) {
   return pool[Math.floor(random() * pool.length)];
 }
 
-// Practice filters. "Both" means everything; the single-subject filters
-// also include the entries that belong to both fields.
+// One subject's answers (including those that belong to both subjects).
+// Anything else, like the Encyclopedia's "Both" filter, gives every answer.
+// Answers need their `subjects` list from prepareAnswers().
 export function filterAnswers(answers, filter) {
-  if (filter === 'Philosophy' || filter === 'Psychology') {
-    return answers.filter((a) => a.field === filter || a.field === 'Both');
-  }
+  if (SUBJECTS.includes(filter)) return answers.filter((a) => a.subjects.includes(filter));
   return answers;
 }
 
@@ -225,8 +240,8 @@ export function dailyAnswer(answers, todayKey, launchKey = LAUNCH_DATE, seed = '
 }
 
 // There are two daily puzzles, one per subject. Each draws only from its own
-// subject's answers (plus the "Both" ones), using its own seed.
-export const DAILY_TOPICS = ['Philosophy', 'Psychology'];
+// subject's answers (including ones that belong to both), using its own seed.
+export const DAILY_TOPICS = SUBJECTS;
 
 export function topicDailyAnswer(answers, topic, todayKey, launchKey = LAUNCH_DATE) {
   return dailyAnswer(filterAnswers(answers, topic), todayKey, launchKey, `${topic.toLowerCase()}:`);
@@ -276,10 +291,10 @@ export function winRate(stats) {
 
 const SQUARES = { green: '🟩', amber: '🟨', grey: '⬜' };
 
-// One row of squares per guess: Field, Year, Origin, Focus.
+// One row of squares per guess: Specialty, Year, Origin, Type.
 export function shareText({ title, won, scores, url }) {
   const result = won ? `${scores.length}/${MAX_GUESSES}` : `X/${MAX_GUESSES}`;
-  const rows = scores.map((s) => [s.field, s.year, s.origin, s.focus].map((part) => SQUARES[part.status]).join(''));
+  const rows = scores.map((s) => CLUE_PARTS.map((part) => SQUARES[s[part].status]).join(''));
   return [`${title} ${result}`, ...rows, url].filter(Boolean).join('\n');
 }
 
@@ -298,10 +313,10 @@ export function encyclopediaGroups(answers, results) {
   };
 }
 
-// Encyclopedia search: looks in the name, other names, key figures, focus tags and place.
+// Encyclopedia search: looks in the name, other names, key figures, specialties, type and place.
 export function matchesSearch(answer, query) {
   const q = normalise(query);
   if (!q) return true;
-  const haystack = [answer.name, ...(answer.aliases || []), ...answer.figures, ...answer.focus, answer.place];
+  const haystack = [answer.name, ...(answer.aliases || []), ...answer.figures, ...answer.specialties, answer.type, answer.place];
   return haystack.some((text) => normalise(text).includes(q));
 }
