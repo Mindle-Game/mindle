@@ -358,8 +358,12 @@ function submitGuess() {
 // Called once, when a round ends: save the result, pop up a message, then show the answer.
 function finishRound() {
   recordResult(round.answer.id, round.won, round.date || dateKey());
+  const result = round.won ? 'win' : 'loss';
   if (round.mode === 'daily') {
     saveStats(round.topic, recordDaily(loadStats(round.topic), round.date, round.won, round.guesses.length));
+    countEvent(`daily-${round.topic.toLowerCase()}-${result}`, `Daily ${round.topic} finished: ${result}`);
+  } else {
+    countEvent('practice-finished', 'Practice game finished');
   }
   els.form.hidden = true;
 
@@ -373,6 +377,13 @@ function finishRound() {
   setTimeout(() => {
     if (round === finished) showResult(true);
   }, reduceMotion() ? 0 : RESULT_DELAY);
+}
+
+// Counts an anonymous event with GoatCounter (no cookies, no personal data); its
+// script is at the bottom of index.html. Does nothing if the script hasn't loaded
+// or is blocked, or when playing on this computer (GoatCounter skips localhost).
+function countEvent(path, title) {
+  window.goatcounter?.count?.({ path, title, event: true });
 }
 
 function reduceMotion() {
@@ -541,6 +552,7 @@ function stopCountdown() {
 // ---------- sharing ----------
 
 async function shareResult() {
+  countEvent('share', 'Share button pressed');
   const text = shareText({
     title: round.mode === 'daily' ? `Mindle ${round.topic} #${puzzleNumber(round.date)}` : 'Mindle practice',
     won: round.won,

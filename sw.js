@@ -49,7 +49,8 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Every request the page makes passes through here.
+// Every request the page makes passes through here. Requests to other websites
+// (like the GoatCounter visit counter) are left alone, so they're never cached.
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET' || new URL(request.url).origin !== location.origin) return;

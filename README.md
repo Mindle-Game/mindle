@@ -85,7 +85,9 @@ tools/
 
 The game replays every day since launch to know what's left in each bag. It sounds like a lot, but ten years of days takes about 20 milliseconds.
 
-**Saving.** Your stats and today's progress for each daily, plus your Encyclopedia, live in **localStorage**, a small store each website gets inside your browser. Nothing is sent anywhere. It stays on that one device and browser, and clearing your browser's website data wipes it.
+**Saving.** Your stats and today's progress for each daily, plus your Encyclopedia, live in **localStorage**, a small store each website gets inside your browser. None of it is sent anywhere. It stays on that one device and browser, and clearing your browser's website data wipes it.
+
+**Counting visitors.** [GoatCounter](https://www.goatcounter.com) counts visits anonymously, with no cookies and no personal data. Its script is at the bottom of each page. `app.js` also counts three kinds of event: a daily ending (`daily-philosophy-win`, `daily-psychology-loss` and so on), `practice-finished` and `share`. See them at https://mindle-game.goatcounter.com. It skips visits from your own computer's local server.
 
 **Working offline.** `sw.js` is a **service worker**, a script the browser runs in the background between the page and the internet. It keeps a copy of every file. When you're online it always fetches fresh files (and updates its copies). When you're offline it hands over the saved copies instead.
 
